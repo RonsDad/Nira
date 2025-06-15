@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Gear, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle } from "lucide-react";
+import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -309,7 +309,7 @@ const Index = () => {
             <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Gear className="w-8 h-8 text-white" />
+                  <Settings className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-playfair font-bold text-2xl text-slate-900 mb-4">Automate Administration</h3>
                 <p className="font-crimson text-slate-700 leading-relaxed">
