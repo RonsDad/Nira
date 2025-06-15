@@ -65,7 +65,7 @@ const Index = () => {
                 <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Contact</a>
               </nav>
               
-              <Button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body font-medium px-6">
+              <Button className="bg-slate-800 hover:bg-slate-900 text-white font-body font-medium px-6 transition-colors">
                 Request Early Access
               </Button>
             </div>
@@ -85,7 +85,7 @@ const Index = () => {
           </p>
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            className="bg-slate-800 hover:bg-slate-900 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
             Join the Waitlist
           </Button>
@@ -228,7 +228,7 @@ const Index = () => {
                       <div className="text-center">
                         <Button 
                           onClick={startDemo}
-                          className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body"
+                          className="bg-slate-800 hover:bg-slate-900 text-white font-body transition-colors"
                         >
                           Start Demo
                         </Button>
@@ -345,17 +345,17 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-teal-500 fade-in-section">
+      <section className="py-20 px-6 bg-gradient-to-r from-slate-800 to-slate-900 fade-in-section">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-heading font-bold text-5xl text-white mb-6">
             The Future of Clinical Work is Here.
           </h2>
-          <p className="font-body text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+          <p className="font-body text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
             Stop the burnout. Reclaim your time. Be the first to experience Nira.
           </p>
           <Button 
             size="lg" 
-            className="bg-white text-blue-600 hover:bg-blue-50 font-body font-bold px-12 py-6 text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            className="bg-white text-slate-800 hover:bg-slate-200 font-body font-bold px-12 py-6 text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
             Request Early Access Now
           </Button>
