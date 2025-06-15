@@ -53,7 +53,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <h1 className="font-playfair font-bold text-2xl text-slate-900">Nira</h1>
+              <h1 className="font-heading font-bold text-2xl text-slate-900">Nira</h1>
               <span className="text-sm text-slate-600 font-crimson">by Ron AI</span>
             </div>
             
@@ -77,7 +77,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-playfair font-black text-6xl md:text-7xl text-slate-900 mb-6 leading-tight">
+          <h1 className="font-heading font-black text-6xl md:text-7xl text-slate-900 mb-6 leading-tight">
             The End of Administrative Work
           </h1>
           <p className="font-crimson text-xl md:text-2xl text-slate-700 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -96,7 +96,7 @@ const Index = () => {
       {/* Interactive UI Showcase */}
       <section className="py-20 px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-playfair font-bold text-4xl text-center text-slate-900 mb-16">
+          <h2 className="font-heading font-bold text-4xl text-center text-slate-900 mb-16">
             This Isn't Another App. It's Your Command Center.
           </h2>
           
@@ -248,7 +248,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-playfair font-bold text-4xl text-slate-900 mb-6">
+              <h2 className="font-heading font-bold text-4xl text-slate-900 mb-6">
                 You Became a Clinician to Care for Patients, Not Paperwork.
               </h2>
               <p className="font-crimson text-xl text-slate-700 leading-relaxed">
@@ -301,7 +301,7 @@ const Index = () => {
       {/* Feature Pillars */}
       <section className="py-20 px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-playfair font-bold text-4xl text-center text-slate-900 mb-16">
+          <h2 className="font-heading font-bold text-4xl text-center text-slate-900 mb-16">
             A Unified Platform for Your Entire Workflow
           </h2>
           
@@ -311,7 +311,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Settings className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-playfair font-bold text-2xl text-slate-900 mb-4">Automate Administration</h3>
+                <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Automate Administration</h3>
                 <p className="font-crimson text-slate-700 leading-relaxed">
                   Prior Authorizations, Insurance Verification, Credentialing, Form Processing
                 </p>
@@ -323,7 +323,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Brain className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-playfair font-bold text-2xl text-slate-900 mb-4">Enhance Clinical Work</h3>
+                <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Enhance Clinical Work</h3>
                 <p className="font-crimson text-slate-700 leading-relaxed">
                   Literature Reviews, Care Plan Drafting, Drug & Trial Research
                 </p>
@@ -335,7 +335,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-playfair font-bold text-2xl text-slate-900 mb-4">Manage Your Career</h3>
+                <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Manage Your Career</h3>
                 <p className="font-crimson text-slate-700 leading-relaxed">
                   Automated Job Search, Resume Optimization, CME Tracking
                 </p>
@@ -348,7 +348,7 @@ const Index = () => {
       {/* Final CTA */}
       <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-teal-500 fade-in-section">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-playfair font-bold text-5xl text-white mb-6">
+          <h2 className="font-heading font-bold text-5xl text-white mb-6">
             The Future of Clinical Work is Here.
           </h2>
           <p className="font-crimson text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
@@ -367,7 +367,7 @@ const Index = () => {
       <footer className="py-12 px-6 bg-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-playfair font-bold text-2xl text-white">Nira</h3>
+            <h3 className="font-heading font-bold text-2xl text-white">Nira</h3>
             <span className="text-slate-400 font-crimson">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-crimson">
