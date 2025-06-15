@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,8 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'heading': ['Calistoga', 'serif'],
-				'crimson': ['Crimson Pro', 'serif'],
+				'heading': ['Orbitron', 'sans-serif'],
+				'body': ['Comfortaa', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

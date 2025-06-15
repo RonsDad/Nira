@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -54,19 +53,19 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <h1 className="font-heading font-bold text-2xl text-slate-900">Nira</h1>
-              <span className="text-sm text-slate-600 font-crimson">by Ron AI</span>
+              <span className="text-sm text-slate-600 font-body">by Ron AI</span>
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
               <nav className="flex space-x-6">
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-crimson transition-colors">Home</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-crimson transition-colors">Security & Compliance</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-crimson transition-colors">Blog</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-crimson transition-colors">About Us</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-crimson transition-colors">Contact</a>
+                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Home</a>
+                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Security & Compliance</a>
+                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Blog</a>
+                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">About Us</a>
+                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Contact</a>
               </nav>
               
-              <Button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-crimson font-medium px-6">
+              <Button className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body font-medium px-6">
                 Request Early Access
               </Button>
             </div>
@@ -80,13 +79,13 @@ const Index = () => {
           <h1 className="font-heading font-black text-6xl md:text-7xl text-slate-900 mb-6 leading-tight">
             The End of Administrative Work
           </h1>
-          <p className="font-crimson text-xl md:text-2xl text-slate-700 mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="font-body text-xl md:text-2xl text-slate-700 mb-10 max-w-3xl mx-auto leading-relaxed">
             Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
             accelerate your research, and manage your career, freeing you to practice medicine.
           </p>
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-crimson font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
             Join the Waitlist
           </Button>
@@ -109,22 +108,22 @@ const Index = () => {
                 <div className="w-3 h-3 bg-green-400 rounded-full"></div>
               </div>
               <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                <span className="text-slate-600 text-sm font-crimson">nira.ronai.com</span>
+                <span className="text-slate-600 text-sm font-body">nira.ronai.com</span>
               </div>
             </div>
             
             <Tabs defaultValue="dispatch" className="w-full">
               <TabsList className="w-full bg-slate-50 rounded-none border-b border-slate-200 p-0">
-                <TabsTrigger value="dispatch" className="flex-1 font-crimson font-medium">Dispatch Dashboard</TabsTrigger>
-                <TabsTrigger value="workspace" className="flex-1 font-crimson font-medium">Workspace Kanban</TabsTrigger>
-                <TabsTrigger value="demo" className="flex-1 font-crimson font-medium" onClick={startDemo}>Live Agent Demo</TabsTrigger>
+                <TabsTrigger value="dispatch" className="flex-1 font-body font-medium">Dispatch Dashboard</TabsTrigger>
+                <TabsTrigger value="workspace" className="flex-1 font-body font-medium">Workspace Kanban</TabsTrigger>
+                <TabsTrigger value="demo" className="flex-1 font-body font-medium" onClick={startDemo}>Live Agent Demo</TabsTrigger>
               </TabsList>
               
               <TabsContent value="dispatch" className="p-8 min-h-96">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100">
                     <CardContent className="p-6">
-                      <h3 className="font-crimson font-semibold text-lg mb-2">Prior Authorizations</h3>
+                      <h3 className="font-body font-semibold text-lg mb-2">Prior Authorizations</h3>
                       <div className="text-3xl font-bold text-orange-600 mb-2">12</div>
                       <p className="text-sm text-slate-600">Pending approval</p>
                     </CardContent>
@@ -132,7 +131,7 @@ const Index = () => {
                   
                   <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
                     <CardContent className="p-6">
-                      <h3 className="font-crimson font-semibold text-lg mb-2">Insurance Verifications</h3>
+                      <h3 className="font-body font-semibold text-lg mb-2">Insurance Verifications</h3>
                       <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
                       <p className="text-sm text-slate-600">In progress</p>
                     </CardContent>
@@ -140,7 +139,7 @@ const Index = () => {
                   
                   <Card className="border-green-200 bg-gradient-to-br from-green-50 to-green-100">
                     <CardContent className="p-6">
-                      <h3 className="font-crimson font-semibold text-lg mb-2">Completed Today</h3>
+                      <h3 className="font-body font-semibold text-lg mb-2">Completed Today</h3>
                       <div className="text-3xl font-bold text-green-600 mb-2">24</div>
                       <p className="text-sm text-slate-600">Tasks automated</p>
                     </CardContent>
@@ -151,39 +150,39 @@ const Index = () => {
               <TabsContent value="workspace" className="p-8 min-h-96">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <h3 className="font-crimson font-semibold text-lg mb-4 text-slate-700">To Do</h3>
+                    <h3 className="font-body font-semibold text-lg mb-4 text-slate-700">To Do</h3>
                     <div className="space-y-3">
                       <Card className="bg-slate-50">
                         <CardContent className="p-4">
-                          <p className="font-crimson text-sm">Review patient charts</p>
+                          <p className="font-body text-sm">Review patient charts</p>
                         </CardContent>
                       </Card>
                       <Card className="bg-slate-50">
                         <CardContent className="p-4">
-                          <p className="font-crimson text-sm">Update treatment plans</p>
+                          <p className="font-body text-sm">Update treatment plans</p>
                         </CardContent>
                       </Card>
                     </div>
                   </div>
                   
                   <div>
-                    <h3 className="font-crimson font-semibold text-lg mb-4 text-orange-600">In Progress</h3>
+                    <h3 className="font-body font-semibold text-lg mb-4 text-orange-600">In Progress</h3>
                     <div className="space-y-3">
                       <Card className="bg-orange-50 border-orange-200">
                         <CardContent className="p-4">
-                          <p className="font-crimson text-sm">Prior auth for MRI</p>
+                          <p className="font-body text-sm">Prior auth for MRI</p>
                         </CardContent>
                       </Card>
                     </div>
                   </div>
                   
                   <div>
-                    <h3 className="font-crimson font-semibold text-lg mb-4 text-green-600">Done</h3>
+                    <h3 className="font-body font-semibold text-lg mb-4 text-green-600">Done</h3>
                     <div className="space-y-3">
                       <Card className="bg-green-50 border-green-200">
                         <CardContent className="p-4 flex items-center space-x-2">
                           <CheckCircle className="w-4 h-4 text-green-600" />
-                          <p className="font-crimson text-sm">Insurance verification</p>
+                          <p className="font-body text-sm">Insurance verification</p>
                         </CardContent>
                       </Card>
                     </div>
@@ -193,7 +192,7 @@ const Index = () => {
               
               <TabsContent value="demo" className="p-8 min-h-96">
                 <div className="max-w-2xl mx-auto">
-                  <h3 className="font-crimson font-semibold text-xl mb-6 text-center">Watch Nira in Action</h3>
+                  <h3 className="font-body font-semibold text-xl mb-6 text-center">Watch Nira in Action</h3>
                   
                   <div className="space-y-4">
                     <Card className={`transition-all duration-500 ${activeDemo ? 'border-blue-300 bg-blue-50' : 'bg-white'}`}>
@@ -201,7 +200,7 @@ const Index = () => {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
                             <div className={`w-3 h-3 rounded-full ${activeDemo ? 'bg-blue-500 animate-pulse' : 'bg-slate-300'}`}></div>
-                            <span className="font-crimson">Verify Mr. Smith's Cigna Coverage</span>
+                            <span className="font-body">Verify Mr. Smith's Cigna Coverage</span>
                           </div>
                           {activeDemo && (
                             <div className="w-32 bg-slate-200 rounded-full h-2">
@@ -218,7 +217,7 @@ const Index = () => {
                           <CardContent className="p-6">
                             <div className="flex items-center justify-center space-x-2">
                               <CheckCircle className="w-5 h-5 text-green-600" />
-                              <span className="font-crimson text-green-800">Task completed successfully!</span>
+                              <span className="font-body text-green-800">Task completed successfully!</span>
                             </div>
                           </CardContent>
                         </Card>
@@ -229,7 +228,7 @@ const Index = () => {
                       <div className="text-center">
                         <Button 
                           onClick={startDemo}
-                          className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-crimson"
+                          className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-body"
                         >
                           Start Demo
                         </Button>
@@ -251,7 +250,7 @@ const Index = () => {
               <h2 className="font-heading font-bold text-4xl text-slate-900 mb-6">
                 You Became a Clinician to Care for Patients, Not Paperwork.
               </h2>
-              <p className="font-crimson text-xl text-slate-700 leading-relaxed">
+              <p className="font-body text-xl text-slate-700 leading-relaxed">
                 Clinicians spend up to 28 hours a week on administrative tasks, leading to burnout in over 50% of the workforce. 
                 Nira is designed to solve this systemic failure.
               </p>
@@ -263,7 +262,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <span className="text-orange-600 font-bold text-xl">PA</span>
                   </div>
-                  <h3 className="font-crimson font-semibold text-orange-700">Prior Authorizations</h3>
+                  <h3 className="font-body font-semibold text-orange-700">Prior Authorizations</h3>
                 </CardContent>
               </Card>
               
@@ -272,7 +271,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <BookOpen className="w-6 h-6 text-orange-600" />
                   </div>
-                  <h3 className="font-crimson font-semibold text-orange-700">Clinical Documentation</h3>
+                  <h3 className="font-body font-semibold text-orange-700">Clinical Documentation</h3>
                 </CardContent>
               </Card>
               
@@ -281,7 +280,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <span className="text-orange-600 font-bold text-xl">C</span>
                   </div>
-                  <h3 className="font-crimson font-semibold text-orange-700">Credentialing</h3>
+                  <h3 className="font-body font-semibold text-orange-700">Credentialing</h3>
                 </CardContent>
               </Card>
               
@@ -290,7 +289,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                     <span className="text-orange-600 font-bold text-xl">∞</span>
                   </div>
-                  <h3 className="font-crimson font-semibold text-orange-700">Endless Clicks</h3>
+                  <h3 className="font-body font-semibold text-orange-700">Endless Clicks</h3>
                 </CardContent>
               </Card>
             </div>
@@ -312,7 +311,7 @@ const Index = () => {
                   <Settings className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Automate Administration</h3>
-                <p className="font-crimson text-slate-700 leading-relaxed">
+                <p className="font-body text-slate-700 leading-relaxed">
                   Prior Authorizations, Insurance Verification, Credentialing, Form Processing
                 </p>
               </CardContent>
@@ -324,7 +323,7 @@ const Index = () => {
                   <Brain className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Enhance Clinical Work</h3>
-                <p className="font-crimson text-slate-700 leading-relaxed">
+                <p className="font-body text-slate-700 leading-relaxed">
                   Literature Reviews, Care Plan Drafting, Drug & Trial Research
                 </p>
               </CardContent>
@@ -336,7 +335,7 @@ const Index = () => {
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">Manage Your Career</h3>
-                <p className="font-crimson text-slate-700 leading-relaxed">
+                <p className="font-body text-slate-700 leading-relaxed">
                   Automated Job Search, Resume Optimization, CME Tracking
                 </p>
               </CardContent>
@@ -351,12 +350,12 @@ const Index = () => {
           <h2 className="font-heading font-bold text-5xl text-white mb-6">
             The Future of Clinical Work is Here.
           </h2>
-          <p className="font-crimson text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+          <p className="font-body text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
             Stop the burnout. Reclaim your time. Be the first to experience Nira.
           </p>
           <Button 
             size="lg" 
-            className="bg-white text-blue-600 hover:bg-blue-50 font-crimson font-bold px-12 py-6 text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            className="bg-white text-blue-600 hover:bg-blue-50 font-body font-bold px-12 py-6 text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
             Request Early Access Now
           </Button>
@@ -368,9 +367,9 @@ const Index = () => {
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <h3 className="font-heading font-bold text-2xl text-white">Nira</h3>
-            <span className="text-slate-400 font-crimson">by Ron AI</span>
+            <span className="text-slate-400 font-body">by Ron AI</span>
           </div>
-          <p className="text-slate-400 font-crimson">
+          <p className="text-slate-400 font-body">
             © 2024 Ron AI. All rights reserved.
           </p>
         </div>
