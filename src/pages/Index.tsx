@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -76,8 +77,8 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-heading font-black text-6xl md:text-7xl text-slate-900 mb-6 leading-tight">
-            The End of Administrative Work
+          <h1 className="font-inter font-medium text-6xl md:text-7xl text-black mb-6 leading-tight">
+            The End of <span className="bg-blue-200 px-2 rounded-md">Administrative Work</span>
           </h1>
           <p className="font-body text-xl md:text-2xl text-slate-700 mb-10 max-w-3xl mx-auto leading-relaxed">
             Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
@@ -95,8 +96,8 @@ const Index = () => {
       {/* Interactive UI Showcase */}
       <section className="py-20 px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-heading font-bold text-4xl text-center text-slate-900 mb-16">
-            This Isn't Another App. It's Your Command Center.
+          <h2 className="font-inter font-medium text-4xl text-center text-black mb-16">
+            This Isn't Another App. It's Your <span className="bg-blue-200 px-2 rounded-md">Command Center</span>.
           </h2>
           
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
@@ -247,8 +248,8 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading font-bold text-4xl text-slate-900 mb-6">
-                You Became a Clinician to Care for Patients, Not Paperwork.
+              <h2 className="font-inter font-medium text-4xl text-black mb-6">
+                You Became a Clinician to Care for <span className="bg-blue-200 px-2 rounded-md">Patients, Not Paperwork</span>.
               </h2>
               <p className="font-body text-xl text-slate-700 leading-relaxed">
                 Clinicians spend up to 28 hours a week on administrative tasks, leading to burnout in over 50% of the workforce. 
@@ -300,8 +301,8 @@ const Index = () => {
       {/* Feature Pillars */}
       <section className="py-20 px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-heading font-bold text-4xl text-center text-slate-900 mb-16">
-            A Unified Platform for Your Entire Workflow
+          <h2 className="font-inter font-medium text-4xl text-center text-black mb-16">
+            A Unified Platform for Your <span className="bg-blue-200 px-2 rounded-md">Entire Workflow</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -347,7 +348,7 @@ const Index = () => {
       {/* Final CTA */}
       <section className="py-20 px-6 bg-gradient-to-r from-slate-800 to-slate-900 fade-in-section">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-heading font-bold text-5xl text-white mb-6">
+          <h2 className="font-inter font-medium text-5xl text-white mb-6">
             The Future of Clinical Work is Here.
           </h2>
           <p className="font-body text-xl text-slate-300 mb-10 max-w-2xl mx-auto">

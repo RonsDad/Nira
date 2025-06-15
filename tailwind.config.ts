@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				'heading': ['Orbitron', 'sans-serif'],
 				'body': ['Comfortaa', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
