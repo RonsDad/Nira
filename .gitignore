@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Vercel
+.vercel
+.env*.local
+
+# Local backend (not needed for Vercel deployment)
+backend/

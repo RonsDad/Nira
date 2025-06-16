@@ -1,24 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-
-// Load environment variables
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT || 5000;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
 
 // Initialize Gemini AI
 const API_KEY = process.env.GEMINI_API_KEY;
-if (!API_KEY) {
-  console.error("GEMINI_API_KEY environment variable is not set.");
-}
-
 const genAI = new GoogleGenerativeAI(API_KEY || '');
 
 // Function to detect if a message is a potential lead
@@ -75,8 +59,25 @@ function getMockResponse(message: string): string {
   return responses[Math.floor(Math.random() * responses.length)];
 }
 
-// Chat endpoint
-app.post('/api/chat', async (req, res) => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
     const { message, history = [], userContext = {} } = req.body;
     
@@ -89,7 +90,7 @@ app.post('/api/chat', async (req, res) => {
     if (!API_KEY) {
       // Use mock responses when API key is not available
       const reply = getMockResponse(message);
-      return res.json({
+      return res.status(200).json({
         reply,
         isPotentialLead: isLead,
         timestamp: Date.now().toString()
@@ -127,7 +128,7 @@ Always be helpful, conversational, and focused on the user's needs while guiding
       const response = await result.response;
       const botReply = response.text();
       
-      res.json({
+      res.status(200).json({
         reply: botReply,
         isPotentialLead: isLead,
         timestamp: Date.now().toString()
@@ -137,7 +138,7 @@ Always be helpful, conversational, and focused on the user's needs while guiding
       console.error('Gemini API error:', aiError);
       // Fall back to mock response on AI error
       const reply = getMockResponse(message);
-      res.json({
+      res.status(200).json({
         reply,
         isPotentialLead: isLead,
         timestamp: Date.now().toString()
@@ -148,27 +149,4 @@ Always be helpful, conversational, and focused on the user's needs while guiding
     console.error('Chat API error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-});
-
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    gemini_configured: Boolean(API_KEY)
-  });
-});
-
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Nira AI Chatbot Backend (TypeScript)',
-    status: 'running',
-    endpoints: ['/api/chat', '/api/health']
-  });
-});
-
-// Start server
-app.listen(port, () => {
-  console.log(`Nira AI Chatbot Backend (TypeScript) running on port ${port}`);
-  console.log(`Gemini AI configured: ${Boolean(API_KEY)}`);
-});
+}
