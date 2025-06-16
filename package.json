@@ -13,7 +13,9 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cleanup": "./scripts/kill-servers.sh"
+    "cleanup": "./scripts/kill-servers.sh",
+    "deploy": "./deploy-to-vercel.sh",
+    "deploy:vercel": "vercel --prod"
   },
   "dependencies": {
     "@babel/standalone": "^7.27.1",
