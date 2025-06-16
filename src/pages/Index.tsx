@@ -1,13 +1,22 @@
 
 import { useEffect, useState } from "react";
-import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle } from "lucide-react";
+import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { InteractiveScene } from "@/components/ui/interactive-scene";
+import HealthcareSectorsShowcase from "@/components/ui/healthcare-sectors-showcase";
 
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDemo, setActiveDemo] = useState(false);
+  const [currentPrototype, setCurrentPrototype] = useState(0);
+
+  const prototypes = [
+    { url: "https://bamboo-wok-45475246.figma.site", name: "Prototype 1" },
+    { url: "https://pine-pin-28044084.figma.site", name: "Prototype 2" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,10 +68,10 @@ const Index = () => {
             
             <div className="hidden md:flex items-center space-x-8">
               <nav className="flex space-x-6">
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Home</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Security & Compliance</a>
+                <Link to="/" className="text-slate-900 font-body font-semibold transition-colors">Home</Link>
+                <Link to="/security-compliance" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Security & Compliance</Link>
                 <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Blog</a>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">About Us</a>
+                <Link to="/about-us" className="text-slate-700 hover:text-slate-900 font-body transition-colors">About Us</Link>
                 <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Contact</a>
               </nav>
               
@@ -74,22 +83,35 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with Spline Robot */}
       <section className="pt-32 pb-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-inter font-medium text-6xl md:text-7xl text-black mb-6 leading-tight">
-            The End of <span className="text-blue-600">Administrative Work</span>
-          </h1>
-          <p className="font-body text-xl md:text-2xl text-slate-700 mb-10 max-w-3xl mx-auto leading-relaxed">
-            Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
-            accelerate your research, and manage your career, freeing you to practice medicine.
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-slate-800 hover:bg-slate-900 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-          >
-            Join the Waitlist
-          </Button>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Hero Text */}
+            <div className="text-center lg:text-left">
+              <h1 className="font-inter font-medium text-5xl md:text-6xl lg:text-7xl text-black mb-6 leading-tight">
+                The End of <span className="text-blue-600">Administrative Work</span>
+              </h1>
+              <p className="font-body text-xl md:text-2xl text-slate-700 mb-10 leading-relaxed">
+                Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
+                accelerate your research, and manage your career, freeing you to practice medicine.
+              </p>
+              <Button 
+                size="lg" 
+                className="bg-slate-800 hover:bg-slate-900 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              >
+                Join the Waitlist
+              </Button>
+            </div>
+            
+            {/* Spline Robot Scene */}
+            <div className="h-96 md:h-[500px] lg:h-[600px] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 shadow-xl">
+              <InteractiveScene 
+                className="w-full h-full"
+                onLoad={() => console.log("Spline robot scene loaded successfully")}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -113,134 +135,58 @@ const Index = () => {
               </div>
             </div>
             
-            <Tabs defaultValue="dispatch" className="w-full">
-              <TabsList className="w-full bg-slate-50 rounded-none border-b border-slate-200 p-0">
-                <TabsTrigger value="dispatch" className="flex-1 font-body font-medium">Dispatch Dashboard</TabsTrigger>
-                <TabsTrigger value="workspace" className="flex-1 font-body font-medium">Workspace Kanban</TabsTrigger>
-                <TabsTrigger value="demo" className="flex-1 font-body font-medium" onClick={startDemo}>Live Agent Demo</TabsTrigger>
-              </TabsList>
+            {/* Figma Prototype Embed with Navigation */}
+            <div className="relative">
+              <div className="relative w-full" style={{ paddingBottom: '75%' }}>
+                <iframe 
+                  src={prototypes[currentPrototype].url}
+                  className="absolute top-0 left-0 w-full h-full"
+                  frameBorder="0"
+                  allowFullScreen
+                  title={prototypes[currentPrototype].name}
+                />
+              </div>
               
-              <TabsContent value="dispatch" className="p-8 min-h-96">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100">
-                    <CardContent className="p-6">
-                      <h3 className="font-body font-semibold text-lg mb-2">Prior Authorizations</h3>
-                      <div className="text-3xl font-bold text-orange-600 mb-2">12</div>
-                      <p className="text-sm text-slate-600">Pending approval</p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
-                    <CardContent className="p-6">
-                      <h3 className="font-body font-semibold text-lg mb-2">Insurance Verifications</h3>
-                      <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
-                      <p className="text-sm text-slate-600">In progress</p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="border-green-200 bg-gradient-to-br from-green-50 to-green-100">
-                    <CardContent className="p-6">
-                      <h3 className="font-body font-semibold text-lg mb-2">Completed Today</h3>
-                      <div className="text-3xl font-bold text-green-600 mb-2">24</div>
-                      <p className="text-sm text-slate-600">Tasks automated</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
+              {/* Navigation Arrows */}
+              <button
+                onClick={() => setCurrentPrototype(currentPrototype === 0 ? 1 : 0)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110"
+                aria-label="Previous prototype"
+              >
+                <ChevronLeft className="w-6 h-6 text-slate-700" />
+              </button>
               
-              <TabsContent value="workspace" className="p-8 min-h-96">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <h3 className="font-body font-semibold text-lg mb-4 text-slate-700">To Do</h3>
-                    <div className="space-y-3">
-                      <Card className="bg-slate-50">
-                        <CardContent className="p-4">
-                          <p className="font-body text-sm">Review patient charts</p>
-                        </CardContent>
-                      </Card>
-                      <Card className="bg-slate-50">
-                        <CardContent className="p-4">
-                          <p className="font-body text-sm">Update treatment plans</p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-body font-semibold text-lg mb-4 text-orange-600">In Progress</h3>
-                    <div className="space-y-3">
-                      <Card className="bg-orange-50 border-orange-200">
-                        <CardContent className="p-4">
-                          <p className="font-body text-sm">Prior auth for MRI</p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-body font-semibold text-lg mb-4 text-green-600">Done</h3>
-                    <div className="space-y-3">
-                      <Card className="bg-green-50 border-green-200">
-                        <CardContent className="p-4 flex items-center space-x-2">
-                          <CheckCircle className="w-4 h-4 text-green-600" />
-                          <p className="font-body text-sm">Insurance verification</p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
+              <button
+                onClick={() => setCurrentPrototype(currentPrototype === 0 ? 1 : 0)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110"
+                aria-label="Next prototype"
+              >
+                <ChevronRight className="w-6 h-6 text-slate-700" />
+              </button>
               
-              <TabsContent value="demo" className="p-8 min-h-96">
-                <div className="max-w-2xl mx-auto">
-                  <h3 className="font-body font-semibold text-xl mb-6 text-center">Watch Nira in Action</h3>
-                  
-                  <div className="space-y-4">
-                    <Card className={`transition-all duration-500 ${activeDemo ? 'border-blue-300 bg-blue-50' : 'bg-white'}`}>
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <div className={`w-3 h-3 rounded-full ${activeDemo ? 'bg-blue-500 animate-pulse' : 'bg-slate-300'}`}></div>
-                            <span className="font-body">Verify Mr. Smith's Cigna Coverage</span>
-                          </div>
-                          {activeDemo && (
-                            <div className="w-32 bg-slate-200 rounded-full h-2">
-                              <div className="bg-blue-500 h-2 rounded-full animate-progress-fill"></div>
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-                    {activeDemo && (
-                      <div className="text-center">
-                        <Card className="bg-green-50 border-green-200 animate-fade-in">
-                          <CardContent className="p-6">
-                            <div className="flex items-center justify-center space-x-2">
-                              <CheckCircle className="w-5 h-5 text-green-600" />
-                              <span className="font-body text-green-800">Task completed successfully!</span>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    )}
-                    
-                    {!activeDemo && (
-                      <div className="text-center">
-                        <Button 
-                          onClick={startDemo}
-                          className="bg-slate-800 hover:bg-slate-900 text-white font-body transition-colors"
-                        >
-                          Start Demo
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+              {/* Prototype Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 rounded-full px-4 py-2 shadow-lg">
+                <div className="flex items-center space-x-2">
+                  {prototypes.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentPrototype(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                        currentPrototype === index ? 'bg-slate-800 w-6' : 'bg-slate-400 hover:bg-slate-600'
+                      }`}
+                      aria-label={`Go to prototype ${index + 1}`}
+                    />
+                  ))}
                 </div>
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Healthcare Sectors Showcase */}
+      <section className="py-20 px-6">
+        <HealthcareSectorsShowcase />
       </section>
 
       {/* Problem Section */}
@@ -253,7 +199,7 @@ const Index = () => {
               </h2>
               <p className="font-body text-xl text-slate-700 leading-relaxed">
                 Clinicians spend up to 28 hours a week on administrative tasks, leading to burnout in over 50% of the workforce. 
-                Nira is designed to solve this systemic failure.
+                Ron AI's flagship product, Nira.is designed to solve this systemic failure.
               </p>
             </div>
             

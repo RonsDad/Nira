@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
-import { safePlayVideo } from "@/utils/video-helpers"
+import { safePlayVideo } from "../../../utils/video-helpers"
 
 // Define audience segments with impact statements
 const audienceSegments = [

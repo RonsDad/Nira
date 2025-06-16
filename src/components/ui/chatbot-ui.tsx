@@ -11,8 +11,8 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import { Badge } from '@/components/ui/badge';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { PromptButtons } from '@/components/chatbot/prompt-buttons';
-import { ContactForm } from '@/components/chatbot/contact-form';
+import { PromptButtons } from '@/components/ui/chatbot/prompt-buttons';
+import { ContactForm } from '@/components/ui/chatbot/contact-form';
 
 // Simple animated typing indicator component
 const TypingIndicator = () => (

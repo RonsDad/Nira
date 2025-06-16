@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { SplineScene } from "@/components/ui/splite"
+import { SplineScene } from "@/components/ui/ui/splite"
 import { FlashlightController } from "./flashlight-controller"
 import { FlashlightBeam } from "./flashlight-beam"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { safePlayVideo } from "@/utils/video-helpers"
+import { safePlayVideo } from "../../utils/video-helpers"
 import type { Application } from "@splinetool/runtime"
 
 // Define types for Spline objects
@@ -86,26 +86,33 @@ export function InteractiveScene({ className, onLoad }: InteractiveSceneProps) {
         const animatableObjects: any[] = []
         
         // Traverse the scene to find robot-related objects
-        scene.traverse((object: any) => {
-          const name = object.name?.toLowerCase() || ''
-          console.log("Found object:", object.name)
-          
-          // Look for robot-related objects
-          if (name.includes('robot') || name.includes('ron')) {
-            robotObject = object
-            animatableObjects.push(object)
-          }
-          if (name.includes('arm') || name.includes('hand')) {
-            if (name.includes('arm')) robotArm = object
-            if (name.includes('hand')) robotHand = object
-            animatableObjects.push(object)
-          }
-          
-          // Also look for any object that might be animatable
-          if (name.includes('wave') || name.includes('animate')) {
-            animatableObjects.push(object)
-          }
-        })
+        if (scene && typeof (scene as any).traverse === 'function') {
+          (scene as any).traverse((object: any) => {
+            const name = object.name?.toLowerCase() || ''
+            console.log("Found object:", object.name)
+            
+            // Look for robot-related objects
+            if (name.includes('robot') || name.includes('ron')) {
+              robotObject = object
+              animatableObjects.push(object)
+            }
+            if (name.includes('arm') || name.includes('hand')) {
+              if (name.includes('arm')) robotArm = object
+              if (name.includes('hand')) robotHand = object
+              animatableObjects.push(object)
+            }
+            
+            // Also look for any object that might be animatable
+            if (name.includes('wave') || name.includes('animate')) {
+              animatableObjects.push(object)
+            }
+          })
+        } else {
+          console.log("Scene traverse not available, using fallback object detection")
+          // Fallback: try to access objects directly if possible
+          robotObject = scene
+          animatableObjects.push(scene)
+        }
         
         console.log("Robot object:", robotObject?.name || "not found")
         console.log("Robot arm:", robotArm?.name || "not found")
@@ -119,7 +126,10 @@ export function InteractiveScene({ className, onLoad }: InteractiveSceneProps) {
           const eventNames = ['wave', 'Wave', 'robotWave', 'animate', 'play', 'start']
           eventNames.forEach(eventName => {
             try {
-              splineApp.emitEvent(eventName)
+              if (splineApp.emitEvent) {
+                // Try with different parameter combinations
+                (splineApp.emitEvent as any)(eventName)
+              }
               console.log(`Tried event: ${eventName}`)
             } catch (e) {
               // Silent fail
@@ -343,7 +353,7 @@ export function InteractiveScene({ className, onLoad }: InteractiveSceneProps) {
       </FlashlightController>
       
       {/* Add animation for instruction fade-out and robot wave */}
-      <style jsx>{`
+      <style>{`
         @keyframes fadeOut {
           0% { opacity: 0.8; }
           20% { opacity: 0.8; }
