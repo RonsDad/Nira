@@ -1,37 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import sys
-import subprocess
 import logging
-
-# Auto-install dependencies if needed
-def ensure_dependencies():
-    """Ensure required dependencies are installed"""
-    try:
-        import flask
-        import flask_cors
-        import google.generativeai
-    except ImportError as e:
-        missing_package = str(e).split("'")[1] if "'" in str(e) else "unknown"
-        logger.info(f"Installing missing dependency: {missing_package}")
-        
-        # Install from requirements.txt if it exists
-        requirements_path = os.path.join(os.path.dirname(__file__), 'requirements.txt')
-        if os.path.exists(requirements_path):
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', requirements_path])
-        else:
-            # Fallback to individual installs
-            packages = ['flask', 'flask-cors', 'google-generativeai', 'python-dotenv']
-            for package in packages:
-                subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Ensure dependencies before importing
-ensure_dependencies()
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS

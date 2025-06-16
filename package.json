@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npm run cleanup && concurrently \"npm run backend\" \"npm run frontend\" --names \"backend,frontend\" --prefix-colors \"blue,green\"",
-    "frontend": "wait-on http://localhost:5000 && vite",
-    "backend": "cd backend && python server.py",
+    "frontend": "wait-on http://localhost:5001 && vite",
+    "backend": "./backend/start.sh",
     "dev:frontend-only": "npm run cleanup && vite",
     "dev:backend-only": "cd backend && python server.py",
     "build": "vite build",
