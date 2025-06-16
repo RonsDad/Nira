@@ -1,7 +1,38 @@
 #!/usr/bin/env python3
 
 import os
+import sys
+import subprocess
 import logging
+
+# Auto-install dependencies if needed
+def ensure_dependencies():
+    """Ensure required dependencies are installed"""
+    try:
+        import flask
+        import flask_cors
+        import google.generativeai
+    except ImportError as e:
+        missing_package = str(e).split("'")[1] if "'" in str(e) else "unknown"
+        logger.info(f"Installing missing dependency: {missing_package}")
+        
+        # Install from requirements.txt if it exists
+        requirements_path = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+        if os.path.exists(requirements_path):
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', requirements_path])
+        else:
+            # Fallback to individual installs
+            packages = ['flask', 'flask-cors', 'google-generativeai', 'python-dotenv']
+            for package in packages:
+                subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Ensure dependencies before importing
+ensure_dependencies()
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
@@ -9,9 +40,12 @@ from typing import List, Dict, Any
 import re
 import json
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Load environment variables
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv is optional
 
 app = Flask(__name__)
 CORS(app)
@@ -48,23 +82,23 @@ def get_mock_response(message: str) -> str:
     message_lower = message.lower()
     
     if any(word in message_lower for word in ['pricing', 'cost', 'price']):
-        return "Ron AI's flagship product, Nira.will operate on a freemium model with affordable subscription tiers for individual clinicians. Organization plans will soon be available. Sign up for our waitlist to be the first to know about pricing!"
+        return "Nira will operate on a freemium model with affordable subscription tiers for individual clinicians. Organization plans will soon be available. Sign up for our waitlist to be the first to know about pricing!"
     
     elif any(word in message_lower for word in ['security', 'hipaa', 'compliance']):
-        return "Ron AI is building Ron AI's flagship product, Nira.with a security-first mindset. Our initial product is designed to work with de-identified data to ensure zero risk, and our long-term roadmap includes full HIPAA compliance and SOC 2 certification for our enterprise partners."
+        return "Ron AI is building Nira with a security-first mindset. Our initial product is designed to work with de-identified data to ensure zero risk, and our long-term roadmap includes full HIPAA compliance and SOC 2 certification for our enterprise partners."
     
     elif any(word in message_lower for word in ['demo', 'try', 'test']):
-        return "I'd love to show you what Ron AI's flagship product, Nira.can do! We're currently in development and building our waitlist. Would you like to request early access? This will give you priority access when we launch."
+        return "I'd love to show you what Nira can do! We're currently in development and building our waitlist. Would you like to request early access? This will give you priority access when we launch."
     
     elif any(word in message_lower for word in ['hello', 'hi', 'hey']):
-        return "Hello! I'm Ron AI's assistant. Ron AI's flagship product, Nira.is our revolutionary healthcare AI platform that helps clinicians automate administrative tasks and focus on patient care. How can I help you learn more about Ron AI's flagship product, Nira.today?"
+        return "Hello! I'm Ron AI's assistant. Nira is our revolutionary healthcare AI platform that helps clinicians automate administrative tasks and focus on patient care. How can I help you learn more about Nira today?"
     
     elif any(word in message_lower for word in ['features', 'what', 'does', 'can']):
-        return "Ron AI's flagship product, Nira.specializes in automating prior authorizations, insurance verifications, and clinical documentation. Our AI agents work 24/7 to handle tedious administrative tasks, freeing up healthcare professionals to focus on what matters most - patient care. Would you like to learn more about a specific feature?"
+        return "Nira specializes in automating prior authorizations, insurance verifications, and clinical documentation. Our AI agents work 24/7 to handle tedious administrative tasks, freeing up healthcare professionals to focus on what matters most - patient care. Would you like to learn more about a specific feature?"
     
     else:
         responses = [
-            "That's a great question! Ron AI's flagship product, Nira.is designed to streamline healthcare workflows and reduce administrative burden. Would you like to request early access to be among the first to experience our platform?",
+            "That's a great question! Nira is designed to streamline healthcare workflows and reduce administrative burden. Would you like to request early access to be among the first to experience our platform?",
             "I understand you're interested in Nira's capabilities. Our AI-powered platform helps automate administrative tasks, allowing healthcare professionals to focus on patient care. Can I help you with any specific questions?",
             "Thanks for your interest in Nira! Our platform integrates with existing healthcare systems to automate workflows and improve operational efficiency. Would you like to join our waitlist for early access?"
         ]
@@ -144,7 +178,7 @@ def health_check():
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({
-        'message': 'Ron AI's flagship product, Nira.AI Chatbot Backend',
+        'message': 'Nira AI Chatbot Backend',
         'status': 'running',
         'endpoints': ['/api/chat', '/api/health']
     })
@@ -153,7 +187,7 @@ if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     debug = os.getenv('FLASK_ENV') == 'development'
     
-    logger.info(f"Starting Ron AI's flagship product, Nira.AI Chatbot Backend on port {port}")
+    logger.info(f"Starting Nira AI Chatbot Backend on port {port}")
     logger.info(f"Gemini AI configured: {bool(GEMINI_API_KEY)}")
     
     app.run(host='0.0.0.0', port=port, debug=debug)
