@@ -70,8 +70,31 @@ cd backend && npm run dev
 ```
 
 ## Production URLs
-- Frontend: `https://your-project.vercel.app`
-- API: `https://your-project.vercel.app/api/chat`
+- Frontend: `https://ron-ai.io`
+- API: `https://ron-ai.io/api/chat`
+
+## Setting Up Custom Domain (ron-ai.io)
+
+### In Vercel Dashboard:
+1. Go to your project settings
+2. Navigate to "Domains"
+3. Add your custom domain: `ron-ai.io`
+4. Follow Vercel's instructions to update your DNS records:
+   - Add an A record pointing to `76.76.21.21`
+   - Or add a CNAME record pointing to `cname.vercel-dns.com`
+5. Vercel will automatically provision SSL certificates
+
+### DNS Configuration:
+If you're using a different DNS provider, add these records:
+```
+Type: A
+Name: @
+Value: 76.76.21.21
+
+Type: CNAME
+Name: www
+Value: cname.vercel-dns.com
+```
 
 ## Troubleshooting
 
