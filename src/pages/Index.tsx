@@ -72,7 +72,7 @@ const Index = () => {
                 <Link to="/security-compliance" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Security & Compliance</Link>
                 <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Blog</a>
                 <Link to="/about-us" className="text-slate-700 hover:text-slate-900 font-body transition-colors">About Us</Link>
-                <a href="#" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Contact</a>
+                <Link to="/contact" className="text-slate-700 hover:text-slate-900 font-body transition-colors">Contact</Link>
               </nav>
               
               <Button className="bg-slate-800 hover:bg-slate-900 text-white font-body font-medium px-6 transition-colors">

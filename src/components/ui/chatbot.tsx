@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X, Send, Minimize2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GoogleGenerativeAI } from "@google/generative-ai"
 
 interface Message {
   id: string
@@ -15,6 +16,11 @@ interface Message {
 interface ChatbotProps {
   className?: string
 }
+
+// Initialize Gemini AI directly in frontend
+// NOTE: This exposes your API key in the browser - only for development!
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyBLblzRZmIE2kxXFuIguFC47dbweDTuF9A'
+const genAI = new GoogleGenerativeAI(API_KEY)
 
 export function Chatbot({ className }: ChatbotProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -50,47 +56,52 @@ export function Chatbot({ className }: ChatbotProps) {
     setIsTyping(true)
     
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          history: messages,
-          userContext: {}
-        }),
-      })
+      // Use Gemini AI SDK directly
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' })
+      
+      // Build system prompt
+      const systemPrompt = `You are Nira's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+Key Directives:
+- Primary Goal: Guide users to understand Nira's value and encourage them to "Request Early Access" or "Join the Waitlist"
+- Handle Objections: For cost questions, explain our freemium model with affordable subscription tiers
+- Security First: Emphasize security-first design, de-identified data handling, and HIPAA compliance roadmap
+- Stay Focused: Stick to core knowledge, don't make up features
+
+Always be helpful, conversational, and focused on the user's needs while guiding them toward early access.`
+      
+      // Build conversation context
+      let conversationContext = `${systemPrompt}\n\nConversation History:\n`
+      
+      // Add last 5 messages for context
+      const recentHistory = messages.slice(-5)
+      for (const msg of recentHistory) {
+        const role = msg.sender === 'user' ? 'User' : 'Assistant'
+        conversationContext += `${role}: ${msg.text}\n`
       }
-
-      const data = await response.json()
+      
+      conversationContext += `\nUser: ${userMessage}\nAssistant:`
+      
+      const result = await model.generateContent(conversationContext)
+      const response = await result.response
+      const botReply = response.text()
       
       const newMessage: Message = {
         id: Date.now().toString(),
-        text: data.reply,
+        text: botReply,
         sender: "assistant",
         timestamp: new Date()
       }
       
       setMessages(prev => [...prev, newMessage])
+      
     } catch (error) {
-      console.error('Error getting assistant response:', error)
+      console.error('Gemini API error:', error)
       
-      // Fallback to mock response if API is unavailable
-      const fallbackResponses = [
-        "I'm having trouble connecting to our servers right now. Ron AI's flagship product, Nira.is designed to automate healthcare administrative tasks and reduce clinician burnout. Would you like to request early access?",
-        "Sorry, I'm experiencing a connection issue. In the meantime, I can tell you that Ron AI's flagship product, Nira.specializes in automating prior authorizations and clinical documentation. Would you like to join our waitlist?",
-        "I'm temporarily offline, but I'd love to help you learn about Nira's capabilities when I'm back online. Our platform helps healthcare professionals focus on patient care by automating tedious administrative tasks."
-      ]
-      
-      const fallbackResponse = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)]
-      
+      // Simple fallback response
       const newMessage: Message = {
         id: Date.now().toString(),
-        text: fallbackResponse,
+        text: "I apologize, but I'm having trouble connecting. Please try again later or contact support for assistance with Ron AI's Nira platform.",
         sender: "assistant",
         timestamp: new Date()
       }
@@ -143,18 +154,18 @@ export function Chatbot({ className }: ChatbotProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`mb-4 w-80 md:w-96 ${isMinimized ? 'h-16' : 'h-[500px]'} transition-all duration-300`}
+            className={`mb-4 w-80 md:w-96 ${isMinimized ? 'h-16' : 'h-[520px]'} transition-all duration-300`}
           >
             {/* Glassmorphism Chat Window */}
             <div className="h-full rounded-2xl backdrop-blur-xl bg-black/40 border border-white/20 shadow-2xl overflow-hidden">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div className="flex items-center justify-between p-3 border-b border-white/10">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
                     <MessageCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm">Ron AI's flagship product, Nira.AI Assistant</h3>
+                    <h3 className="font-semibold text-white text-sm">Nira AI Assistant</h3>
                     <p className="text-white/60 text-xs">Online</p>
                   </div>
                 </div>
@@ -181,7 +192,7 @@ export function Chatbot({ className }: ChatbotProps) {
               {!isMinimized && (
                 <>
                   {/* Messages */}
-                  <div className="flex-1 p-4 space-y-4 overflow-y-auto h-[380px] custom-scrollbar">
+                  <div className="flex-1 p-4 space-y-4 overflow-y-auto" style={{ height: 'calc(100% - 120px)' }}>
                     {messages.map((message) => (
                       <div
                         key={message.id}
@@ -220,7 +231,7 @@ export function Chatbot({ className }: ChatbotProps) {
                   </div>
 
                   {/* Input */}
-                  <div className="p-4 border-t border-white/10">
+                  <div className="p-3 border-t border-white/10">
                     <div className="flex space-x-2">
                       <input
                         ref={inputRef}

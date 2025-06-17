@@ -99,7 +99,7 @@ def chat():
         if GEMINI_API_KEY:
             try:
                 # Use Gemini AI
-                model = genai.GenerativeModel('gemini-pro')
+                model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
                 
                 # Build system prompt
                 system_prompt = """You are Nira's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.

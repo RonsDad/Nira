@@ -27,6 +27,30 @@ const Header = () => {
           >
             Security & Compliance
           </Link>
+          <Link
+            to="/our-products"
+            className={`text-gray-600 hover:text-blue-500 ${
+              location.pathname === '/our-products' ? 'text-blue-500' : ''
+            }`}
+          >
+            Our Products
+          </Link>
+          <Link
+            to="/about-us"
+            className={`text-gray-600 hover:text-blue-500 ${
+              location.pathname === '/about-us' ? 'text-blue-500' : ''
+            }`}
+          >
+            About Us
+          </Link>
+          <Link
+            to="/contact"
+            className={`text-gray-600 hover:text-blue-500 ${
+              location.pathname === '/contact' ? 'text-blue-500' : ''
+            }`}
+          >
+            Contact
+          </Link>
         </nav>
       </div>
     </header>
