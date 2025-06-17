@@ -1,12 +1,11 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // Initialize Gemini AI
 const API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY || '');
 
 // Function to detect if a message is a potential lead
-function isPotentialLead(message: string): boolean {
+function isPotentialLead(message) {
   const leadIndicators = [
     /contact.*sales/i, 
     /pricing/i, 
@@ -27,7 +26,7 @@ function isPotentialLead(message: string): boolean {
 }
 
 // Mock response function for when API key is not available
-function getMockResponse(message: string): string {
+function getMockResponse(message) {
   const messageLower = message.toLowerCase();
   
   if (messageLower.includes('pricing') || messageLower.includes('cost') || messageLower.includes('price')) {
@@ -59,7 +58,7 @@ function getMockResponse(message: string): string {
   return responses[Math.floor(Math.random() * responses.length)];
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = async function handler(req, res) {
   // Handle CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -149,4 +148,4 @@ Always be helpful, conversational, and focused on the user's needs while guiding
     console.error('Chat API error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
