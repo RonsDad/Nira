@@ -1,25 +1,153 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
+import { ContactUsForm } from '@/components/forms/ContactUsForm';
 
 export const ContactUs: React.FC = () => {
-  const [formData, setFormData] = useState({
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <Header />
+
+      <main className="pt-32 pb-20">
+        <div className="container mx-auto px-6">
+          {/* Hero Section */}
+          <section className="text-center mb-20 animate-fade-in">
+            <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-900 mb-6">
+              Let's Build the Future Together.
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto">
+              Whether you're interested in joining our team, partnering with us, or learning more about our products, we'd love to hear from you.
+            </p>
+          </section>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Information */}
+            <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-12 rounded-2xl text-white animate-fade-in-delay-1">
+              <h2 className="font-serif text-3xl font-bold mb-6">Get in Touch</h2>
+              <p className="text-lg mb-8 opacity-90">
+                Ron AI is actively building the future of healthcare technology. We're looking for passionate individuals who share our vision of revolutionizing clinical work through AI.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">👤</span>
+                  </div>
+                  <div>
+                    <strong className="block">Tim Hunter, MS RN CCM CSPO</strong>
+                    <span>Salt Lake City, UT, 84101</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">📧</span>
+                  </div>
+                  <div>
+                    <strong className="block">Email</strong>
+                    <span>tim@ron-ai.io</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">📞</span>
+                  </div>
+                  <div>
+                    <strong className="block">Phone</strong>
+                    <span>(747) 249-5071</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* React Form */}
+            <ContactUsForm />
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+import Footer from '../components/ui/Footer';
+import { ContactUsForm } from '@/components/forms/ContactUsForm';
+
+export const ContactUs: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <Header />
+
+      <main className="pt-32 pb-20">
+        <div className="container mx-auto px-6">
+          {/* Hero Section */}
+          <section className="text-center mb-20 animate-fade-in">
+            <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-900 mb-6">
+              Let's Build the Future Together.
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto">
+              Whether you're interested in joining our team, partnering with us, or learning more about our products,
+              we'd love to hear from you.
+            </p>
+          </section>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Information */}
+            <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-12 rounded-2xl text-white animate-fade-in-delay-1">
+              <h2 className="font-serif text-3xl font-bold mb-6">Get in Touch</h2>
+              <p className="text-lg mb-8 opacity-90">
+                Ron AI is actively building the future of healthcare technology. We're looking for passionate
+                individuals who share our vision of revolutionizing clinical work through AI.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">👤</span>
+                  </div>
+                  <div>
+                    <strong className="block">Tim Hunter, MS RN CCM CSPO</strong>
+                    <span>Salt Lake City, UT, 84101</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">📧</span>
+                  </div>
+                  <div>
+                    <strong className="block">Email</strong>
+                    <span>tim@ron-ai.io</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm">📞</span>
+                  </div>
+                  <div>
+                    <strong className="block">Phone</strong>
+                    <span>(747) 249-5071</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* React Form */}
+            <ContactUsForm />
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
-    company: '',
-    reasonForOutreach: '',
-    anythingElse: '',
-    newsletter: false
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
     if (type === 'checkbox') {
       const target = e.target as HTMLInputElement;
       setFormData(prev => ({ ...prev, [name]: target.checked }));
@@ -35,7 +163,7 @@ export const ContactUs: React.FC = () => {
     setShowError(false);
 
     try {
-      const response = await fetch('https://hooks.zapier.com/hooks/catch/18921559/uo3ych7/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +186,7 @@ export const ContactUs: React.FC = () => {
         // Scroll to success message
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error('Failed to submit form');
+        throw new Error('Failed to submit form. Please try again later.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -142,7 +270,7 @@ export const ContactUs: React.FC = () => {
                 </div>
               )}
               
-              <form onSubmit={handleSubmit}>
+              <ContactUsForm /> onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-semibold text-slate-700 mb-2">
@@ -279,8 +407,8 @@ export const ContactUs: React.FC = () => {
                   }`}
                 >
                   {isSubmitting ? 'Sending...' : 'Submit'}
-                </button>
-              </form>
+                
+              
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ interface ChatbotProps {
 
 // Initialize Gemini AI directly in frontend
 // NOTE: This exposes your API key in the browser - only for development!
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyBLblzRZmIE2kxXFuIguFC47dbweDTuF9A'
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || 'AIzaSyBLblzRZmIE2kxXFuIguFC47dbweDTuF9A'
 const genAI = new GoogleGenerativeAI(API_KEY)
 
 export function Chatbot({ className }: ChatbotProps) {
