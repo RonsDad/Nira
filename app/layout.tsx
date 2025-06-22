@@ -1,7 +1,8 @@
-import { Providers } from './providers'
-import "@/index.css";
+import ClientLayout from './client-layout'
+import "../src/index.css";
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Nira AI Healthcare Solutions',
   description: 'Advanced AI-powered healthcare solutions',
 }
@@ -14,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <ClientLayout>
           {children}
-        </Providers>
+        </ClientLayout>
       </body>
     </html>
   )
