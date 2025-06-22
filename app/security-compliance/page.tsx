@@ -35,16 +35,16 @@ export default function SecurityCompliancePage() {
       <Header />
 
       {/* Hero Section with Enhanced Animation */}
-      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 relative overflow-hidden">
         {/* Background Gradient Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute -top-40 -right-40 w-64 sm:w-96 h-64 sm:h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute -bottom-40 -left-40 w-64 sm:w-96 h-64 sm:h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Enhanced Interactive Shield Animation */}
             <motion.div 
               className="flex justify-center lg:justify-start"
@@ -53,7 +53,7 @@ export default function SecurityCompliancePage() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <div className="relative">
-                <svg width="450" height="450" viewBox="0 0 450 450" className="w-full max-w-md">
+                <svg width="450" height="450" viewBox="0 0 450 450" className="w-full max-w-sm sm:max-w-md">
                   <defs>
                     <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" style={{ stopColor: '#3b82f6' }}>
@@ -129,27 +129,27 @@ export default function SecurityCompliancePage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">
                 Navigate the New Era of Healthcare{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                   Interoperability
                 </span>
               </h1>
-              <p className="font-body text-xl md:text-2xl text-slate-700 mb-10 leading-relaxed">
+              <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 mb-6 sm:mb-10 leading-relaxed">
                 The CMS Final Rule (CMS-0057-F) is here. Nira is the secure, intelligent platform built to master it, 
                 turning complex mandates into your competitive advantage.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-body font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
                 >
                   Explore Compliance Solutions
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border-2 border-slate-300 hover:border-slate-400 font-body font-semibold px-8 py-4 text-lg transition-all duration-300"
+                  className="border-2 border-slate-300 hover:border-slate-400 font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
                 >
                   View Security Whitepaper
                 </Button>
@@ -160,7 +160,7 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* Understanding the Mandate Section with Enhanced Cards */}
-      <section className="py-20 px-6 bg-gradient-to-b from-white to-slate-50 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-slate-50 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -168,15 +168,15 @@ export default function SecurityCompliancePage() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-center text-slate-900 mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-4 sm:mb-6">
               What the Final Rule <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Demands</span>
             </h2>
-            <p className="font-body text-xl text-slate-600 text-center mb-16 max-w-3xl mx-auto">
+            <p className="font-body text-lg sm:text-xl text-slate-600 text-center mb-8 sm:mb-16 max-w-3xl mx-auto">
               Stay ahead of the curve with our comprehensive compliance roadmap
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Accelerated Decisions Card */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -190,7 +190,7 @@ export default function SecurityCompliancePage() {
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-400/0 to-orange-600/0 group-hover:from-orange-400/10 group-hover:to-orange-600/20 transition-all duration-500"></div>
-                <CardContent className="p-8 relative z-10">
+                <CardContent className="p-6 sm:p-8 relative z-10">
                   <motion.div 
                     className="mb-6 flex justify-center"
                     animate={{ 
@@ -203,7 +203,7 @@ export default function SecurityCompliancePage() {
                       <Zap className="w-10 h-10 text-white" />
                     </div>
                   </motion.div>
-                  <h3 className="font-heading font-bold text-2xl text-slate-900 mb-4">
+                  <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-4">
                     Accelerated Decisions
                   </h3>
                   <div className="flex items-center gap-2 mb-4">
@@ -336,7 +336,7 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* The Nira Solution Section */}
-      <section className="py-20 px-6 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -344,13 +344,13 @@ export default function SecurityCompliancePage() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-center text-slate-900 mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-4 sm:mb-6">
               Turn Mandates into{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 Momentum with Nira
               </span>
             </h2>
-            <p className="font-body text-xl text-slate-600 text-center mb-16 max-w-3xl mx-auto">
+            <p className="font-body text-lg sm:text-xl text-slate-600 text-center mb-8 sm:mb-16 max-w-3xl mx-auto">
               Our AI-powered platform transforms compliance challenges into competitive advantages
             </p>
           </motion.div>
@@ -364,16 +364,16 @@ export default function SecurityCompliancePage() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-                <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 p-8 lg:p-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 p-6 sm:p-8 lg:p-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div className="text-white">
                       <div className="flex items-center gap-3 mb-6">
                         <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
                           <FileCheck className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="font-heading font-bold text-3xl">Master Prior Authorization</h3>
+                        <h3 className="font-heading font-bold text-2xl sm:text-3xl">Master Prior Authorization</h3>
                       </div>
-                      <p className="font-body text-lg leading-relaxed mb-6 text-white/90">
+                      <p className="font-body text-base sm:text-lg leading-relaxed mb-6 text-white/90">
                         Nira's AI agents connect directly to the new Prior Authorization APIs. We automate 
                         documentation discovery, smart submission, and real-time status tracking, ensuring 
                         you meet the critical 7-day and 72-hour decision timeframes.
@@ -393,7 +393,7 @@ export default function SecurityCompliancePage() {
                           repeat: Infinity,
                           ease: "easeInOut"
                         }}
-                        className="relative w-64 h-64"
+                        className="relative w-48 h-48 sm:w-64 sm:h-64"
                       >
                         <div className="absolute inset-0 bg-white/10 rounded-full animate-pulse" />
                         <div className="absolute inset-4 bg-white/20 rounded-full animate-pulse animation-delay-500" />
@@ -415,8 +415,8 @@ export default function SecurityCompliancePage() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-                <div className="bg-gradient-to-r from-teal-600 via-cyan-700 to-blue-700 p-8 lg:p-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gradient-to-r from-teal-600 via-cyan-700 to-blue-700 p-6 sm:p-8 lg:p-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div className="flex justify-center order-2 md:order-1">
                       <motion.div
                         animate={{ 
@@ -452,7 +452,7 @@ export default function SecurityCompliancePage() {
                         <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
                           <Globe className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="font-heading font-bold text-3xl">Streamline Data Exchange</h3>
+                        <h3 className="font-heading font-bold text-2xl sm:text-3xl">Streamline Data Exchange</h3>
                       </div>
                       <p className="font-body text-lg leading-relaxed mb-6 text-white/90">
                         Nira's core architecture is built for next-generation interoperability. Our platform 
@@ -477,14 +477,14 @@ export default function SecurityCompliancePage() {
               viewport={{ once: true }}
             >
               <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-                <div className="bg-gradient-to-r from-indigo-600 via-purple-700 to-blue-700 p-8 lg:p-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gradient-to-r from-indigo-600 via-purple-700 to-blue-700 p-6 sm:p-8 lg:p-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div className="text-white">
                       <div className="flex items-center gap-3 mb-6">
                         <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
                           <Building className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="font-heading font-bold text-3xl">Empower Your Organization</h3>
+                        <h3 className="font-heading font-bold text-2xl sm:text-3xl">Empower Your Organization</h3>
                       </div>
                       <p className="font-body text-lg leading-relaxed mb-6 text-white/90">
                         For clinicians, Nira is essential for MIPS compliance. For organizations, we provide 
@@ -546,7 +546,7 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* Our Commitment to Security Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-white to-slate-50 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-slate-50 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -554,13 +554,13 @@ export default function SecurityCompliancePage() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-center text-slate-900 mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-4 sm:mb-6">
               Security Isn't a Feature. It's Our{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 Foundation
               </span>
             </h2>
-            <p className="font-body text-xl text-slate-600 text-center mb-16 max-w-3xl mx-auto">
+            <p className="font-body text-lg sm:text-xl text-slate-600 text-center mb-8 sm:mb-16 max-w-3xl mx-auto">
               Built with enterprise-grade security from day one
             </p>
           </motion.div>
@@ -574,8 +574,8 @@ export default function SecurityCompliancePage() {
               viewport={{ once: true }}
             >
               <Card className="hover:shadow-2xl transition-all duration-300 group">
-                <CardContent className="p-8 lg:p-12">
-                  <div className="flex items-start gap-6">
+                <CardContent className="p-6 sm:p-8 lg:p-12">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     <div className="flex-shrink-0">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
@@ -585,10 +585,10 @@ export default function SecurityCompliancePage() {
                       </motion.div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-heading font-bold text-3xl text-slate-900 mb-4">
+                      <h3 className="font-heading font-bold text-2xl sm:text-3xl text-slate-900 mb-4">
                         HIPAA Compliant by Design
                       </h3>
-                      <p className="font-body text-lg text-slate-700 leading-relaxed">
+                      <p className="font-body text-base sm:text-lg text-slate-700 leading-relaxed">
                         At Ron AI, security is baked into Nira's DNA. We are building our platform to meet 
                         and exceed all administrative, physical, and technical safeguards required by the 
                         HIPAA Security Rule, ensuring the privacy and integrity of all data.
@@ -703,7 +703,7 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 px-6 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -713,28 +713,28 @@ export default function SecurityCompliancePage() {
           >
             <Card className="bg-gradient-to-r from-slate-800 via-blue-900 to-purple-900 shadow-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 animate-pulse" />
-              <CardContent className="relative p-12 text-center">
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
+              <CardContent className="relative p-6 sm:p-8 lg:p-12 text-center">
+                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
                   Ready to Master the New Rules and{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
                     Reclaim Your Time?
                   </span>
                 </h2>
-                <p className="font-body text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+                <p className="font-body text-lg sm:text-xl text-white/80 mb-6 sm:mb-10 max-w-2xl mx-auto">
                   Join forward-thinking healthcare organizations already preparing for the future 
                   with Nira's intelligent compliance platform.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
                     size="lg" 
-                    className="bg-white text-slate-900 hover:bg-gray-100 font-body font-bold px-12 py-6 text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                    className="bg-white text-slate-900 hover:bg-gray-100 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
                   >
                     Request Early Access
                   </Button>
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="border-2 border-white text-white hover:bg-white/10 font-body font-bold px-12 py-6 text-xl transition-all duration-300"
+                    className="border-2 border-white text-white hover:bg-white/10 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-300 w-full sm:w-auto"
                   >
                     Download Executive Brief
                   </Button>
@@ -746,13 +746,13 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 bg-slate-900">
+      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-heading font-bold text-2xl text-white">Nira</h3>
-            <span className="text-slate-400 font-body">by Ron AI</span>
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Nira</h3>
+            <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
-          <p className="text-slate-400 font-body">
+          <p className="text-slate-400 font-body text-sm sm:text-base">
             © 2024 Ron AI. All rights reserved.
           </p>
         </div>

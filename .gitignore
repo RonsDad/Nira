@@ -27,5 +27,8 @@ dist-ssr
 .vercel
 .env*.local
 
+# Next.js
+.next/
+
 # Local backend (not needed for Vercel deployment)
 backend/

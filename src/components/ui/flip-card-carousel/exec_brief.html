@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ron AI White Paper | Interactive Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        :root { --nira-blue: #0A2540; --nira-blue-light: #1e3a8a; }
+
+        /* Print-specific styles: This is the key to making it PDF-friendly */
+        @media print {
+            body { font-size: 11pt; color: #000; }
+            .no-print { display: none !important; } /* Hide interactive elements */
+            .print-only { display: block !important; } /* Show PDF-only elements */
+            .print-header, .print-footer {
+                position: fixed;
+                width: 100%;
+                font-size: 9pt;
+                color: #666;
+            }
+            .print-header { top: 0; text-align: left; }
+            .print-footer { bottom: 0; text-align: right; }
+            h2 {
+                color: #000 !important;
+                border-color: #000 !important;
+                /* Avoid breaking a heading across two pages */
+                page-break-after: avoid; 
+            }
+            a { color: #000 !important; text-decoration: underline; }
+            blockquote {
+                border-color: #ccc !important;
+                background-color: #f9f9f9 !important;
+                page-break-inside: avoid;
+            }
+            .page-break { page-break-before: always; } /* Force a page break */
+
+            /* Tell the browser how to handle page breaks at the document root */
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="root">
+        <div class="relative max-w-7xl mx-auto flex">
+        
+            <aside class="no-print sticky top-0 h-screen w-1/4 hidden lg:block p-8 pr-4">
+                <div class="mt-36">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500">Contents</h3>
+                    <nav id="toc" class="mt-4 flex flex-col space-y-2 text-sm">
+                        </nav>
+                </div>
+            </aside>
+
+            <div id="print-content" class="w-full lg:w-3/4 p-4 sm:p-8 lg:p-12">
+            
+                <header class="bg-[#0A2540] text-white p-8 sm:p-12 rounded-lg shadow-2xl mb-12">
+                    <h1 class="text-3xl md:text-5xl font-bold">Ron AI: AI-Driven Prior Authorization Consulting Services</h1>
+                    <p class="mt-4 text-lg text-gray-300">A Strategic Framework for CMS Interoperability</p>
+                </header>
+                
+                <div class="print-only hidden space-y-8 mb-8">
+                    <div>
+                        <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">Table of Contents</h2>
+                        <div id="print-toc" class="space-y-1"></div>
+                    </div>
+                    <div>
+                         <h2 class="text-xl font-bold border-b-2 pb-2 mb-4">Glossary of Acronyms</h2>
+                        <div id="print-glossary" class="space-y-1 text-sm"></div>
+                    </div>
+                    <div class="page-break"></div>
+                </div>
+
+
+                <main>
+                    <section id="abstract" class="scroll-mt-24">
+                        <h2 class="text-3xl font-bold text-[#0A2540] border-b-2 border-[#0A2540] pb-2 mb-6 mt-10">Abstract</h2>
+                        <p>Healthcare administrative burden represents a critical challenge... with physicians completing an average of 37 prior authorization requests per week... The Centers for Medicare & Medicaid Services (<span class="acronym" title="Centers for Medicare & Medicaid Services">CMS</span>) Interoperability and Prior Authorization Final Rule (<span class="acronym" title="Centers for Medicare & Medicaid Services Interoperability and Prior Authorization Final Rule">CMS-0057-F</span>), finalized on January 17, 2024, mandates substantial changes... <a href="#source-1" class="citation" data-source-id="1">[1]</a><a href="#source-2" class="citation" data-source-id="2">[2]</a></p>
+                    </section>
+                    
+                    <section id="introduction" class="scroll-mt-24">
+                        <h2 class="text-3xl font-bold text-[#0A2540] border-b-2 border-[#0A2540] pb-2 mb-6 mt-10">Introduction</h2>
+                        <blockquote class="my-8 p-6 bg-blue-50 border-l-4 border-[#1e3a8a] italic text-gray-700 text-xl shadow-md rounded-r-lg">
+                           "93% of physicians report prior authorization delays patient care, while 82% indicate that patients sometimes abandon treatment due to these requirements <a href="#source-6" class="citation" data-source-id="6">[6]</a>."
+                        </blockquote>
+                        <p>The regulatory landscape has evolved significantly with the implementation of <span class="acronym" title="Centers for Medicare & Medicaid Services Interoperability and Prior Authorization Final Rule">CMS-0057-F</span>, which establishes new requirements for electronic prior authorization processes and data exchange <a href="#source-3" class="citation" data-source-id="3">[3]</a>.</p>
+                    </section>
+
+                    <section id="regulatory-framework" class="scroll-mt-24">
+                        <h2 class="text-3xl font-bold text-[#0A2540] border-b-2 border-[#0A2540] pb-2 mb-6 mt-10">Regulatory Framework</h2>
+                         <p>The rule emphasizes the adoption of Health Level Seven International Fast Healthcare Interoperability Resources (<span class="acronym" title="Fast Healthcare Interoperability Resources">HL7 FHIR</span>) R4-based Application Programming Interfaces (<span class="acronym" title="Application Programming Interface">API</span>) <a href="#source-4" class="citation" data-source-id="4">[4]</a>.</p>
+                    </section>
+                    
+                     <section id="sources" class="scroll-mt-24">
+                        <h2 class="text-3xl font-bold text-[#0A2540] border-b-2 border-[#0A2540] pb-2 mb-6 mt-10">Sources</h2>
+                        <ol class="list-decimal list-outside space-y-3 text-sm pl-5">
+                           </ol>
+                    </section>
+                </main>
+                
+                 <footer class="text-center mt-16 p-8 border-t border-gray-300 no-print">
+                    <p class="text-gray-600">&copy; 2025 Ron AI. All Rights Reserved.</p>
+                </footer>
+            </div>
+        </div>
+
+        <div id="citation-modal" class="no-print fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-2xl max-w-lg w-full p-6 relative">
+                 <button id="close-modal" class="absolute top-2 right-4 text-2xl font-bold text-gray-500 hover:text-black">&times;</button>
+                 <div id="modal-content"></div>
+            </div>
+        </div>
+        
+         <button id="download-pdf" class="no-print fixed bottom-5 right-5 bg-[#0A2540] text-white font-bold py-3 px-5 rounded-full shadow-lg hover:bg-[#1e3a8a] transition-colors duration-300">
+            Download as PDF
+        </button>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Data Definitions ---
+        const sources = {
+            1: { content: "Wasteful administrative costs tied to high US health spending.", url: "https://www.healthcaredive.com/news/Health-Affairs-administrative-spending-wasteful/633774/" },
+            2: { content: "Survey quantifies time burdens of prior authorization.", url: "https://www.ama-assn.org/practice-management/prior-authorization/survey-quantifies-time-burdens-prior-authorization" },
+            3: { content: "CMS Interoperability and Prior Authorization Final Rule (CMS-0057-F).", url: "https://www.cms.gov/..." },
+            4: { content: "CMS Issues Interoperability and Prior Authorization Final Rule.", url: "https://www.crowell.com/..." },
+            6: { content: "AMA Survey Highlights Growing Burden of Prior Authorization on...", url: "https://www.ajmc.com/..." },
+        };
+        const acronyms = {
+            "CMS": "Centers for Medicare & Medicaid Services",
+            "CMS-0057-F": "CMS Interoperability and Prior Authorization Final Rule",
+            "FHIR": "Fast Healthcare Interoperability Resources",
+            "API": "Application Programming Interface",
+        };
+
+        // --- Populate dynamic content ---
+        const sourcesListEl = document.querySelector('#sources ol');
+        Object.entries(sources).forEach(([id, data]) => {
+            const li = document.createElement('li');
+            li.id = `source-${id}`;
+            li.innerHTML = `<a href="${data.url}" target="_blank" rel="noopener noreferrer" class="hover:underline">${data.content}</a>`;
+            sourcesListEl.appendChild(li);
+        });
+
+        const sections = document.querySelectorAll('main section');
+        const tocEl = document.getElementById('toc');
+        const printTocEl = document.getElementById('print-toc');
+        
+        sections.forEach(section => {
+            const id = section.id;
+            const title = section.querySelector('h2').textContent;
+            
+            // Web ToC
+            const link = document.createElement('a');
+            link.href = `#${id}`;
+            link.textContent = title;
+            link.className = 'text-gray-600 hover:text-[#0A2540] transition-colors';
+            link.dataset.tocId = id;
+            tocEl.appendChild(link);
+            
+            // Print ToC
+            const p = document.createElement('p');
+            p.innerHTML = `<a href="#${id}">${title}</a>`;
+            printTocEl.appendChild(p);
+        });
+        
+        const printGlossaryEl = document.getElementById('print-glossary');
+        Object.entries(acronyms).forEach(([short, long]) => {
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>${short}:</strong> ${long}`;
+            printGlossaryEl.appendChild(p);
+        });
+
+        // 3. Acronym Tooltip Styling
+        document.querySelectorAll('.acronym').forEach(el => {
+            el.style.textDecoration = 'underline';
+            el.style.textDecorationStyle = 'dotted';
+            el.style.cursor = 'help';
+        });
+
+        // 2. Citation Modal Logic
+        const modal = document.getElementById('citation-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        document.querySelectorAll('.citation').forEach(citation => {
+            citation.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent page jump
+                const sourceId = citation.dataset.sourceId;
+                const sourceData = sources[sourceId];
+                if (sourceData) {
+                    modalContent.innerHTML = `
+                        <p class="text-lg mb-4">"${sourceData.content}"</p>
+                        <a href="${sourceData.url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">View Source &rarr;</a>
+                    `;
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+            });
+        });
+        
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(); // Close if clicking on the backdrop
+        });
+
+        // 1. Scroll-Spying ToC Logic
+        const tocLinks = document.querySelectorAll('#toc a');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tocLinks.forEach(link => {
+                        link.classList.remove('font-bold', 'text-[#0A2540]');
+                        if (link.dataset.tocId === id) {
+                            link.classList.add('font-bold', 'text-[#0A2540]');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: "-30% 0px -60% 0px" }); // Tweak margins to feel right
+        sections.forEach(section => observer.observe(section));
+
+        // 4. Animation on Scroll Logic
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    animationObserver.unobserve(entry.target); // Animate only once
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section, blockquote').forEach(el => {
+            el.classList.add('opacity-0', 'transition-opacity', 'duration-700', 'ease-in-out');
+            animationObserver.observe(el);
+        });
+        
+        // Add keyframes for animation
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = `@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .animate-fade-in { animation: fadeIn 0.7s forwards; }`;
+        document.head.appendChild(styleSheet);
+
+
+        // PDF Download Logic
+        document.getElementById('download-pdf').addEventListener('click', () => {
+             // Optional: Add a print-specific footer
+            const printFooter = document.createElement('div');
+            printFooter.className = 'print-footer print-only hidden';
+            printFooter.textContent = 'Ron AI White Paper | © 2025';
+            document.body.appendChild(printFooter);
+            
+            window.print();
+
+            document.body.removeChild(printFooter); // Clean up after printing
+        });
+    });
+</script>
+</body>
+</html>
