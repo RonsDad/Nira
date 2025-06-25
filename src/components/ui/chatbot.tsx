@@ -20,7 +20,7 @@ interface ChatbotProps {
 // Initialize Gemini AI directly in frontend
 // NOTE: This exposes your API key in the browser - only for development!
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || ''
-const genAI = new GoogleGenerativeAI(API_KEY)
+const genAI = API_KEY ? new GoogleGenerativeAI(API_KEY) : null
 
 export function Chatbot({ className }: ChatbotProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,6 +56,17 @@ export function Chatbot({ className }: ChatbotProps) {
     setIsTyping(true)
     
     try {
+      // Check if API key is available
+      if (!API_KEY) {
+        console.error('NEXT_PUBLIC_GEMINI_API_KEY is not set')
+        throw new Error('API key not configured')
+      }
+      
+      if (!genAI) {
+        console.error('GoogleGenerativeAI not initialized')
+        throw new Error('AI service not initialized')
+      }
+      
       // Use Gemini AI SDK directly
       const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
       
@@ -97,11 +108,25 @@ Always be helpful, conversational, and focused on the user's needs while guiding
       
     } catch (error) {
       console.error('Gemini API error:', error)
+      console.error('API_KEY present:', !!API_KEY)
+      console.error('API_KEY length:', API_KEY?.length || 0)
       
-      // Simple fallback response
+      // More specific error message
+      let errorMessage = "I apologize, but I'm having trouble connecting. "
+      
+      if (!API_KEY) {
+        errorMessage += "The API key is not configured. "
+      } else if (error instanceof Error && error.message.includes('API_KEY_INVALID')) {
+        errorMessage += "The API key appears to be invalid. "
+      } else if (error instanceof Error) {
+        errorMessage += `Error: ${error.message}. `
+      }
+      
+      errorMessage += "Please try again later or contact support for assistance with Ron AI's Nira platform."
+      
       const newMessage: Message = {
         id: Date.now().toString(),
-        text: "I apologize, but I'm having trouble connecting. Please try again later or contact support for assistance with Ron AI's Nira platform.",
+        text: errorMessage,
         sender: "assistant",
         timestamp: new Date()
       }

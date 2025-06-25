@@ -28,13 +28,16 @@ export function useThreeScene({ canvasRef, onResize }: UseThreeSceneOptions) {
 
     // Camera setup - simpler positioning
     const isMobile = window.innerWidth < 640;
+    const isTablet = window.innerWidth < 1024;
     const camera = new THREE.PerspectiveCamera(
-      50,
+      isMobile ? 40 : 50, // Wider FOV on mobile for better view
       canvasRef.current.clientWidth / canvasRef.current.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, isMobile ? 10 : 8);
+    // Move camera further back on mobile for better readability
+    const cameraZ = isMobile ? 16 : isTablet ? 12 : 10;
+    camera.position.set(0, 0, cameraZ);
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
@@ -73,6 +76,17 @@ export function useThreeScene({ canvasRef, onResize }: UseThreeSceneOptions) {
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      
+      // Update camera position on resize
+      const isMobile = window.innerWidth < 640;
+      const isTablet = window.innerWidth < 1024;
+      const cameraZ = isMobile ? 16 : isTablet ? 12 : 10;
+      camera.position.setZ(cameraZ);
+      
+      // Update FOV on resize
+      camera.fov = isMobile ? 40 : 50;
+      camera.updateProjectionMatrix();
+      
       renderer.setSize(width, height);
 
       onResize?.(width, height);

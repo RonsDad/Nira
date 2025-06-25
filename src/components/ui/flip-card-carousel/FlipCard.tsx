@@ -39,8 +39,9 @@ export const FlipCard: React.FC<FlipCardProps> = ({
     const isMobile = window.innerWidth < 640; // sm breakpoint
     const isTablet = window.innerWidth < 1024; // lg breakpoint
     
-    const width = isMobile ? 3 : isTablet ? 3.5 : 4.5;
-    const height = isMobile ? 4 : isTablet ? 5 : 6;
+    // Increase card sizes to better fill the container
+    const width = isMobile ? 4.5 : isTablet ? 5.5 : 6;
+    const height = isMobile ? 6 : isTablet ? 7.5 : 8;
     const depth = 0.02;
 
     // Simple plane geometry for the card

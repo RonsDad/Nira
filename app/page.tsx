@@ -128,14 +128,23 @@ export default function Home() {
             </div>
             
             {/* Figma Prototype Embed */}
-            <div className="relative w-full" style={{ paddingBottom: '120%' }}>
-              <iframe 
-                src={prototypeUrl}
-                className="absolute top-0 left-0 w-full h-full rounded-b-lg"
-                frameBorder="0"
-                allowFullScreen
-                title="Nira Interface Prototype"
-              />
+            <div className="relative w-full">
+              <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+                <iframe 
+                  src={prototypeUrl}
+                  className="absolute top-0 left-0 w-full h-full rounded-b-lg"
+                  frameBorder="0"
+                  allowFullScreen
+                  title="Nira Interface Prototype"
+                />
+              </div>
+              <style jsx>{`
+                @media (max-width: 640px) {
+                  .relative > div {
+                    padding-bottom: 120% !important;
+                  }
+                }
+              `}</style>
             </div>
           </div>
         </div>
