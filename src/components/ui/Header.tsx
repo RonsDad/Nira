@@ -71,7 +71,7 @@ const Header = () => {
             </div>
             
             <Link
-              href="#"
+              href="/contact"
               className="bg-slate-800 text-white px-6 py-2.5 rounded-md font-medium hover:bg-slate-900 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Request Early Access
@@ -110,7 +110,7 @@ const Header = () => {
               
               <div className="pt-4 border-t border-slate-200">
                 <Link
-                  href="#"
+                  href="/contact"
                   className="block w-full text-center bg-slate-800 text-white px-6 py-3 rounded-md font-medium hover:bg-slate-900 transition-all duration-300"
                 >
                   Request Early Access

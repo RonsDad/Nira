@@ -14,7 +14,7 @@ import { FlipCardCarousel, CardData } from "@/components/ui/flip-card-carousel";
 export default function Home() {
   const [activeDemo, setActiveDemo] = useState(false);
   // Single prototype URL as requested
-  const prototypeUrl = "https://pine-pin-28044084.figma.site";
+  const prototypeUrl = "https://aloha-satin-23191317.figma.site";
 
   // Healthcare challenge cards data
   const healthcareChallengeCards: CardData[] = [
@@ -83,12 +83,17 @@ export default function Home() {
                 Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
                 accelerate your research, and manage your career, freeing you to practice medicine.
               </p>
-              <Button 
-                size="lg" 
-                className="bg-slate-800 hover:bg-slate-900 text-white font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
-              >
-                Join the Waitlist
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link href="/our-products#early-adopter">
+                  <Button 
+                    size="lg" 
+                    className="bg-blue-600 text-white hover:bg-blue-700 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                    onClick={startDemo}
+                  >
+                    Join the Revolution
+                  </Button>
+                </Link>
+              </div>
             </div>
             
             {/* Spline Robot Scene */}
@@ -223,12 +228,14 @@ export default function Home() {
           <p className="font-body text-lg sm:text-xl text-slate-300 mb-6 sm:mb-10 max-w-2xl mx-auto">
             Stop the burnout. Reclaim your time. Be the first to experience Nira.
           </p>
-          <Button 
-            size="lg" 
-            className="bg-white text-slate-800 hover:bg-slate-200 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
-          >
-            Request Early Access Now
-          </Button>
+          <Link href="/our-products#early-adopter">
+            <Button 
+              size="lg" 
+              className="bg-white text-slate-800 hover:bg-slate-200 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+            >
+              Request Early Access Now
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -240,7 +247,7 @@ export default function Home() {
             <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-body text-sm sm:text-base">
-            © 2024 Ron AI. All rights reserved.
+            &copy; 2024 Ron AI. All rights reserved.
           </p>
         </div>
       </footer>
