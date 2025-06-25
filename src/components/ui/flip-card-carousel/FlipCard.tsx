@@ -35,9 +35,12 @@ export const FlipCard: React.FC<FlipCardProps> = ({
     const cardGroup = new THREE.Group();
     groupRef.current = cardGroup;
 
-    // Card dimensions - BIGGER!
-    const width = 4.5;
-    const height = 6;
+    // Card dimensions - responsive based on screen width
+    const isMobile = window.innerWidth < 640; // sm breakpoint
+    const isTablet = window.innerWidth < 1024; // lg breakpoint
+    
+    const width = isMobile ? 3 : isTablet ? 3.5 : 4.5;
+    const height = isMobile ? 4 : isTablet ? 5 : 6;
     const depth = 0.02;
 
     // Simple plane geometry for the card

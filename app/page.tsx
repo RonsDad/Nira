@@ -116,19 +116,19 @@ export default function Home() {
           
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
             {/* Browser Frame Header */}
-            <div className="bg-slate-100 px-6 py-4 flex items-center space-x-2 border-b border-slate-200">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+            <div className="bg-slate-100 px-3 sm:px-6 py-2 sm:py-4 flex items-center space-x-2 border-b border-slate-200">
+              <div className="flex space-x-1 sm:space-x-2">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-400 rounded-full"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-400 rounded-full"></div>
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full"></div>
               </div>
-              <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                <span className="text-slate-600 text-sm font-body">nira.ronai.com</span>
+              <div className="flex-1 bg-slate-200 rounded-lg px-2 sm:px-4 py-0.5 sm:py-1 mx-2 sm:mx-4">
+                <span className="text-slate-600 text-xs sm:text-sm font-body">nira.ronai.com</span>
               </div>
             </div>
             
             {/* Figma Prototype Embed */}
-            <div className="relative w-full" style={{ paddingBottom: '75%' }}>
+            <div className="relative w-full" style={{ paddingBottom: '100%' }}>
               <iframe 
                 src={prototypeUrl}
                 className="absolute top-0 left-0 w-full h-full"
@@ -161,7 +161,7 @@ export default function Home() {
             </div>
             
             {/* 3D Flip Card Carousel */}
-            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2">
+            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2 max-w-sm mx-auto lg:max-w-none">
               <FlipCardCarousel
                 cards={healthcareChallengeCards}
                 autoPlayInterval={10000}

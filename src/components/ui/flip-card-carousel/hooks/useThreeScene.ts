@@ -27,13 +27,14 @@ export function useThreeScene({ canvasRef, onResize }: UseThreeSceneOptions) {
     sceneRef.current = scene;
 
     // Camera setup - simpler positioning
+    const isMobile = window.innerWidth < 640;
     const camera = new THREE.PerspectiveCamera(
       50,
       canvasRef.current.clientWidth / canvasRef.current.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 8);
+    camera.position.set(0, 0, isMobile ? 10 : 8);
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
