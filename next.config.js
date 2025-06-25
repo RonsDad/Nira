@@ -22,7 +22,13 @@ const nextConfig = {
   },
   
   // Enable webpack 5 features
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Exclude backend directory from Next.js compilation
+    config.module.rules.push({
+      test: /\.(js|jsx|ts|tsx)$/,
+      exclude: /backend/,
+    });
+    
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
