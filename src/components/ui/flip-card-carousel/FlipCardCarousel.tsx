@@ -94,7 +94,7 @@ export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
   }, []);
 
   return (
-    <div className={`relative w-full h-[350px] sm:h-[500px] md:h-[600px] lg:h-[700px] bg-white rounded-2xl overflow-hidden shadow-2xl ${className}`}>
+    <div className={`relative w-full h-[450px] xs:h-[500px] sm:h-[550px] md:h-[600px] lg:h-[700px] bg-white rounded-2xl overflow-hidden shadow-2xl ${className}`}>
       {/* Three.js Canvas */}
       <canvas
         ref={canvasRef}

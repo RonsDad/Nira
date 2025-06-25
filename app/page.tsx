@@ -128,10 +128,10 @@ export default function Home() {
             </div>
             
             {/* Figma Prototype Embed */}
-            <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+            <div className="relative w-full" style={{ paddingBottom: '120%' }}>
               <iframe 
                 src={prototypeUrl}
-                className="absolute top-0 left-0 w-full h-full"
+                className="absolute top-0 left-0 w-full h-full rounded-b-lg"
                 frameBorder="0"
                 allowFullScreen
                 title="Nira Interface Prototype"
@@ -161,7 +161,7 @@ export default function Home() {
             </div>
             
             {/* 3D Flip Card Carousel */}
-            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2 max-w-sm mx-auto lg:max-w-none">
+            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2 w-full px-4 sm:px-0 sm:max-w-md mx-auto lg:max-w-none">
               <FlipCardCarousel
                 cards={healthcareChallengeCards}
                 autoPlayInterval={10000}

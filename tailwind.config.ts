@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			screens: {
+				'xs': '475px',
+				// Tailwind defaults: sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
+			},
 			fontFamily: {
 				'heading': ['Orbitron', 'sans-serif'],
 				'body': ['Comfortaa', 'sans-serif'],

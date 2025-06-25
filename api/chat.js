@@ -98,7 +98,7 @@ module.exports = async function handler(req, res) {
     
     try {
       // Use Gemini AI
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
       
       // Build system prompt
       const systemPrompt = `You are Nira's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
