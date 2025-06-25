@@ -105,7 +105,7 @@ export default function OurProducts() {
       {/* Product Section 1: Nira */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
             <div className="order-2 lg:order-1 lg:col-span-3">
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
                 Nira <span className="text-blue-600">Insights</span>
@@ -179,7 +179,7 @@ export default function OurProducts() {
                 </div>
               </div>
               
-              <div className="relative bg-gradient-to-br from-slate-50 to-slate-100 h-[600px]">
+              <div className="relative bg-gradient-to-br from-slate-50 to-slate-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
                 <iframe
                   src="https://set-pride-34770011.figma.site"
                   className="w-full h-full"
@@ -196,7 +196,7 @@ export default function OurProducts() {
       {/* Product Section 2: Nira Flow */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-teal-50 to-teal-100 fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
             {/* Figma iframe - 9 columns */}
             <div className="order-2 lg:order-1 lg:col-span-9">
               <Card className="bg-white/80 backdrop-blur border-teal-200 shadow-2xl overflow-hidden">
@@ -211,7 +211,7 @@ export default function OurProducts() {
                   </div>
                 </div>
                 
-                <div className="relative aspect-video bg-gradient-to-br from-teal-50 to-teal-100 h-[600px]">
+                <div className="relative aspect-video bg-gradient-to-br from-teal-50 to-teal-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
                   <iframe
                     src="https://pine-pin-28044084.figma.site"
                     className="w-full h-full"
@@ -360,7 +360,7 @@ export default function OurProducts() {
       {/* Product Section 3: Florence */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
             <div className="lg:col-span-3">
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
                 Nira <span className="text-purple-600">Command</span>
@@ -462,7 +462,7 @@ export default function OurProducts() {
                 </div>
               </div>
               
-              <div className="relative aspect-video bg-gradient-to-br from-purple-50 to-purple-100 h-[600px]">
+              <div className="relative bg-gradient-to-br from-purple-50 to-purple-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
                 <iframe
                   src="https://aloha-satin-23191317.figma.site"
                   className="w-full h-full"
@@ -478,7 +478,7 @@ export default function OurProducts() {
       {/* Product Section 4: Nira Records */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-50 via-white to-indigo-50 fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
             {/* Records UI Preview */}
             <div className="order-1 lg:order-1 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden lg:col-span-9">
               <div className="bg-slate-100 px-6 py-4 flex items-center space-x-2 border-b border-slate-200">
@@ -492,11 +492,12 @@ export default function OurProducts() {
                 </div>
               </div>
               
-              <div className="relative aspect-video bg-gradient-to-br from-indigo-50 to-indigo-100 h-[600px]">
+              <div className="relative bg-gradient-to-br from-indigo-50 to-indigo-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
                 <iframe
                   src="https://yam-purse-81259719.figma.site"
                   className="w-full h-full"
                   title="Nira Records Interface"
+                  frameBorder="0"
                   allowFullScreen
                 />
               </div>
