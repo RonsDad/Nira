@@ -83,7 +83,13 @@ const ExecutiveBriefPDF = () => (
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>
-          Executive Brief: Ron AI as a CMS Interoperability and Prior Authorization Final Rule Solution
+          Executive Brief: Ron AI as a CMS Interoperability
+        </Text>
+        <Text style={styles.headerTitle}>
+          and
+        </Text>
+        <Text style={styles.headerTitle}>
+          Prior Authorization Final Rule Solution
         </Text>
       </View>
 
