@@ -10,6 +10,7 @@ import { InteractiveScene } from "@/components/ui/interactive-scene";
 import HealthcareSectorsShowcase from "@/components/ui/healthcare-sectors-showcase";
 import Header from "@/components/ui/Header";
 import { FlipCardCarousel, CardData } from "@/components/ui/flip-card-carousel";
+import { ScrollKiller } from "@/components/ScrollKiller";
 
 export default function Home() {
   const [activeDemo, setActiveDemo] = useState(false);
@@ -49,6 +50,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <ScrollKiller />
       <Header />
 
       {/* Hero Section with Spline Robot */}
@@ -117,6 +119,13 @@ export default function Home() {
               allowFullScreen
               loading="lazy"
               sandbox="allow-same-origin allow-scripts allow-forms"
+              scrolling="no"
+              onLoad={(e) => {
+                // Chrome-specific: Prevent iframe from stealing focus and scrolling
+                const iframe = e.currentTarget;
+                iframe.blur();
+                window.focus();
+              }}
             />
           </div>
         </div>

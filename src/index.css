@@ -101,21 +101,45 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Chrome-specific: Prevent any scroll on load */
+    position: fixed !important;
+    width: 100% !important;
+    overflow-y: scroll !important;
+  }
+  
+  /* Re-enable scrolling after 1 second */
+  body.scroll-enabled {
+    position: static !important;
   }
 
   /* Prevent autoscroll behavior */
   html {
+    scroll-behavior: auto !important;
+    /* Chrome-specific scroll fixes */
+    overflow-anchor: none; /* Disable Chrome's scroll anchoring */
+  }
+  
+  /* Chrome-specific: Prevent scroll on focus */
+  html:focus-within {
     scroll-behavior: auto !important;
   }
 
   /* Ensure iframes don't cause focus issues */
   iframe {
     pointer-events: auto;
+    /* Chrome-specific iframe scroll prevention */
+    overflow: hidden;
   }
 
   /* Prevent focus outline on iframes unless explicitly focused by keyboard */
   iframe:focus:not(:focus-visible) {
     outline: none;
+  }
+  
+  /* Chrome-specific: Disable scroll snap if any */
+  * {
+    scroll-snap-type: none !important;
+    scroll-snap-align: none !important;
   }
 }
 

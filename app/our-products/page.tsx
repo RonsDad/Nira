@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Header from "@/components/ui/Header";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { ScrollKiller } from "@/components/ScrollKiller";
 
 export default function OurProducts() {
   const [formData, setFormData] = useState({
@@ -27,6 +28,27 @@ export default function OurProducts() {
     }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [allowScroll, setAllowScroll] = useState(false);
+
+  // Handle hash-based navigation without immediate scrolling
+  useEffect(() => {
+    // Check if we came here with a hash
+    if (window.location.hash === '#early-adopter') {
+      // Remove the hash temporarily
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState(null, '', cleanUrl);
+      
+      // Allow scrolling after a delay (once page is loaded)
+      setTimeout(() => {
+        setAllowScroll(true);
+        // Optionally scroll to the form after page loads
+        const element = document.getElementById('early-adopter');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +89,7 @@ export default function OurProducts() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <ScrollKiller />
       <Header />
 
       {/* Hero Section */}
