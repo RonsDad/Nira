@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Settings, Brain, Compass, Rocket, BookOpen, Zap, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -39,25 +39,6 @@ export default function Home() {
       backContent: "Modular AI agents streamline healthcare administration, adapt to evolving clinical and regulatory needs, boost compliance, and enable scalable, future-proof solutions that transform operations, reduce costs, and enhance patient and provider experiences in a dynamic healthcare landscape."
     }
   ];
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll('.fade-in-section').forEach((el) => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   const startDemo = () => {
     setActiveDemo(true);
@@ -108,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* Interactive UI Showcase */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 sm:mb-16">
             This Isn't Another App. It's Your <span className="text-blue-700">Command Center</span>.
@@ -128,15 +109,15 @@ export default function Home() {
             </div>
             
             {/* Figma Prototype Embed */}
-            <div className="relative w-full pb-[120%] sm:pb-0 sm:aspect-video">
-              <iframe 
-                src={prototypeUrl}
-                className="absolute top-0 left-0 w-full h-full rounded-b-lg"
-                frameBorder="0"
-                allowFullScreen
-                title="Nira Interface Prototype"
-              />
-            </div>
+            <iframe 
+              src={prototypeUrl}
+              title="Nira AI prototype demonstration"
+              className="w-full aspect-video rounded-b-lg"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              sandbox="allow-same-origin allow-scripts allow-forms"
+            />
           </div>
         </div>
       </section>
@@ -147,7 +128,7 @@ export default function Home() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-50 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-slate-50">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1">
@@ -173,7 +154,7 @@ export default function Home() {
       </section>
 
       {/* Feature Pillars */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 sm:mb-16">
             A Unified Platform for Your <span className="text-blue-700">Entire Workflow</span>
@@ -220,7 +201,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-r from-slate-800 to-slate-900 fade-in-section">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-r from-slate-800 to-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             The Future of Clinical Work is <span className="text-blue-300">Here.</span>

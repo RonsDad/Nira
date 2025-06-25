@@ -51,10 +51,7 @@ export function InteractiveScene({ className, onLoad }: InteractiveSceneProps) {
         safePlayVideo(video)
       })
 
-      // Ensure flashlight is visible by focusing on container
-      if (containerRef.current) {
-        containerRef.current.focus()
-      }
+      // Flashlight will be visible on mouse interaction
     }, 1000) // Reduced timeout for faster loading
 
     return () => clearTimeout(timer)
@@ -296,12 +293,9 @@ export function InteractiveScene({ className, onLoad }: InteractiveSceneProps) {
       ref={containerRef}
       className={`relative w-full bg-white overflow-hidden ${className}`}
       style={{ height: isMobile ? "50vh" : "100%" }}
-      tabIndex={0} // Make container focusable
+      // Removed tabIndex to prevent focus-based scrolling
       onMouseMove={() => {
-        // Make sure flashlight is active on any mouse movement
-        if (containerRef.current) {
-          containerRef.current.focus()
-        }
+        // Flashlight responds to mouse movement without focus
       }}
     >
       {/* Loading indicator */}

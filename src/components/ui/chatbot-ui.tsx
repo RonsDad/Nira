@@ -263,11 +263,7 @@ export function ChatbotUI() {
       setMessages((prev) => [...prev, { sender: 'bot', text: "Sorry, I couldn't connect. Please try again later." }]);
     } finally {
       setIsLoading(false);
-      // Ensure input is focused after sending
-      const inputElement = document.getElementById('chat-input');
-      if (inputElement) {
-        inputElement.focus();
-      }
+      // Removed focus to prevent page scrolling
     }
   };
   

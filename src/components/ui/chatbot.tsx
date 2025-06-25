@@ -39,18 +39,24 @@ export function Chatbot({ className }: ChatbotProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    // DISABLED: Auto-scrolling to prevent page jumps
+    // Uncomment below to re-enable chatbot auto-scroll
+    /*
+    if (isOpen && !isMinimized && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    }
+    */
   }
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  useEffect(() => {
+    // Only scroll when messages change if the chat is open
     if (isOpen && !isMinimized) {
-      inputRef.current?.focus()
+      scrollToBottom()
     }
-  }, [isOpen, isMinimized])
+  }, [messages, isOpen, isMinimized])
+
+  // Removed automatic focus to prevent page scrolling
+  // Users can click the input field when they want to type
 
   const getAssistantResponse = async (userMessage: string) => {
     setIsTyping(true)

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Lock, Zap, CheckCircle2, ArrowRight, FileCheck, Users, Building, Globe, Server, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import Header from "@/components/ui/Header";
+import { generateExecutiveBriefPDF } from "@/components/ExecutiveBriefPDF";
 
 export default function SecurityCompliancePage() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -734,7 +735,8 @@ export default function SecurityCompliancePage() {
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="border-2 border-white text-white hover:bg-white/10 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-300 w-full sm:w-auto"
+                    className="border-2 border-white bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-300 w-full sm:w-auto"
+                    onClick={generateExecutiveBriefPDF}
                   >
                     Download Executive Brief
                   </Button>
@@ -753,7 +755,7 @@ export default function SecurityCompliancePage() {
             <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-body text-sm sm:text-base">
-            © 2024 Ron AI. All rights reserved.
+            2024 Ron AI. All rights reserved.
           </p>
         </div>
       </footer>

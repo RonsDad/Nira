@@ -102,6 +102,21 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Prevent autoscroll behavior */
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* Ensure iframes don't cause focus issues */
+  iframe {
+    pointer-events: auto;
+  }
+
+  /* Prevent focus outline on iframes unless explicitly focused by keyboard */
+  iframe:focus:not(:focus-visible) {
+    outline: none;
+  }
 }
 
 /* Custom scrollbar for chatbot */
