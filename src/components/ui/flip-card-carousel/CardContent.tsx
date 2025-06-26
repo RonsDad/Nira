@@ -33,6 +33,10 @@ export function createCardTexture(
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
+  // Device-responsive calculations
+  const isMobileResolution = width <= 512;
+  const isTabletResolution = width > 512 && width <= 768;
+
   // ROUNDED CORNERS FUNCTION
   function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
     ctx.beginPath();
@@ -50,10 +54,10 @@ export function createCardTexture(
     roundRect(ctx, 0, 0, width, height, borderRadius);
     ctx.clip();
 
-    // Blue gradient background - FULL CARD
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, '#07015D');
-    gradient.addColorStop(1, '#050022');
+    // Main gradient background - blue theme
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#3b82f6');  // Matching logo blue
+    gradient.addColorStop(1, '#2563eb');  // Slightly darker blue
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
     
@@ -67,28 +71,45 @@ export function createCardTexture(
     
     // White border with rounded corners
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.lineWidth = 6;
+    ctx.lineWidth = Math.max(4, width * 0.006);
     roundRect(ctx, 12, 12, width - 24, height - 24, borderRadius - 12);
     ctx.stroke();
     
-    // Label - USING PROPER FONT
+    // Label - responsive font size
     if (content.label) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-      ctx.font = `600 ${width * 0.04}px "Crimson Pro", serif`;
+      let labelSize;
+      if (isMobileResolution) {
+        labelSize = width * 0.04;
+      } else if (isTabletResolution) {
+        labelSize = width * 0.038;
+      } else {
+        labelSize = width * 0.035;
+      }
+      ctx.font = `600 ${labelSize}px "Crimson Pro", serif`;
       ctx.textAlign = 'left';
       ctx.letterSpacing = '4px';
       ctx.fillText(content.label.toUpperCase(), width * 0.08, height * 0.08);
     }
 
-    // Title - USING PLAYFAIR DISPLAY AND TAKING UP MORE SPACE
+    // Title - responsive sizing
     ctx.fillStyle = '#ffffff';
-    ctx.font = `700 ${width * 0.12}px "Playfair Display", serif`; // EVEN BIGGER
+    let titleSize;
+    if (isMobileResolution) {
+      titleSize = width * 0.11;
+    } else if (isTabletResolution) {
+      titleSize = width * 0.10;
+    } else {
+      titleSize = width * 0.09;
+    }
+    
+    ctx.font = `700 ${titleSize}px "Playfair Display", serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     
     // Word wrap for title
     const words = content.title.split(' ');
-    const lineHeight = width * 0.14; // More spacing
+    const lineHeight = titleSize * 1.2;
     const lines: string[] = [];
     let currentLine = '';
     const maxWidth = width * 0.85;
@@ -108,11 +129,11 @@ export function createCardTexture(
     }
     lines.push(currentLine.trim());
 
-    // Add subtle shadow for text
+    // Add subtle shadow for text - responsive
     ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-    ctx.shadowBlur = 6;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+    ctx.shadowBlur = isMobileResolution ? 4 : 6;
+    ctx.shadowOffsetX = isMobileResolution ? 1 : 2;
+    ctx.shadowOffsetY = isMobileResolution ? 1 : 2;
 
     lines.forEach((line, index) => {
       ctx.fillText(line, width / 2, yStart + index * lineHeight);
@@ -125,15 +146,15 @@ export function createCardTexture(
     ctx.shadowOffsetY = 0;
 
   } else {
-    // ROUNDED CORNERS WITH CLIPPING
+    // Back side of card
     const borderRadius = width * 0.04;
     roundRect(ctx, 0, 0, width, height, borderRadius);
     ctx.clip();
 
-    // Back of card - Blue gradient background FULL CARD
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, '#07015D');
-    gradient.addColorStop(1, '#050022');
+    // Main gradient background - blue theme
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#3b82f6');
+    gradient.addColorStop(1, '#2563eb');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
     
@@ -147,20 +168,28 @@ export function createCardTexture(
     
     // White border with rounded corners
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.lineWidth = 6;
+    ctx.lineWidth = Math.max(4, width * 0.006);
     roundRect(ctx, 12, 12, width - 24, height - 24, borderRadius - 12);
     ctx.stroke();
 
-    // Content text - USING CRIMSON PRO FONT AND BIGGER SIZE
+    // Content text - responsive font size
     ctx.fillStyle = '#ffffff';
-    const fontSize = Math.floor(width * 0.065); // MUCH BIGGER font
+    let fontSize;
+    if (isMobileResolution) {
+      fontSize = Math.floor(width * 0.052);
+    } else if (isTabletResolution) {
+      fontSize = Math.floor(width * 0.048);
+    } else {
+      fontSize = Math.floor(width * 0.045);
+    }
+    
     ctx.font = `400 ${fontSize}px "Crimson Pro", serif`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
     
     // Word wrap for content
     const words = content.text.split(' ');
-    const lineHeight = fontSize * 1.6; // More line spacing
+    const lineHeight = fontSize * 1.6;
     const lines: string[] = [];
     let currentLine = '';
     const paddedWidth = width * 0.85;
@@ -182,9 +211,9 @@ export function createCardTexture(
     }
     lines.push(currentLine.trim());
 
-    // Add shadow for better readability
+    // Add shadow for better readability - responsive
     ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-    ctx.shadowBlur = 4;
+    ctx.shadowBlur = isMobileResolution ? 3 : 4;
     ctx.shadowOffsetX = 1;
     ctx.shadowOffsetY = 1;
 

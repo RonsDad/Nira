@@ -141,18 +141,21 @@ export default function SecurityCompliancePage() {
                 turning complex mandates into your competitive advantage.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
-                >
-                  Explore Compliance Solutions
-                </Button>
+                <Link href="#compliance-solutions" scroll={true}>
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                  >
+                    Explore Compliance Solutions
+                  </Button>
+                </Link>
                 <Button 
                   size="lg" 
                   variant="outline"
                   className="border-2 border-slate-300 hover:border-slate-400 font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
+                  onClick={generateExecutiveBriefPDF}
                 >
-                  View Security Whitepaper
+                  View Security White Paper
                 </Button>
               </div>
             </motion.div>
@@ -337,7 +340,7 @@ export default function SecurityCompliancePage() {
       </section>
 
       {/* The Nira Solution Section */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
+      <section id="compliance-solutions" className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -726,12 +729,14 @@ export default function SecurityCompliancePage() {
                   with Nira's intelligent compliance platform.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-slate-900 hover:bg-gray-100 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
-                  >
-                    Request Early Access
-                  </Button>
+                  <Link href="/contact">
+                    <Button 
+                      size="lg" 
+                      className="bg-white text-slate-900 hover:bg-gray-100 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                    >
+                      Request Early Access
+                    </Button>
+                  </Link>
                   <Button 
                     size="lg" 
                     variant="outline"

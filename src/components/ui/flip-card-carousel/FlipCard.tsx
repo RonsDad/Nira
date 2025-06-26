@@ -23,119 +23,183 @@ export const FlipCard: React.FC<FlipCardProps> = ({
 }) => {
   const groupRef = useRef<THREE.Group>();
   const hasFlippedRef = useRef(false);
+  const meshesRef = useRef<{ front: THREE.Mesh; back: THREE.Mesh }>();
 
   useEffect(() => {
-    if (!scene) {
-      console.log('FlipCard: No scene available');
-      return;
-    }
-    console.log(`FlipCard ${index}: Creating card`);
+    if (!scene) return;
 
-    // Create card group
     const cardGroup = new THREE.Group();
     groupRef.current = cardGroup;
 
-    // Card dimensions - responsive based on screen width
-    const isMobile = window.innerWidth < 640; // sm breakpoint
-    const isTablet = window.innerWidth < 1024; // lg breakpoint
-    
-    // Increase card sizes to better fill the container
-    const width = isMobile ? 4.5 : isTablet ? 5.5 : 6;
-    const height = isMobile ? 6 : isTablet ? 7.5 : 8;
-    const depth = 0.02;
+    // Get camera
+    const camera = scene.userData.camera as THREE.PerspectiveCamera;
+    if (!camera) return;
 
-    // Simple plane geometry for the card
-    const planeGeometry = new THREE.PlaneGeometry(width, height);
+    // Device-responsive calculations
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    
+    // Calculate visible area at z=0 (where cards are positioned)
+    const distance = camera.position.z;
+    const vFov = THREE.MathUtils.degToRad(camera.fov);
+    const height = 2 * Math.tan(vFov / 2) * distance;
+    const width = height * camera.aspect;
+
+    // Responsive card sizing based on device
+    let cardSizeMultiplier;
+    if (isMobile) {
+      cardSizeMultiplier = 0.85; // Use more screen on mobile
+    } else if (isTablet) {
+      cardSizeMultiplier = 0.75;
+    } else {
+      cardSizeMultiplier = 0.65; // Desktop
+    }
+
+    // Card size based on visible area
+    let cardWidth = width * cardSizeMultiplier;
+    let cardHeight = cardWidth * 1.3; // Maintain aspect ratio
+
+    // Ensure card fits vertically with padding
+    const maxHeightMultiplier = isMobile ? 0.85 : 0.9;
+    if (cardHeight > height * maxHeightMultiplier) {
+      const scale = (height * maxHeightMultiplier) / cardHeight;
+      cardWidth *= scale;
+      cardHeight *= scale;
+    }
+
+    // Create geometry
+    const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
+    
+    // Device-based canvas resolution
+    let canvasSize;
+    if (isMobile) {
+      canvasSize = Math.min(window.innerWidth * window.devicePixelRatio, 512);
+    } else if (isTablet) {
+      canvasSize = Math.min(window.innerWidth * window.devicePixelRatio, 768);
+    } else {
+      canvasSize = Math.min(window.innerWidth * window.devicePixelRatio, 1024);
+    }
     
     // Front face
     const frontTexture = createCardTexture({
       title: data.frontTitle,
       text: '',
       label: 'HEALTHCARE'
-    }, true);
+    }, true, canvasSize, canvasSize * 1.5);
     
     const frontMaterial = new THREE.MeshBasicMaterial({
       map: frontTexture,
       side: THREE.FrontSide,
-      transparent: false,
     });
 
-    const frontMesh = new THREE.Mesh(planeGeometry, frontMaterial);
-    frontMesh.position.z = depth / 2 + 0.001; // Slight offset to prevent z-fighting
-    frontMesh.castShadow = true;
-    frontMesh.receiveShadow = true;
+    const frontMesh = new THREE.Mesh(geometry, frontMaterial);
+    frontMesh.position.z = 0.01;
 
     // Back face
     const backTexture = createCardTexture({
       title: data.frontTitle,
       text: data.backContent
-    }, false);
+    }, false, canvasSize, canvasSize * 1.5);
     
     const backMaterial = new THREE.MeshBasicMaterial({
       map: backTexture,
-      side: THREE.FrontSide,
-      transparent: false,
+      side: THREE.FrontSide, // Changed to FrontSide
     });
 
-    const backMesh = new THREE.Mesh(planeGeometry, backMaterial);
-    backMesh.position.z = -depth / 2 - 0.001;
-    backMesh.rotation.y = Math.PI;
-    backMesh.castShadow = true;
-    backMesh.receiveShadow = true;
+    const backMesh = new THREE.Mesh(geometry, backMaterial);
+    backMesh.position.z = -0.01;
+    backMesh.rotation.y = Math.PI; // Rotate 180 degrees to face backwards
 
-    // Add meshes to group
+    meshesRef.current = { front: frontMesh, back: backMesh };
+    
     cardGroup.add(frontMesh);
     cardGroup.add(backMesh);
-
-    // Position based on index
-    cardGroup.position.x = index * 0.1; // Slight offset to prevent z-fighting
-    cardGroup.position.y = 0;
-    cardGroup.position.z = -index * 0.1;
-
-    // Add to scene
-    scene.add(cardGroup);
     
-    // Notify parent about group creation
+    // Position
+    cardGroup.position.set(0, 0, 0);
+    cardGroup.visible = index === 0;
+    
+    scene.add(cardGroup);
     onGroupCreated?.(cardGroup, index);
 
-    // Initially hide all cards except the first one
-    if (index !== 0) {
-      cardGroup.visible = false;
-    }
+    // Responsive update function
+    const updateCardSize = () => {
+      const camera = scene.userData.camera as THREE.PerspectiveCamera;
+      if (!camera || !meshesRef.current) return;
+      
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+      
+      const distance = camera.position.z;
+      const vFov = THREE.MathUtils.degToRad(camera.fov);
+      const height = 2 * Math.tan(vFov / 2) * distance;
+      const width = height * camera.aspect;
+
+      let cardSizeMultiplier;
+      if (isMobile) {
+        cardSizeMultiplier = 0.85;
+      } else if (isTablet) {
+        cardSizeMultiplier = 0.75;
+      } else {
+        cardSizeMultiplier = 0.65;
+      }
+
+      let cardWidth = width * cardSizeMultiplier;
+      let cardHeight = cardWidth * 1.3;
+
+      const maxHeightMultiplier = isMobile ? 0.85 : 0.9;
+      if (cardHeight > height * maxHeightMultiplier) {
+        const scale = (height * maxHeightMultiplier) / cardHeight;
+        cardWidth *= scale;
+        cardHeight *= scale;
+      }
+
+      // Dispose old geometry
+      geometry.dispose();
+      
+      // Create new geometry
+      const newGeometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
+      meshesRef.current.front.geometry = newGeometry;
+      meshesRef.current.back.geometry = newGeometry;
+    };
+
+    // Handle resize events
+    const handleResize = () => {
+      updateCardSize();
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
 
     return () => {
-      // Cleanup
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+      
       killAllAnimations(cardGroup);
       scene.remove(cardGroup);
-      
-      // Dispose of geometries and materials
-      planeGeometry.dispose();
+      geometry.dispose();
       frontMaterial.dispose();
       backMaterial.dispose();
       frontTexture.dispose();
       backTexture.dispose();
     };
-  }, [data, scene, index]);
+  }, [data, scene, index, onGroupCreated]);
 
   useEffect(() => {
     if (!groupRef.current) return;
     
-    // Show/hide card based on active state
     groupRef.current.visible = isActive;
     
     if (!isActive) {
       hasFlippedRef.current = false;
-      // Reset rotation when card becomes inactive
       groupRef.current.rotation.y = 0;
       return;
     }
 
-    // Auto-flip after 3 seconds when active
     const flipTimeout = setTimeout(() => {
       if (!hasFlippedRef.current && groupRef.current) {
         createFlipAnimation(groupRef.current, () => {
           hasFlippedRef.current = true;
-          // Wait 5 seconds after flip to allow ample reading time
           setTimeout(() => {
             onFlipComplete?.();
           }, 5000);

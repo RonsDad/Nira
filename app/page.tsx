@@ -60,11 +60,11 @@ export default function Home() {
             {/* Hero Text */}
             <div className="text-center lg:text-left order-2 lg:order-1">
               <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">
-                The End of <span className="text-blue-700">Administrative Work</span>
+                We're Canceling Prior Auth Burden <span className="text-blue-700">For Good...</span>
               </h1>
               <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 mb-6 sm:mb-10 leading-relaxed">
-                Meet Nira, the AI-powered clinician's co-pilot from Ron AI. We automate your tedious tasks, 
-                accelerate your research, and manage your career, freeing you to practice medicine.
+                We're building Nira to streamline prior authorizations for providers. Our AI-powered platform will handle the complexity, 
+                reduce delays, and give you back time to focus on patient care.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/our-products#early-adopter">
@@ -94,10 +94,10 @@ export default function Home() {
       <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 sm:mb-16">
-            This Isn't Another App. It's Your <span className="text-blue-700">Command Center</span>.
+            See the Future of <span className="text-blue-700">Streamlined Prior Authorization</span>
           </h2>
           
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+          <div className="relative w-full rounded-xl shadow-2xl overflow-hidden border-4 border-slate-200 bg-slate-800 pb-[100%] sm:pb-[56.25%]">
             {/* Browser Frame Header */}
             <div className="bg-slate-100 px-3 sm:px-6 py-2 sm:py-4 flex items-center space-x-2 border-b border-slate-200">
               <div className="flex space-x-1 sm:space-x-2">
@@ -114,7 +114,7 @@ export default function Home() {
             <iframe 
               src={prototypeUrl}
               title="Nira AI prototype demonstration"
-              className="w-full aspect-video rounded-b-lg"
+              className="absolute inset-0 w-full h-full rounded-b-lg"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
@@ -142,16 +142,16 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1">
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 sm:mb-6">
-                You Became a Clinician to Care for <span className="text-blue-700">Patients, Not Paperwork</span>.
+                Prior Authorization Shouldn't Take You Away From <span className="text-blue-700">Patients</span>
               </h2>
               <p className="font-body text-lg sm:text-xl text-slate-700 leading-relaxed">
-                Clinicians spend up to 28 hours a week on administrative tasks, leading to burnout in over 50% of the workforce. 
-                Ron AI's flagship product, Nira, is designed to solve this systemic failure.
+                With providers spending up to 28 hours weekly on administrative tasks and 93% reporting treatment delays from prior auth, 
+                we're developing Nira to transform this process—creating efficiency for providers, better outcomes for patients, and smoother workflows for everyone.
               </p>
             </div>
             
             {/* 3D Flip Card Carousel */}
-            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2 w-full px-4 sm:px-0 sm:max-w-md mx-auto lg:max-w-none">
+            <div className="col-span-1 lg:col-span-1 order-1 lg:order-2 w-full sm:max-w-md mx-auto lg:max-w-none">
               <FlipCardCarousel
                 cards={healthcareChallengeCards}
                 autoPlayInterval={10000}
@@ -166,7 +166,7 @@ export default function Home() {
       <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 sm:mb-16">
-            A Unified Platform for Your <span className="text-blue-700">Entire Workflow</span>
+            How We're Solving <span className="text-blue-700">Prior Authorization Challenges</span>
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -175,9 +175,9 @@ export default function Home() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Automate Administration</h3>
+                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Intelligent Automation</h3>
                 <p className="font-body text-base sm:text-lg text-slate-700 leading-relaxed">
-                  Prior Authorizations, Insurance Verification, Credentialing, Form Processing
+                  Smart form completion, real-time eligibility verification, and automated submission tracking to get faster, more accurate approvals
                 </p>
               </CardContent>
             </Card>
@@ -187,9 +187,9 @@ export default function Home() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Enhance Clinical Work</h3>
+                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Clinical Documentation</h3>
                 <p className="font-body text-base sm:text-lg text-slate-700 leading-relaxed">
-                  Literature Reviews, Care Plan Drafting, Drug & Trial Research
+                  Evidence-based justifications, automated clinical summaries, and built-in compliance to support approval on first submission
                 </p>
               </CardContent>
             </Card>
@@ -199,9 +199,9 @@ export default function Home() {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Rocket className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Manage Your Career</h3>
+                <h3 className="font-heading font-bold text-xl sm:text-2xl text-slate-900 mb-3 sm:mb-4">Workflow Optimization</h3>
                 <p className="font-body text-base sm:text-lg text-slate-700 leading-relaxed">
-                  Automated Job Search, Resume Optimization, CME Tracking
+                  Dashboard analytics, bottleneck identification, and time tracking to continuously improve your authorization processes
                 </p>
               </CardContent>
             </Card>
@@ -213,10 +213,10 @@ export default function Home() {
       <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-r from-slate-800 to-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-            The Future of Clinical Work is <span className="text-blue-300">Here.</span>
+            Help Us Build the Solution <span className="text-blue-300">Providers Need</span>
           </h2>
           <p className="font-body text-lg sm:text-xl text-slate-300 mb-6 sm:mb-10 max-w-2xl mx-auto">
-            Stop the burnout. Reclaim your time. Be the first to experience Nira.
+            We're partnering with innovative practices to develop Nira. Join our early adopter program and shape the future of prior authorization management.
           </p>
           <Link href="/our-products#early-adopter">
             <Button 

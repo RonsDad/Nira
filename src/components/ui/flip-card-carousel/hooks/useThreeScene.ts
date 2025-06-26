@@ -14,99 +14,93 @@ export function useThreeScene({ canvasRef, onResize }: UseThreeSceneOptions) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (!canvasRef.current) {
-      console.log('useThreeScene: No canvas ref');
-      return;
-    }
-
-    console.log('useThreeScene: Initializing scene');
+    if (!canvasRef.current) return;
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff); // Pure white background
+    scene.background = new THREE.Color(0xffffff);
     sceneRef.current = scene;
 
-    // Camera setup - simpler positioning
-    const isMobile = window.innerWidth < 640;
-    const isTablet = window.innerWidth < 1024;
-    const camera = new THREE.PerspectiveCamera(
-      isMobile ? 40 : 50, // Wider FOV on mobile for better view
-      canvasRef.current.clientWidth / canvasRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    // Move camera further back on mobile for better readability
-    const cameraZ = isMobile ? 16 : isTablet ? 12 : 10;
-    camera.position.set(0, 0, cameraZ);
-    camera.lookAt(0, 0, 0);
+    // Camera - responsive field of view based on device
+    const isMobile = window.innerWidth < 768;
+    const fov = isMobile ? 85 : 75; // Wider FOV on mobile for better visibility
+    const aspect = 2; // the canvas default
+    const near = 0.1;
+    const far = 100;
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    
+    // Adjust camera distance based on device
+    camera.position.z = isMobile ? 6 : 5;
     cameraRef.current = camera;
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({
+    // Renderer with pixel ratio support
+    const renderer = new THREE.WebGLRenderer({ 
       canvas: canvasRef.current,
       antialias: true,
-      alpha: false,
+      alpha: true
     });
-    renderer.setClearColor(0xffffff, 1); // Force pure white background
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(canvasRef.current.clientWidth, canvasRef.current.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap at 2 for performance
     rendererRef.current = renderer;
 
-    // Simple lighting
+    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Add a test cube to verify scene is working
-    const testGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const testMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    const testCube = new THREE.Mesh(testGeometry, testMaterial);
-    testCube.position.set(0, -10, 0); // Hide it below view
-    scene.add(testCube);
+    // Store references for cards
+    scene.userData.camera = camera;
 
-    // Resize handler
-    const handleResize = () => {
-      if (!canvasRef.current || !camera || !renderer) return;
+    // Three.js recommended responsive resize function with HD-DPI support
+    function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
+      const canvas = renderer.domElement;
+      const pixelRatio = window.devicePixelRatio;
+      const width = Math.floor(canvas.clientWidth * pixelRatio);
+      const height = Math.floor(canvas.clientHeight * pixelRatio);
+      const needResize = canvas.width !== width || canvas.height !== height;
+      if (needResize) {
+        renderer.setSize(width, height, false);
+        onResize?.(width, height);
+      }
+      return needResize;
+    }
 
-      const width = canvasRef.current.clientWidth;
-      const height = canvasRef.current.clientHeight;
-
-      camera.aspect = width / height;
+    // Update camera on device orientation change
+    function updateCameraForDevice() {
+      const isMobile = window.innerWidth < 768;
+      camera.fov = isMobile ? 85 : 75;
+      camera.position.z = isMobile ? 6 : 5;
       camera.updateProjectionMatrix();
-      
-      // Update camera position on resize
-      const isMobile = window.innerWidth < 640;
-      const isTablet = window.innerWidth < 1024;
-      const cameraZ = isMobile ? 16 : isTablet ? 12 : 10;
-      camera.position.setZ(cameraZ);
-      
-      // Update FOV on resize
-      camera.fov = isMobile ? 40 : 50;
-      camera.updateProjectionMatrix();
-      
-      renderer.setSize(width, height);
+    }
 
-      onResize?.(width, height);
-    };
+    // Handle window resize and orientation change
+    function onWindowResize() {
+      updateCameraForDevice();
+    }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('orientationchange', onWindowResize);
 
-    // Animation loop
-    const animate = () => {
-      frameIdRef.current = requestAnimationFrame(animate);
+    // Render loop - exactly from Three.js documentation
+    function render() {
+      if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+
       renderer.render(scene, camera);
-    };
-    animate();
-
-    // Mark as initialized
+      frameIdRef.current = requestAnimationFrame(render);
+    }
+    
+    frameIdRef.current = requestAnimationFrame(render);
     setIsInitialized(true);
-    console.log('useThreeScene: Scene initialized');
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', onWindowResize);
+      window.removeEventListener('orientationchange', onWindowResize);
+      
       if (frameIdRef.current) {
         cancelAnimationFrame(frameIdRef.current);
       }

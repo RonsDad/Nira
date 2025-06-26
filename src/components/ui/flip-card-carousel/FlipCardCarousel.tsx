@@ -93,14 +93,39 @@ export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
     }
   }, []);
 
+  // Device-responsive container classes
+  const containerClasses = `
+    relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl
+    
+    /* Height responsive to viewport and device */
+    h-[75vh] max-h-[500px] /* Mobile portrait */
+    landscape:h-[85vh] landscape:max-h-[400px] /* Mobile landscape */
+    
+    sm:h-[70vh] sm:max-h-[600px] /* Small tablets */
+    sm:landscape:h-[80vh] sm:landscape:max-h-[500px]
+    
+    md:h-[75vh] md:max-h-[700px] /* Tablets */
+    lg:h-[80vh] lg:max-h-[800px] /* Desktop */
+    xl:h-[85vh] xl:max-h-[900px] /* Large desktop */
+    
+    /* Minimum height to ensure readability */
+    min-h-[400px]
+    
+    /* Ensure proper aspect ratio on very wide screens */
+    2xl:max-w-[1400px] 2xl:mx-auto
+    
+    ${className}
+  `.replace(/\s+/g, ' ').trim();
+
   return (
-    <div className={`relative w-full h-[450px] xs:h-[500px] sm:h-[550px] md:h-[600px] lg:h-[700px] bg-white rounded-2xl overflow-hidden shadow-2xl ${className}`}>
+    <div className={containerClasses}>
       {/* Three.js Canvas */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
+        className="w-full h-full touch-none"
         onMouseDown={pauseAutoPlay}
         onTouchStart={pauseAutoPlay}
+        style={{ touchAction: 'none' }} // Prevent touch scrolling on canvas
       />
 
       {/* Render cards */}
