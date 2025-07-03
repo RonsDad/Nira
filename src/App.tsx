@@ -1,12 +1,12 @@
 import { useState, useEffect, ReactNode } from "react";
-import { Sidebar } from "../src/components/Sidebar";
-import { ChatBubble } from "../src/components/ChatBubble";
-import { ProviderCard } from "../src/components/ProviderCard";
-import { BrowserAutomationViewer } from "../src/components/BrowserAutomationViewer";
-import { ChatInput } from "../src/components/ChatInput";
-import { BrowserViewPanel } from "../src/components/BrowserViewPanel";
-import { PreviewPanel } from "../src/components/PreviewPanel";
-import { TelephoneUI } from "../src/components/TelephoneUI";
+import { Sidebar } from "./components/Sidebar";
+import { ChatBubble } from "./components/ChatBubble";
+import { ProviderCard } from "./components/ProviderCard";
+import { BrowserAutomationViewer } from "./components/BrowserAutomationViewer";
+import { ChatInput } from "./components/ChatInput";
+import { BrowserViewPanel } from "./components/BrowserViewPanel";
+import { PreviewPanel } from "./components/PreviewPanel";
+import { TelephoneUI } from "./components/TelephoneUI";
 import { Sparkles, Activity, Zap, Layout, Eye, Code, Bot, Target } from "lucide-react";
 
 interface Message {

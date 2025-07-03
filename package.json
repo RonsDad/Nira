@@ -1,0 +1,29 @@
+{
+  "name": "nira",
+  "version": "1.0.0",
+  "description": "Nira - Browser automation project with React frontend and FastAPI backend",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "backend": "uvicorn server.browser_server:app --reload --port 8000",
+    "dev:all": "concurrently \"npm run backend\" \"npm run dev\"",
+    "kill-ports": "node scripts/kill-ports.js",
+    "install-all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/node": "^20.0.0",
+    "lucide-react": "^0.525.0",
+    "next": "^14.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
