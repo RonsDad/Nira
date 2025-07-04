@@ -1,13 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { Send, Zap, ArrowUp } from "lucide-react";
 import { MacroMenu } from "./MacroMenu";
 
 interface ChatInputProps {
-  onSendMessage: (message: string, deepResearch: boolean) => void;
+  onSendMessage: (message: string, deepResearch: boolean, onMessageProcessed?: (response: string | ReactNode) => void) => Promise<void>;
   disabled?: boolean;
+  onShowBrowser?: () => void;
+  onShowPreview?: (content: any) => void;
+  onShowPhone?: () => void;
 }
 
-export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
+export function ChatInput({ onSendMessage, disabled = false, onShowBrowser, onShowPreview, onShowPhone }: ChatInputProps) {
   const [message, setMessage] = useState("");
   const [deepResearch, setDeepResearch] = useState(false);
   const [showMacroMenu, setShowMacroMenu] = useState(false);
@@ -104,9 +107,9 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
         className="relative ice-glass-elevated rounded-2xl p-4 transition-all duration-300 hover:shadow-lg"
         style={{
           background: `linear-gradient(135deg, 
-            var(--color-ice-surface) 0%,
-            var(--color-ice-base) 50%,
-            var(--color-ice-crystalline) 100%)`
+            var(--ice-surface) 0%,
+            var(--ice-base) 50%,
+            var(--ice-crystalline) 100%)`
         }}
       >
         {/* Enhanced ice/glass overlay */}
@@ -114,10 +117,10 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
             background: `linear-gradient(135deg, 
-              var(--color-ice-highlight) 0%,
+              var(--ice-highlight) 0%,
               transparent 30%,
               transparent 70%,
-              var(--color-ice-reflection) 100%)`,
+              var(--ice-reflection) 100%)`,
             opacity: 0.3
           }}
         />
@@ -132,12 +135,12 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
             style={{
               background: deepResearch 
                 ? `linear-gradient(135deg, 
-                    var(--color-ice-surface) 0%,
-                    var(--color-ice-base) 100%)`
+                    var(--ice-surface) 0%,
+                    var(--ice-base) 100%)`
                 : 'transparent',
               color: deepResearch 
-                ? 'var(--color-accent-blue)' 
-                : 'var(--color-text-secondary)'
+                ? 'var(--accent-blue)' 
+                : 'var(--text-secondary)'
             }}
           >
             <Zap 
@@ -150,7 +153,7 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
           <div className="flex items-center gap-2">
             <div 
               className="text-xs opacity-60"
-              style={{ color: 'var(--color-text-secondary)' }}
+              style={{ color: 'var(--text-secondary)' }}
             >
               Type / for macros
             </div>
@@ -158,13 +161,13 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
               className="w-6 h-6 rounded-lg ice-glass flex items-center justify-center"
               style={{
                 background: `linear-gradient(135deg, 
-                  var(--color-ice-highlight) 0%, 
-                  var(--color-ice-crystalline) 100%)`
+                  var(--ice-highlight) 0%, 
+                  var(--ice-crystalline) 100%)`
               }}
             >
               <span 
                 className="text-xs font-semibold"
-                style={{ color: 'var(--color-accent-blue)' }}
+                style={{ color: 'var(--accent-blue)' }}
               >
                 /
               </span>
@@ -184,10 +187,9 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
               disabled={disabled}
               className="w-full resize-none rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300 focus:outline-none focus:ring-2 min-h-[48px] max-h-[120px]"
               style={{
-                backgroundColor: 'var(--color-ice-base)',
-                border: '1px solid var(--color-ice-border)',
-                color: 'var(--color-text-primary)',
-                focusRingColor: 'var(--color-accent-blue)',
+                backgroundColor: 'var(--ice-base)',
+                border: '1px solid var(--ice-border)',
+                color: 'var(--text-primary)',
                 backdropFilter: 'blur(20px)'
               }}
               rows={1}
@@ -201,13 +203,13 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
               }}
             >
               <div className="flex items-center gap-1 text-xs">
-                <span style={{ color: 'var(--color-text-secondary)' }}>
+                <span style={{ color: 'var(--text-secondary)' }}>
                   Press
                 </span>
                 <kbd 
                   className="px-1.5 py-0.5 rounded text-xs ice-glass"
                   style={{ 
-                    color: 'var(--color-accent-blue)',
+                    color: 'var(--accent-blue)',
                     fontSize: '10px'
                   }}
                 >
@@ -229,11 +231,11 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
             style={{
               background: message.trim() && !disabled
                 ? `linear-gradient(135deg, 
-                    var(--color-accent-blue) 0%, 
-                    var(--color-accent-blue-bright) 100%)`
+                    var(--accent-blue) 0%, 
+                    var(--accent-blue-bright) 100%)`
                 : `linear-gradient(135deg, 
-                    var(--color-ice-surface) 0%,
-                    var(--color-ice-base) 100%)`
+                    var(--ice-surface) 0%,
+                    var(--ice-base) 100%)`
             }}
           >
             {/* Crystalline shine effect */}
@@ -242,7 +244,7 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
               style={{
                 background: `linear-gradient(45deg, 
                   transparent 30%, 
-                  var(--color-ice-highlight) 50%, 
+                  var(--ice-highlight) 50%, 
                   transparent 70%)`
               }}
             />
@@ -255,7 +257,7 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
                       key={i}
                       className="w-1 h-1 rounded-full animate-bounce"
                       style={{ 
-                        backgroundColor: 'var(--color-accent-blue)',
+                        backgroundColor: 'var(--accent-blue)',
                         animationDelay: `${i * 150}ms`
                       }}
                     />
@@ -266,7 +268,7 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
                   size={18} 
                   className="transition-transform duration-200 group-hover:scale-110"
                   style={{ 
-                    color: message.trim() ? 'white' : 'var(--color-text-secondary)'
+                    color: message.trim() ? 'white' : 'var(--text-secondary)'
                   }}
                 />
               )}
@@ -280,9 +282,9 @@ export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
           style={{
             background: `linear-gradient(90deg, 
               transparent 0%, 
-              var(--color-accent-blue) 20%, 
-              var(--color-accent-blue-bright) 50%, 
-              var(--color-accent-blue) 80%, 
+              var(--accent-blue) 20%, 
+              var(--accent-blue-bright) 50%, 
+              var(--accent-blue) 80%, 
               transparent 100%)`,
             opacity: 0.3
           }}

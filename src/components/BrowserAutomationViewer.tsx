@@ -53,17 +53,17 @@ export function BrowserAutomationViewer({
   return (
     <div 
       className="rounded-xl glass-effect p-4 my-4"
-      style={{ backgroundColor: 'var(--color-glass-dark)' }}
+      style={{ backgroundColor: 'var(--glass-dark)' }}
     >
       {/* Browser Header */}
       <div 
         className="flex items-center gap-3 p-3 rounded-lg mb-4"
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
       >
-        <Globe size={16} style={{ color: 'var(--color-text-secondary)' }} />
+        <Globe size={16} style={{ color: 'var(--text-secondary)' }} />
         <span 
           className="font-mono text-sm"
-          style={{ color: 'var(--color-text-secondary)' }}
+          style={{ color: 'var(--text-secondary)' }}
         >
           {url}
         </span>
@@ -77,14 +77,14 @@ export function BrowserAutomationViewer({
         <div className="text-center">
           <div 
             className="w-12 h-12 rounded-full border-2 mx-auto mb-2 flex items-center justify-center"
-            style={{ borderColor: 'var(--color-accent-blue)' }}
+            style={{ borderColor: 'var(--accent-blue)' }}
           >
             <div 
               className="w-6 h-6 rounded-full"
-              style={{ backgroundColor: 'var(--color-accent-blue)' }}
+              style={{ backgroundColor: 'var(--accent-blue)' }}
             />
           </div>
-          <p style={{ color: 'var(--color-text-secondary)' }}>
+          <p style={{ color: 'var(--text-secondary)' }}>
             Interacting with appointment portal...
           </p>
         </div>
@@ -98,31 +98,31 @@ export function BrowserAutomationViewer({
               {step.status === "completed" ? (
                 <div 
                   className="w-5 h-5 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: 'var(--color-accent-blue)' }}
+                  style={{ backgroundColor: 'var(--accent-blue)' }}
                 >
                   <Check size={12} color="white" />
                 </div>
               ) : step.status === "in-progress" ? (
                 <div 
                   className="w-5 h-5 rounded-full border-2 border-dashed animate-spin flex items-center justify-center"
-                  style={{ borderColor: 'var(--color-accent-blue)' }}
+                  style={{ borderColor: 'var(--accent-blue)' }}
                 >
-                  <Clock size={10} style={{ color: 'var(--color-accent-blue)' }} />
+                  <Clock size={10} style={{ color: 'var(--accent-blue)' }} />
                 </div>
               ) : (
                 <div 
                   className="w-5 h-5 rounded-full border-2"
-                  style={{ borderColor: 'var(--color-text-secondary)' }}
+                  style={{ borderColor: 'var(--text-secondary)' }}
                 />
               )}
             </div>
             <span 
               className={step.status === "completed" ? "opacity-60" : ""}
-              style={{ color: 'var(--color-text-primary)' }}
+              style={{ color: 'var(--text-primary)' }}
             >
               {step.description}
               {step.status === "in-progress" && (
-                <span style={{ color: 'var(--color-accent-blue)' }}> (In Progress)</span>
+                <span style={{ color: 'var(--accent-blue)' }}> (In Progress)</span>
               )}
             </span>
           </div>

@@ -10,6 +10,7 @@ interface ProviderCardProps {
   distance: string;
   nextAvailable: string;
   acceptsInsurance: boolean;
+  insuranceProvider?: string;
   address: string;
   onSelect?: () => void;
 }
@@ -22,6 +23,7 @@ export function ProviderCard({
   distance,
   nextAvailable,
   acceptsInsurance,
+  insuranceProvider,
   address,
   onSelect
 }: ProviderCardProps) {
@@ -132,7 +134,7 @@ export function ProviderCard({
           </div>
           <div className="flex-1">
             <p className="font-bold text-blue-300">
-              Accepts Aetna Insurance
+              {insuranceProvider ? `Accepts ${insuranceProvider}` : 'Accepts Your Insurance'}
             </p>
             <p className="text-blue-200 text-sm">
               Verified coverage

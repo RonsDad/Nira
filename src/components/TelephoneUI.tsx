@@ -98,9 +98,9 @@ export function TelephoneUI({
           onClick={onMaximize}
           style={{
             background: `linear-gradient(135deg, 
-              var(--color-ice-surface) 0%,
-              var(--color-ice-base) 50%,
-              var(--color-ice-crystalline) 100%)`
+              var(--ice-surface) 0%,
+              var(--ice-base) 50%,
+              var(--ice-crystalline) 100%)`
           }}
         >
           <div className="w-full h-full flex items-center justify-center relative">
@@ -124,7 +124,7 @@ export function TelephoneUI({
             ) : (
               <Phone 
                 size={24} 
-                style={{ color: 'var(--color-accent-blue)' }}
+                style={{ color: 'var(--accent-blue)' }}
               />
             )}
 
@@ -132,7 +132,7 @@ export function TelephoneUI({
               <div 
                 className="absolute -top-2 -right-2 px-2 py-1 rounded-lg ice-glass text-xs font-medium"
                 style={{ 
-                  color: 'var(--color-text-primary)',
+                  color: 'var(--text-primary)',
                   fontSize: '10px'
                 }}
               >
@@ -147,15 +147,15 @@ export function TelephoneUI({
           className="ice-glass-elevated rounded-2xl shadow-2xl overflow-hidden"
           style={{
             background: `linear-gradient(135deg, 
-              var(--color-ice-surface) 0%,
-              var(--color-ice-base) 30%,
-              var(--color-ice-crystalline) 100%)`
+              var(--ice-surface) 0%,
+              var(--ice-base) 30%,
+              var(--ice-crystalline) 100%)`
           }}
         >
           {/* Header - drag here */}
           <div
             className="p-4 border-b cursor-move select-none"
-            style={{ borderColor: 'var(--color-ice-border)' }}
+            style={{ borderColor: 'var(--ice-border)' }}
             onMouseDown={startDrag}
           >
             <div className="flex items-center justify-between">
@@ -163,20 +163,20 @@ export function TelephoneUI({
                 <div 
                   className="w-2 h-2 rounded-full"
                   style={{ 
-                    backgroundColor: isConnected ? '#22C55E' : 'var(--color-accent-blue)',
+                    backgroundColor: isConnected ? '#22C55E' : 'var(--accent-blue)',
                     boxShadow: isConnected ? '0 0 8px rgba(34, 197, 94, 0.5)' : '0 0 8px rgba(59, 130, 246, 0.3)'
                   }}
                 />
                 <div>
                   <h3 
                     className="font-semibold text-sm"
-                    style={{ color: 'var(--color-text-primary)' }}
+                    style={{ color: 'var(--text-primary)' }}
                   >
                     {contactName}
                   </h3>
                   <p 
                     className="text-xs opacity-70"
-                    style={{ color: 'var(--color-text-secondary)' }}
+                    style={{ color: 'var(--text-secondary)' }}
                   >
                     {isConnected ? `Connected • ${formatDuration(callDuration)}` : contactNumber}
                   </p>
@@ -187,14 +187,14 @@ export function TelephoneUI({
                 <button
                   onClick={onMinimize}
                   className="w-6 h-6 rounded-lg ice-glass flex items-center justify-center"
-                  style={{ color: 'var(--color-text-secondary)' }}
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   <Minus size={12} />
                 </button>
                 <button
                   onClick={onClose}
                   className="w-6 h-6 rounded-lg ice-glass flex items-center justify-center hover:bg-red-500/20"
-                  style={{ color: 'var(--color-text-secondary)' }}
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   <X size={12} />
                 </button>
@@ -209,9 +209,9 @@ export function TelephoneUI({
                 className="w-16 h-16 rounded-2xl ice-glass-elevated mx-auto mb-3 flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, 
-                    var(--color-ice-highlight) 0%,
-                    var(--color-ice-surface) 50%,
-                    var(--color-ice-crystalline) 100%)`
+                    var(--ice-highlight) 0%,
+                    var(--ice-surface) 50%,
+                    var(--ice-crystalline) 100%)`
                 }}
               >
                 {isConnected ? (
@@ -223,7 +223,7 @@ export function TelephoneUI({
                 ) : (
                   <Phone 
                     size={28} 
-                    style={{ color: 'var(--color-accent-blue)' }}
+                    style={{ color: 'var(--accent-blue)' }}
                   />
                 )}
               </div>
@@ -249,7 +249,7 @@ export function TelephoneUI({
                     onClick={() => setIsMuted(!isMuted)}
                     className="w-12 h-12 rounded-xl ice-glass-elevated flex items-center justify-center"
                     style={{
-                      color: isMuted ? '#F59E0B' : 'var(--color-text-secondary)'
+                      color: isMuted ? '#F59E0B' : 'var(--text-secondary)'
                     }}
                   >
                     {isMuted ? <MicOff size={20} /> : <Mic size={20} />}
@@ -268,7 +268,7 @@ export function TelephoneUI({
 
                   <button
                     className="w-12 h-12 rounded-xl ice-glass-elevated flex items-center justify-center"
-                    style={{ color: 'var(--color-text-secondary)' }}
+                    style={{ color: 'var(--text-secondary)' }}
                   >
                     <Volume2 size={20} />
                   </button>
@@ -289,7 +289,7 @@ export function TelephoneUI({
 
             <div 
               className="mt-4 text-center text-sm opacity-70"
-              style={{ color: 'var(--color-text-secondary)' }}
+              style={{ color: 'var(--text-secondary)' }}
             >
               {isConnected 
                 ? "AI assistant handling your call"

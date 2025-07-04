@@ -1,24 +1,27 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState } from "react";
+import { Login } from "../src/components/Login";
+import { Onboarding } from "../src/components/Onboarding";
 import { Sidebar } from "../src/components/Sidebar";
 import { ChatBubble } from "../src/components/ChatBubble";
-import { ProviderCard } from "../src/components/ProviderCard";
-import { BrowserAutomationViewer } from "../src/components/BrowserAutomationViewer";
-import { ChatInput } from "../src/components/ChatInput";
 import { BrowserViewPanel } from "../src/components/BrowserViewPanel";
+import { ChatInput } from "../src/components/ChatInput";
 import { PreviewPanel } from "../src/components/PreviewPanel";
 import { TelephoneUI } from "../src/components/TelephoneUI";
-import { Sparkles, Activity, Zap, Layout, Eye, Code, Bot, Target } from "lucide-react";
+import { Sparkles, Activity, Zap, Layout, Bot, Target } from "lucide-react";
 
 interface Message {
   id: string;
   type: "ai" | "user";
-  content: ReactNode;
+  content: string | React.ReactNode;
   timestamp: string;
   component?: "providers" | "automation" | "browser" | "preview" | "phone";
   componentData?: any;
 }
 
+type AuthState = "login" | "onboarding" | "authenticated";
+
 export default function App() {
+  const [authState, setAuthState] = useState<AuthState>("login");
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
@@ -29,7 +32,6 @@ export default function App() {
   ]);
   
   const [isProcessing, setIsProcessing] = useState(false);
-  const [currentStep, setCurrentStep] = useState<"initial" | "searching" | "found" | "booking" | "completed">("initial");
   
   // Panel states
   const [browserPanelActive, setBrowserPanelActive] = useState(false);
@@ -45,37 +47,25 @@ export default function App() {
   const [phonePosition, setPhonePosition] = useState({ x: 100, y: 100 });
   const [phoneMinimized, setPhoneMinimized] = useState(false);
 
-  const mockProviders = [
-    {
-      name: "Dr. Sarah Kim",
-      specialty: "Dermatology & Cosmetic Surgery",
-      rating: 4.9,
-      reviews: 127,
-      distance: "2.3 miles",
-      nextAvailable: "Tomorrow, 2:30 PM",
-      acceptsInsurance: true,
-      address: "1245 Medical Plaza Dr"
-    },
-    {
-      name: "Dr. Michael Lee",
-      specialty: "General & Pediatric Dermatology",
-      rating: 4.8,
-      reviews: 89,
-      distance: "3.1 miles",
-      nextAvailable: "Tuesday, 10:00 AM",
-      acceptsInsurance: true,
-      address: "890 Health Center Blvd"
-    }
-  ];
+  const handleLogin = () => {
+    setAuthState("onboarding");
+  };
 
-  const automationSteps = [
-    { id: "1", description: "Navigating to provider portal...", status: "pending" as const },
-    { id: "2", description: "Entering patient information...", status: "pending" as const },
-    { id: "3", description: "Selecting time slot: Tuesday, 2:30 PM...", status: "pending" as const },
-    { id: "4", description: "Confirming appointment details...", status: "pending" as const },
-    { id: "5", description: "Booking confirmation received", status: "pending" as const }
-  ];
+  const handleOnboardingComplete = () => {
+    setAuthState("authenticated");
+  };
 
+  // Show Login screen
+  if (authState === "login") {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  // Show Onboarding screen
+  if (authState === "onboarding") {
+    return <Onboarding onComplete={handleOnboardingComplete} />;
+  }
+
+  // Main application (authenticated state)
   const addMessage = (message: Omit<Message, "id" | "timestamp">) => {
     const newMessage: Message = {
       ...message,
@@ -83,41 +73,6 @@ export default function App() {
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     };
     setMessages(prev => [...prev, newMessage]);
-  };
-
-  // Helper function to detect if a message contains a macro-generated prompt
-  const isMacroPrompt = (content: string): boolean => {
-    const macroIndicators = [
-      "PRIMARY OBJECTIVE:",
-      "SEARCH STRATEGY:",
-      "NAVIGATION GUIDELINES:",
-      "BEFORE ENDING THE SESSION:",
-      "BEFORE ENDING:",
-      "Please act as an expert browser automation agent"
-    ];
-    return macroIndicators.some(indicator => content.includes(indicator));
-  };
-
-  // Helper function to extract task type from macro prompt
-  const extractTaskType = (content: string): string => {
-    if (content.includes("co-pay assistance") || content.includes("Co-Pay Assistance")) return "Co-Pay Assistance";
-    if (content.includes("Book Appointment") || content.includes("schedule an appointment")) return "Appointment Booking";
-    if (content.includes("insurance coverage") || content.includes("Insurance Coverage")) return "Insurance Verification";
-    if (content.includes("Find Specialists") || content.includes("find qualified")) return "Provider Search";
-    if (content.includes("urgent care") || content.includes("Urgent Care")) return "Urgent Care Search";
-    if (content.includes("medical records") || content.includes("Medical Records")) return "Records Access";
-    return "Healthcare Automation";
-  };
-
-  // Helper function to extract medication/search term from prompt
-  const extractSearchTerm = (content: string): string => {
-    const medicationMatch = content.match(/co-pay assistance.*?for ([^.]+)/i);
-    if (medicationMatch) return medicationMatch[1];
-    
-    const inputMatch = content.match(/\[INPUT\]|for ([A-Za-z]+)/);
-    if (inputMatch) return inputMatch[1] || "healthcare service";
-    
-    return "healthcare service";
   };
 
   const handleSendMessage = async (content: string, deepResearch: boolean) => {
@@ -130,7 +85,39 @@ export default function App() {
     setIsProcessing(true);
 
     // Check if this is a macro-generated prompt
+    const isMacroPrompt = (content: string): boolean => {
+      const macroIndicators = [
+        "PRIMARY OBJECTIVE:",
+        "SEARCH STRATEGY:",
+        "NAVIGATION GUIDELINES:",
+        "BEFORE ENDING THE SESSION:",
+        "BEFORE ENDING:",
+        "Please act as an expert browser automation agent"
+      ];
+      return macroIndicators.some(indicator => content.includes(indicator));
+    };
+
     if (isMacroPrompt(content)) {
+      const extractTaskType = (content: string): string => {
+        if (content.includes("co-pay assistance") || content.includes("Co-Pay Assistance")) return "Co-Pay Assistance";
+        if (content.includes("Book Appointment") || content.includes("schedule an appointment")) return "Appointment Booking";
+        if (content.includes("insurance coverage") || content.includes("Insurance Coverage")) return "Insurance Verification";
+        if (content.includes("Find Specialists") || content.includes("find qualified")) return "Provider Search";
+        if (content.includes("urgent care") || content.includes("Urgent Care")) return "Urgent Care Search";
+        if (content.includes("medical records") || content.includes("Medical Records")) return "Records Access";
+        return "Healthcare Automation";
+      };
+
+      const extractSearchTerm = (content: string): string => {
+        const medicationMatch = content.match(/co-pay assistance.*?for ([^.]+)/i);
+        if (medicationMatch) return medicationMatch[1];
+        
+        const inputMatch = content.match(/\[INPUT\]|for ([A-Za-z]+)/);
+        if (inputMatch) return inputMatch[1] || "healthcare service";
+        
+        return "healthcare service";
+      };
+
       const taskType = extractTaskType(content);
       const searchTerm = extractSearchTerm(content);
       
@@ -139,9 +126,6 @@ export default function App() {
       setPreviewPanelActive(false);
       setPhonePanelActive(false);
       setIsAutomating(true);
-      
-      // Simulate AI processing delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
       
       addMessage({
         type: "ai",
@@ -164,87 +148,8 @@ export default function App() {
           </div>
         )
       });
-      
-      setIsProcessing(false);
-      return;
-    }
-
-    // Simulate AI processing delay for regular messages
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    // Handle different conversation flows (existing logic)
-    if (content.toLowerCase().includes("dermatologist") && currentStep === "initial") {
-      setCurrentStep("searching");
-      
-      // Show preview panel with search results
-      setPreviewPanelActive(true);
-      setPreviewContent({
-        type: "search",
-        title: "Provider Search Results",
-        isLoading: true
-      });
-      
-      addMessage({
-        type: "ai",
-        content: "I'll help you find a dermatologist who accepts Aetna. Let me search for qualified providers in your area with the best ratings and availability..."
-      });
-
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Update preview content
-      setPreviewContent({
-        type: "search",
-        title: "Provider Search Results",
-        isLoading: false
-      });
-
-      addMessage({
-        type: "ai",
-        content: "Excellent! I found several outstanding dermatologists who accept Aetna and have upcoming availability. I've prioritized them based on ratings, proximity, and your specific needs:",
-        component: "providers",
-        componentData: mockProviders
-      });
-
-      setCurrentStep("found");
-      
-    } else if ((content.toLowerCase().includes("second") || content.toLowerCase().includes("michael lee")) && content.toLowerCase().includes("book") && currentStep === "found") {
-      setCurrentStep("booking");
-      
-      // Activate browser panel for interactive booking (hide other panels and make browser full screen)
-      setBrowserPanelActive(true);
-      setPreviewPanelActive(false);
-      setPhonePanelActive(false);
-      
-      addMessage({
-        type: "ai",
-        content: "Perfect choice! I'm opening Dr. Michael Lee's profile in the browser panel. You can view his details, reviews, and schedule your appointment directly through the interactive interface."
-      });
-
-    } else if (content.toLowerCase().includes("call") || content.toLowerCase().includes("phone")) {
-      // Activate phone panel
-      setPhonePanelActive(true);
-      
-      addMessage({
-        type: "ai",
-        content: "I'll initiate a call to Dr. Michael Lee's office to confirm your appointment and handle any questions you might have."
-      });
-
-    } else if (content.toLowerCase().includes("educational") || content.toLowerCase().includes("learn")) {
-      // Show educational content in preview
-      setPreviewPanelActive(true);
-      setPreviewContent({
-        type: "educational",
-        title: "Understanding Your Condition",
-        isLoading: false
-      });
-      
-      addMessage({
-        type: "ai",
-        content: "I've prepared some educational material about your condition. You can view it in the preview panel to better understand your symptoms and treatment options."
-      });
-
     } else {
-      // Default AI responses
+      // Simple acknowledgment for regular messages
       addMessage({
         type: "ai",
         content: (
@@ -262,68 +167,6 @@ export default function App() {
     setIsProcessing(false);
   };
 
-  const handleAutomationComplete = () => {
-    setCurrentStep("completed");
-    setIsAutomating(false);
-    
-    // Show confirmation in preview panel
-    setPreviewContent({
-      type: "communication",
-      title: "Appointment Confirmation",
-      isLoading: false
-    });
-    
-    setTimeout(() => {
-      addMessage({
-        type: "ai",
-        content: (
-          <span className="flex items-center gap-2">
-            Perfect! 
-            <Sparkles 
-              size={16} 
-              style={{ color: 'var(--color-accent-blue)' }}
-              className="animate-pulse-gentle"
-            />
-            You're all confirmed with Dr. Michael Lee for Tuesday at 2:30 PM. I've added the appointment to your calendar, sent you a confirmation email with office details, and set up a reminder 24 hours before your visit.
-          </span>
-        )
-      });
-    }, 1000);
-  };
-
-  const handleConfirmAppointment = () => {
-    setCurrentStep("completed");
-    
-    // Enhanced timing sequence: Wait 4 seconds total, then show preview and message
-    setTimeout(() => {
-      // Show confirmation in preview panel
-      setPreviewPanelActive(true);
-      setPreviewContent({
-        type: "communication",
-        title: "Appointment Confirmation",
-        isLoading: false
-      });
-      
-      // Add success message
-      setTimeout(() => {
-        addMessage({
-          type: "ai",
-          content: (
-            <span className="flex items-center gap-2">
-              Excellent! 
-              <Sparkles 
-                size={16} 
-                style={{ color: 'var(--color-accent-blue)' }}
-                className="animate-pulse-gentle"
-              />
-              Your appointment with Dr. Michael Lee has been successfully confirmed. I've generated your confirmation details in the preview panel and will send you a calendar invite shortly.
-            </span>
-          )
-        });
-      }, 500);
-    }, 4000); // Total of 4 seconds (2 + 2 from the browser panel timing)
-  };
-
   const handleTakeControl = () => {
     setHasUserControl(true);
     setIsAutomating(false);
@@ -338,7 +181,7 @@ export default function App() {
     setIsOnCall(true);
     addMessage({
       type: "ai",
-      content: "Connecting to Dr. Michael Lee's office... The AI assistant will handle the call and confirm your appointment details."
+      content: "Connecting to office... The AI assistant will handle the call and confirm details."
     });
   };
 
@@ -346,7 +189,7 @@ export default function App() {
     setIsOnCall(false);
     addMessage({
       type: "ai",
-      content: "Call completed. Your appointment has been confirmed and all details have been verified with the office."
+      content: "Call completed."
     });
   };
 
@@ -355,7 +198,7 @@ export default function App() {
     setIsAutomating(false);
     addMessage({
       type: "ai",
-      content: "Browser automation completed. The expert agent has finished the task and provided comprehensive results. I'm here if you need any additional assistance with your healthcare needs."
+      content: "Browser automation completed. I'm here if you need any additional assistance with your healthcare needs."
     });
   };
 
@@ -395,7 +238,7 @@ export default function App() {
         <TelephoneUI
           isActive={phonePanelActive}
           isConnected={isOnCall}
-          contactName="Dr. Michael Lee's Office"
+          contactName="Healthcare Office"
           contactNumber="+1 (555) 123-4567"
           onCall={handleCall}
           onHangup={handleHangup}
@@ -450,7 +293,7 @@ export default function App() {
             <div className="flex items-center justify-between relative z-10">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  {/* Ice crystal activity indicator - gentler animation */}
+                  {/* Ice crystal activity indicator */}
                   <div 
                     className="w-10 h-10 rounded-xl ice-glass flex items-center justify-center group"
                     style={{
@@ -464,7 +307,6 @@ export default function App() {
                       className="animate-pulse-gentle transition-transform duration-300 group-hover:scale-110"
                       style={{ color: 'var(--color-accent-blue)' }}
                     />
-                    {/* Much gentler crystalline glow */}
                     <div 
                       className="absolute inset-0 rounded-xl blur-lg animate-glow-pulse opacity-10"
                       style={{ backgroundColor: 'var(--color-accent-blue)' }}
@@ -487,7 +329,7 @@ export default function App() {
                 </div>
               </div>
               
-              {/* Enhanced Status indicator with ice styling - gentler animations */}
+              {/* Status indicators */}
               <div className="flex items-center gap-3">
                 {/* Panel Toggle */}
                 {anyPanelActive && (
@@ -525,7 +367,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* AI Processing indicator */}
+                {/* AI Ready indicator */}
                 <div className="flex items-center gap-2 ice-glass px-4 py-2 rounded-xl relative overflow-hidden">
                   <Zap 
                     size={14} 
@@ -546,7 +388,6 @@ export default function App() {
                       className="w-2 h-2 rounded-full animate-pulse-gentle"
                       style={{ backgroundColor: 'var(--color-accent-blue)' }}
                     />
-                    {/* Gentler status glow */}
                     <div 
                       className="absolute inset-0 rounded-full blur-sm opacity-40"
                       style={{ backgroundColor: 'var(--color-accent-blue)' }}
@@ -569,7 +410,7 @@ export default function App() {
             {/* Messages Container - Scrollable */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-8 relative">
-                {/* Background ambient elements - ultra-whisper subtle blue glows */}
+                {/* Background ambient elements */}
                 <div 
                   className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none"
                   style={{ 
@@ -590,15 +431,6 @@ export default function App() {
                   }}
                 />
 
-                {/* Ice crystal ambient elements - more gentle */}
-                <div 
-                  className="absolute top-1/3 right-1/3 w-32 h-32 rounded-full opacity-8 blur-2xl pointer-events-none"
-                  style={{ 
-                    background: `radial-gradient(circle, var(--color-ice-crystalline) 0%, transparent 70%)`,
-                    animation: 'ice-crystalline-shimmer-gentle 25s ease-in-out infinite'
-                  }}
-                />
-
                 <div className="max-w-4xl mx-auto space-y-6 relative z-10 pb-8">
                   {messages.map((message, index) => (
                     <div key={message.id} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
@@ -609,47 +441,10 @@ export default function App() {
                           <div className="leading-relaxed">{message.content}</div>
                         )}
                       </ChatBubble>
-
-                      {/* Enhanced component rendering */}
-                      {message.component === "providers" && message.componentData && (
-                        <div className="ml-20 space-y-4 animate-fade-in" style={{ animationDelay: '500ms' }}>
-                          <div 
-                            className="flex items-center gap-2 mb-4"
-                            style={{ color: 'var(--color-text-secondary)' }}
-                          >
-                            <Sparkles size={16} className="animate-pulse-gentle" />
-                            <span className="text-sm font-medium">Top Recommendations</span>
-                          </div>
-                          {message.componentData.map((provider: any, providerIndex: number) => (
-                            <div key={providerIndex} style={{ animationDelay: `${(providerIndex + 1) * 200}ms` }}>
-                              <ProviderCard
-                                {...provider}
-                                onSelect={() => {
-                                  addMessage({
-                                    type: "user",
-                                    content: `I'd like to book with Dr. Michael Lee. Can you help me schedule an appointment?`
-                                  });
-                                  handleSendMessage("I'd like to book with Dr. Michael Lee. Can you help me schedule an appointment?", false);
-                                }}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {message.component === "automation" && message.componentData && (
-                        <div className="ml-20 animate-scale-in" style={{ animationDelay: '400ms' }}>
-                          <BrowserAutomationViewer
-                            url={message.componentData.url}
-                            steps={message.componentData.steps}
-                            onComplete={handleAutomationComplete}
-                          />
-                        </div>
-                      )}
                     </div>
                   ))}
 
-                  {/* Enhanced processing indicator */}
+                  {/* Processing indicator */}
                   {isProcessing && (
                     <ChatBubble type="ai">
                       <div className="flex items-center gap-3">
@@ -703,14 +498,14 @@ export default function App() {
               hasUserControl={hasUserControl}
               onTakeControl={handleTakeControl}
               onReleaseControl={handleReleaseControl}
-              onConfirmAppointment={handleConfirmAppointment}
+              onConfirmAppointment={() => {}}
               onClose={handleCloseBrowser}
             />
           </div>
         )}
       </div>
 
-      {/* Preview Panel - Right Column (only when browser is not active and phone is not active) */}
+      {/* Preview Panel - Right Column */}
       {!browserPanelActive && previewPanelActive && !phonePanelActive && !panelsCollapsed && (
         <div className="fixed right-0 top-0 w-96 h-full p-4 overflow-y-auto z-20 animate-slide-up">
           <PreviewPanel

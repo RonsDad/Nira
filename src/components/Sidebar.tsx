@@ -37,9 +37,9 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
         style={{
           background: `linear-gradient(145deg, 
             transparent 0%, 
-            var(--color-ice-highlight) 25%, 
+            var(--ice-highlight) 25%, 
             transparent 50%, 
-            var(--color-ice-crystalline) 75%, 
+            var(--ice-crystalline) 75%, 
             transparent 100%)`
         }}
       />
@@ -48,9 +48,9 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, var(--color-ice-frost) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 70%, var(--color-ice-crystalline) 0%, transparent 50%),
-                           radial-gradient(circle at 40% 80%, var(--color-ice-highlight) 0%, transparent 30%)`
+          backgroundImage: `radial-gradient(circle at 20% 30%, var(--ice-frost) 0%, transparent 50%),
+                           radial-gradient(circle at 80% 70%, var(--ice-crystalline) 0%, transparent 50%),
+                           radial-gradient(circle at 40% 80%, var(--ice-highlight) 0%, transparent 30%)`
         }}
       />
 
@@ -63,19 +63,19 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
               className="w-8 h-8 rounded-lg ice-glass flex items-center justify-center group"
               style={{
                 background: `linear-gradient(135deg, 
-                  var(--color-ice-highlight) 0%, 
-                  var(--color-ice-crystalline) 100%)`
+                  var(--ice-highlight) 0%, 
+                  var(--ice-crystalline) 100%)`
               }}
             >
               <Sparkles 
                 size={18} 
                 className="animate-pulse transition-transform duration-300 group-hover:scale-110"
-                style={{ color: 'var(--color-accent-blue)' }}
+                style={{ color: 'var(--accent-blue)' }}
               />
               {/* Inner crystalline glow */}
               <div 
                 className="absolute inset-0 rounded-lg blur-md animate-glow-pulse opacity-60"
-                style={{ backgroundColor: 'var(--color-accent-blue)' }}
+                style={{ backgroundColor: 'var(--accent-blue)' }}
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
             </h1>
             <p 
               className="text-xs mt-1 opacity-80 font-medium"
-              style={{ color: 'var(--color-text-tertiary)' }}
+              style={{ color: 'var(--text-tertiary)' }}
             >
               AI Healthcare Assistant
             </p>
@@ -110,12 +110,12 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
                   : 'hover:ice-glass'
               }`}
               style={{
-                color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                 animationDelay: `${index * 100}ms`,
                 background: isActive 
                   ? `linear-gradient(135deg, 
-                      var(--color-ice-highlight) 0%, 
-                      var(--color-ice-crystalline) 100%)` 
+                      var(--ice-highlight) 0%, 
+                      var(--ice-crystalline) 100%)` 
                   : 'transparent'
               }}
             >
@@ -126,7 +126,7 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
                     className="absolute inset-0 rounded-xl opacity-30 animate-glow-pulse"
                     style={{ 
                       background: `radial-gradient(ellipse at center, 
-                        var(--color-accent-blue) 0%, 
+                        var(--accent-blue) 0%, 
                         transparent 70%)`
                     }}
                   />
@@ -134,9 +134,9 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
                   <div 
                     className="absolute inset-0 rounded-xl border"
                     style={{ 
-                      borderColor: 'var(--color-ice-border-bright)',
+                      borderColor: 'var(--ice-border-bright)',
                       background: `linear-gradient(145deg, 
-                        var(--color-ice-highlight) 0%, 
+                        var(--ice-highlight) 0%, 
                         transparent 50%)`
                     }}
                   />
@@ -166,7 +166,7 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
           style={{
             background: `linear-gradient(90deg, 
               transparent 0%, 
-              var(--color-ice-border-bright) 50%, 
+              var(--ice-border-bright) 50%, 
               transparent 100%)`
           }}
         />
@@ -179,7 +179,7 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
               key={item.id}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left hover:ice-glass interactive-scale group animate-slide-up relative overflow-hidden"
               style={{ 
-                color: 'var(--color-text-tertiary)',
+                color: 'var(--text-tertiary)',
                 animationDelay: `${(index + 4) * 100}ms`
               }}
             >
@@ -204,8 +204,8 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
           className="w-full flex items-center gap-3 py-3 ice-glass-elevated glow-border interactive-lift group relative overflow-hidden border-0"
           style={{ 
             background: `linear-gradient(135deg, 
-              var(--color-accent-blue) 0%, 
-              var(--color-accent-blue-bright) 100%)`,
+              var(--accent-blue) 0%, 
+              var(--accent-blue-bright) 100%)`,
             color: 'white'
           }}
         >
@@ -216,7 +216,7 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
           <div 
             className="absolute inset-0 opacity-20"
             style={{
-              background: `radial-gradient(circle at 30% 30%, var(--color-ice-highlight) 0%, transparent 50%)`
+              background: `radial-gradient(circle at 30% 30%, var(--ice-highlight) 0%, transparent 50%)`
             }}
           />
           
@@ -229,8 +229,8 @@ export function Sidebar({ activeSection = "command-center" }: SidebarProps) {
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 h-24 rounded-full blur-2xl opacity-15 pointer-events-none"
         style={{ 
           background: `radial-gradient(ellipse, 
-            var(--color-accent-blue) 0%, 
-            var(--color-ice-crystalline) 50%, 
+            var(--accent-blue) 0%, 
+            var(--ice-crystalline) 50%, 
             transparent 100%)`
         }}
       />

@@ -40,25 +40,25 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
               className="w-16 h-16 rounded-xl ice-glass flex items-center justify-center mx-auto"
               style={{
                 background: `linear-gradient(135deg, 
-                  var(--color-ice-highlight) 0%, 
-                  var(--color-ice-crystalline) 100%)`
+                  var(--ice-highlight) 0%, 
+                  var(--ice-crystalline) 100%)`
               }}
             >
               <Code 
                 size={28} 
-                style={{ color: 'var(--color-accent-blue)' }}
+                style={{ color: 'var(--accent-blue)' }}
               />
             </div>
             <div>
               <p 
                 className="font-medium"
-                style={{ color: 'var(--color-text-primary)' }}
+                style={{ color: 'var(--text-primary)' }}
               >
                 Ready for Preview
               </p>
               <p 
                 className="text-sm opacity-70"
-                style={{ color: 'var(--color-text-secondary)' }}
+                style={{ color: 'var(--text-secondary)' }}
               >
                 Content will appear here when generated
               </p>
@@ -76,26 +76,26 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
               className="w-12 h-12 rounded-xl ice-glass flex items-center justify-center mx-auto animate-pulse-gentle"
               style={{
                 background: `linear-gradient(135deg, 
-                  var(--color-ice-highlight) 0%, 
-                  var(--color-ice-crystalline) 100%)`
+                  var(--ice-highlight) 0%, 
+                  var(--ice-crystalline) 100%)`
               }}
             >
               <RefreshCw 
                 size={24} 
-                style={{ color: 'var(--color-accent-blue)' }}
+                style={{ color: 'var(--accent-blue)' }}
                 className="animate-spin"
               />
             </div>
             <div>
               <p 
                 className="font-medium"
-                style={{ color: 'var(--color-text-primary)' }}
+                style={{ color: 'var(--text-primary)' }}
               >
                 Generating Content...
               </p>
               <p 
                 className="text-xs opacity-70"
-                style={{ color: 'var(--color-text-secondary)' }}
+                style={{ color: 'var(--text-secondary)' }}
               >
                 AI is creating {content.type} content
               </p>
@@ -110,19 +110,19 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
         return (
           <div className="p-6 space-y-4">
             <div className="ice-glass-elevated p-4 rounded-lg">
-              <h4 className="font-medium mb-3" style={{ color: 'var(--color-text-primary)' }}>
+              <h4 className="font-medium mb-3" style={{ color: 'var(--text-primary)' }}>
                 Understanding Your Condition
               </h4>
-              <div className="space-y-3 text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              <div className="space-y-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
                 <p>Dermatological conditions can vary widely in their presentation and treatment requirements...</p>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="ice-glass p-3 rounded-lg">
-                    <h5 className="font-medium mb-1" style={{ color: 'var(--color-text-primary)' }}>Symptoms</h5>
+                    <h5 className="font-medium mb-1" style={{ color: 'var(--text-primary)' }}>Symptoms</h5>
                     <p className="text-xs">• Persistent rash or irritation</p>
                     <p className="text-xs">• Changes in skin texture</p>
                   </div>
                   <div className="ice-glass p-3 rounded-lg">
-                    <h5 className="font-medium mb-1" style={{ color: 'var(--color-text-primary)' }}>Treatment</h5>
+                    <h5 className="font-medium mb-1" style={{ color: 'var(--text-primary)' }}>Treatment</h5>
                     <p className="text-xs">• Topical medications</p>
                     <p className="text-xs">• Lifestyle modifications</p>
                   </div>
@@ -144,37 +144,37 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
                 <div key={i} className="ice-glass-elevated p-4 rounded-lg interactive-lift cursor-pointer">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-medium mb-1 truncate" style={{ color: 'var(--color-text-primary)' }}>
+                      <h4 className="font-medium mb-1 truncate" style={{ color: 'var(--text-primary)' }}>
                         {provider.name}
                       </h4>
-                      <p className="text-sm mb-2 truncate" style={{ color: 'var(--color-text-secondary)' }}>
+                      <p className="text-sm mb-2 truncate" style={{ color: 'var(--text-secondary)' }}>
                         {provider.specialty}
                       </p>
                     </div>
-                    <div className="ice-glass px-2 py-1 rounded text-xs font-medium ml-2 flex-shrink-0" style={{ color: 'var(--color-accent-blue)' }}>
+                    <div className="ice-glass px-2 py-1 rounded text-xs font-medium ml-2 flex-shrink-0" style={{ color: 'var(--accent-blue)' }}>
                       Open
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-2 text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
+                  <div className="grid grid-cols-1 gap-2 text-xs" style={{ color: 'var(--text-tertiary)' }}>
                     <div className="flex items-center gap-1">
                       <Star 
                         size={12} 
-                        style={{ color: 'var(--color-accent-blue)' }}
-                        fill="var(--color-accent-blue)"
+                        style={{ color: 'var(--accent-blue)' }}
+                        fill="var(--accent-blue)"
                       />
                       <span>{provider.rating} ({provider.reviews} reviews)</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <MapPin 
                         size={12} 
-                        style={{ color: 'var(--color-accent-blue)' }}
+                        style={{ color: 'var(--accent-blue)' }}
                       />
                       <span>{provider.distance}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock 
                         size={12} 
-                        style={{ color: 'var(--color-accent-blue)' }}
+                        style={{ color: 'var(--accent-blue)' }}
                       />
                       <span>Next: {provider.time}</span>
                     </div>
@@ -189,34 +189,34 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
         return (
           <div className="p-6 space-y-4">
             <div className="ice-glass-elevated rounded-lg overflow-hidden">
-              <div className="p-4 border-b" style={{ borderColor: 'var(--color-ice-border)' }}>
-                <h4 className="font-medium" style={{ color: 'var(--color-text-primary)' }}>
+              <div className="p-4 border-b" style={{ borderColor: 'var(--ice-border)' }}>
+                <h4 className="font-medium" style={{ color: 'var(--text-primary)' }}>
                   Appointment Confirmation
                 </h4>
-                <p className="text-sm opacity-70" style={{ color: 'var(--color-text-secondary)' }}>
+                <p className="text-sm opacity-70" style={{ color: 'var(--text-secondary)' }}>
                   Dr. Michael Lee - Tuesday, 2:30 PM
                 </p>
               </div>
-              <div className="p-4 space-y-3 text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              <div className="p-4 space-y-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
                 <p>Dear Patient,</p>
                 <p>Your appointment has been successfully scheduled with Dr. Michael Lee for Tuesday at 2:30 PM.</p>
                 <div className="ice-glass p-3 rounded-lg">
-                  <p className="font-medium mb-2" style={{ color: 'var(--color-text-primary)' }}>Appointment Details:</p>
+                  <p className="font-medium mb-2" style={{ color: 'var(--text-primary)' }}>Appointment Details:</p>
                   <div className="space-y-2 text-xs">
                     <div className="flex items-center gap-2">
-                      <Calendar size={12} style={{ color: 'var(--color-accent-blue)' }} />
+                      <Calendar size={12} style={{ color: 'var(--accent-blue)' }} />
                       <span>Tuesday, January 9th, 2025</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock size={12} style={{ color: 'var(--color-accent-blue)' }} />
+                      <Clock size={12} style={{ color: 'var(--accent-blue)' }} />
                       <span>2:30 PM - 3:00 PM</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin size={12} style={{ color: 'var(--color-accent-blue)' }} />
+                      <MapPin size={12} style={{ color: 'var(--accent-blue)' }} />
                       <span>890 Health Center Blvd</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Shield size={12} style={{ color: 'var(--color-accent-blue)' }} />
+                      <Shield size={12} style={{ color: 'var(--accent-blue)' }} />
                       <span>Insurance: Aetna accepted</span>
                     </div>
                   </div>
@@ -231,8 +231,8 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
         return (
           <div className="p-6">
             <div className="ice-glass-elevated rounded-lg overflow-hidden">
-              <div className="p-3 border-b flex items-center justify-between" style={{ borderColor: 'var(--color-ice-border)' }}>
-                <span className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>
+              <div className="p-3 border-b flex items-center justify-between" style={{ borderColor: 'var(--ice-border)' }}>
+                <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                   Generated Code
                 </span>
                 <button className="ice-glass px-2 py-1 rounded text-xs interactive-scale">
@@ -240,13 +240,13 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
                   Run
                 </button>
               </div>
-              <div className="p-4 font-mono text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              <div className="p-4 font-mono text-sm" style={{ color: 'var(--text-secondary)' }}>
                 <div className="space-y-1">
                   <div><span style={{ color: '#9CA3AF' }}>// Healthcare provider search</span></div>
-                  <div><span style={{ color: 'var(--color-accent-blue)' }}>const</span> <span style={{ color: 'var(--color-text-primary)' }}>providers</span> = <span style={{ color: 'var(--color-accent-blue-bright)' }}>searchProviders</span>({`{`}</div>
-                  <div className="ml-4"><span style={{ color: 'var(--color-text-primary)' }}>specialty:</span> <span style={{ color: 'var(--color-accent-blue)' }}>'dermatology'</span>,</div>
-                  <div className="ml-4"><span style={{ color: 'var(--color-text-primary)' }}>insurance:</span> <span style={{ color: 'var(--color-accent-blue)' }}>'aetna'</span>,</div>
-                  <div className="ml-4"><span style={{ color: 'var(--color-text-primary)' }}>radius:</span> <span style={{ color: 'var(--color-accent-blue-bright)' }}>10</span></div>
+                  <div><span style={{ color: 'var(--accent-blue)' }}>const</span> <span style={{ color: 'var(--text-primary)' }}>providers</span> = <span style={{ color: 'var(--accent-blue-bright)' }}>searchProviders</span>({`{`}</div>
+                  <div className="ml-4"><span style={{ color: 'var(--text-primary)' }}>specialty:</span> <span style={{ color: 'var(--accent-blue)' }}>'dermatology'</span>,</div>
+                  <div className="ml-4"><span style={{ color: 'var(--text-primary)' }}>insurance:</span> <span style={{ color: 'var(--accent-blue)' }}>'aetna'</span>,</div>
+                  <div className="ml-4"><span style={{ color: 'var(--text-primary)' }}>radius:</span> <span style={{ color: 'var(--accent-blue-bright)' }}>10</span></div>
                   <div>{`});`}</div>
                 </div>
               </div>
@@ -270,32 +270,32 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
                 className="w-8 h-8 rounded-lg ice-glass flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, 
-                    var(--color-ice-highlight) 0%, 
-                    var(--color-ice-crystalline) 100%)`
+                    var(--ice-highlight) 0%, 
+                    var(--ice-crystalline) 100%)`
                 }}
               >
                 <IconComponent 
                   size={16} 
-                  style={{ color: 'var(--color-accent-blue)' }}
+                  style={{ color: 'var(--accent-blue)' }}
                 />
               </div>
               {content?.isLoading && (
                 <div 
                   className="absolute -top-1 -right-1 w-3 h-3 rounded-full animate-pulse-gentle"
-                  style={{ backgroundColor: 'var(--color-accent-blue)' }}
+                  style={{ backgroundColor: 'var(--accent-blue)' }}
                 />
               )}
             </div>
             <div>
               <h3 
                 className="font-medium"
-                style={{ color: 'var(--color-text-primary)' }}
+                style={{ color: 'var(--text-primary)' }}
               >
                 Preview
               </h3>
               <p 
                 className="text-xs opacity-70"
-                style={{ color: 'var(--color-text-secondary)' }}
+                style={{ color: 'var(--text-secondary)' }}
               >
                 {content ? `${content.type} • ${content.title}` : 'Ready for content'}
               </p>
@@ -311,7 +311,7 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
               >
                 <RefreshCw 
                   size={14} 
-                  style={{ color: 'var(--color-text-secondary)' }}
+                  style={{ color: 'var(--text-secondary)' }}
                 />
               </button>
             )}
@@ -323,7 +323,7 @@ export function PreviewPanel({ isActive, content, onRefresh }: PreviewPanelProps
             >
               <ChevronDown 
                 size={14} 
-                style={{ color: 'var(--color-text-secondary)' }}
+                style={{ color: 'var(--text-secondary)' }}
                 className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
               />
             </button>

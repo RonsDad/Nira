@@ -451,27 +451,27 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
         }}
       >
         {/* Header */}
-        <div className="p-4 border-b" style={{ borderColor: 'var(--color-ice-border)' }}>
+        <div className="p-4 border-b" style={{ borderColor: 'var(--ice-border)' }}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div 
                 className="w-8 h-8 rounded-lg ice-glass flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, 
-                    var(--color-ice-highlight) 0%, 
-                    var(--color-ice-crystalline) 100%)`
+                    var(--ice-highlight) 0%, 
+                    var(--ice-crystalline) 100%)`
                 }}
               >
                 {selectedMacro ? (
-                  <Target size={16} style={{ color: 'var(--color-accent-blue)' }} />
+                  <Target size={16} style={{ color: 'var(--accent-blue)' }} />
                 ) : (
-                  <Bot size={16} style={{ color: 'var(--color-accent-blue)' }} />
+                  <Bot size={16} style={{ color: 'var(--accent-blue)' }} />
                 )}
               </div>
               <div>
                 <h3 
                   className="font-semibold text-sm flex items-center gap-2"
-                  style={{ color: 'var(--color-text-primary)' }}
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   {selectedMacro ? (
                     <>
@@ -486,11 +486,11 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                   ) : (
                     "Healthcare Assistant Prompts"
                   )}
-                  <Sparkles size={12} className="animate-pulse-gentle" style={{ color: 'var(--color-accent-blue)' }} />
+                  <Sparkles size={12} className="animate-pulse-gentle" style={{ color: 'var(--accent-blue)' }} />
                 </h3>
                 <p 
                   className="text-xs opacity-70"
-                  style={{ color: 'var(--color-text-secondary)' }}
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   {selectedMacro 
                     ? "Enter details to generate perfect prompt" 
@@ -512,7 +512,7 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
               <div className="mb-4">
                 <div 
                   className="text-sm font-medium mb-2"
-                  style={{ color: 'var(--color-text-primary)' }}
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   {selectedMacro.description}
                 </div>
@@ -523,10 +523,9 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                   onChange={(e) => setInputValue(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl text-sm transition-all duration-300 focus:outline-none focus:ring-2"
                   style={{
-                    backgroundColor: 'var(--color-ice-base)',
-                    border: '1px solid var(--color-ice-border)',
-                    color: 'var(--color-text-primary)',
-                    focusRingColor: 'var(--color-accent-blue)'
+                    backgroundColor: 'var(--ice-base)',
+                    border: '1px solid var(--ice-border)',
+                    color: 'var(--text-primary)'
                   }}
                   autoFocus
                 />
@@ -543,8 +542,8 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                 className="w-full ice-glass-elevated rounded-xl p-3 text-sm font-medium transition-all duration-200 interactive-scale flex items-center justify-center gap-2"
                 style={{
                   background: `linear-gradient(135deg, 
-                    var(--color-accent-blue) 0%, 
-                    var(--color-accent-blue-bright) 100%)`,
+                    var(--accent-blue) 0%, 
+                    var(--accent-blue-bright) 100%)`,
                   color: 'white'
                 }}
               >
@@ -572,8 +571,8 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                   style={{
                     background: index === selectedIndex 
                       ? `linear-gradient(135deg, 
-                          var(--color-ice-surface) 0%,
-                          var(--color-ice-base) 100%)`
+                          var(--ice-surface) 0%,
+                          var(--ice-base) 100%)`
                       : 'transparent'
                   }}
                 >
@@ -589,14 +588,14 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                   <div className="flex-1 min-w-0">
                     <div 
                       className="font-medium text-sm mb-1 flex items-center gap-2"
-                      style={{ color: 'var(--color-text-primary)' }}
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       {macro.label}
                       {macro.hasInput && (
                         <span 
                           className="text-xs px-2 py-0.5 rounded-lg ice-glass"
                           style={{ 
-                            color: 'var(--color-accent-blue)',
+                            color: 'var(--accent-blue)',
                             fontSize: '10px'
                           }}
                         >
@@ -606,7 +605,7 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                     </div>
                     <div 
                       className="text-xs opacity-80 break-words leading-relaxed"
-                      style={{ color: 'var(--color-text-secondary)' }}
+                      style={{ color: 'var(--text-secondary)' }}
                     >
                       {macro.description}
                     </div>
@@ -614,7 +613,7 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                   <ChevronRight 
                     size={16} 
                     className="opacity-50 group-hover:opacity-80 transition-opacity flex-shrink-0 mt-2"
-                    style={{ color: 'var(--color-text-secondary)' }}
+                    style={{ color: 'var(--text-secondary)' }}
                   />
                 </button>
               ))}
@@ -637,8 +636,8 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                     style={{
                       background: index === selectedIndex 
                         ? `linear-gradient(135deg, 
-                            var(--color-ice-surface) 0%,
-                            var(--color-ice-base) 100%)`
+                            var(--ice-surface) 0%,
+                            var(--ice-base) 100%)`
                         : 'transparent'
                     }}
                   >
@@ -654,13 +653,13 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                     <div className="flex-1">
                       <div 
                         className="font-medium text-sm mb-1"
-                        style={{ color: 'var(--color-text-primary)' }}
+                        style={{ color: 'var(--text-primary)' }}
                       >
                         {category}
                       </div>
                       <div 
                         className="text-xs opacity-70"
-                        style={{ color: 'var(--color-text-secondary)' }}
+                        style={{ color: 'var(--text-secondary)' }}
                       >
                         {categoryMacros.length} expert prompts
                       </div>
@@ -668,7 +667,7 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
                     <ChevronRight 
                       size={16} 
                       className="opacity-50 group-hover:opacity-80 transition-opacity"
-                      style={{ color: 'var(--color-text-secondary)' }}
+                      style={{ color: 'var(--text-secondary)' }}
                     />
                   </button>
                 );
@@ -680,11 +679,11 @@ export function MacroMenu({ isVisible, onSelect, onClose, position }: MacroMenuP
         {/* Footer */}
         <div 
           className="p-3 border-t text-center"
-          style={{ borderColor: 'var(--color-ice-border)' }}
+          style={{ borderColor: 'var(--ice-border)' }}
         >
           <p 
             className="text-xs opacity-60"
-            style={{ color: 'var(--color-text-secondary)' }}
+            style={{ color: 'var(--text-secondary)' }}
           >
             {selectedMacro 
               ? "Enter to generate • Backspace to go back • Esc to close"

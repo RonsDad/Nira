@@ -29,20 +29,20 @@ export function ChatBubble({ type, children, timestamp }: ChatBubbleProps) {
             isAI ? 'animate-glow-pulse' : ''
           }`}
           style={{
-            backgroundColor: isAI ? 'var(--color-glass-accent)' : 'var(--color-glass-dark)',
+            backgroundColor: isAI ? 'var(--glass-accent)' : 'var(--glass-dark)',
             animationDelay: '200ms'
           }}
         >
           {isAI ? (
             <Bot 
               size={18} 
-              style={{ color: 'var(--color-accent-blue)' }}
+              style={{ color: 'var(--accent-blue)' }}
               className="transition-transform duration-200 group-hover:scale-110"
             />
           ) : (
             <User 
               size={18} 
-              style={{ color: 'var(--color-text-primary)' }}
+              style={{ color: 'var(--text-primary)' }}
               className="transition-transform duration-200 group-hover:scale-110"
             />
           )}
@@ -54,8 +54,8 @@ export function ChatBubble({ type, children, timestamp }: ChatBubbleProps) {
             isAI ? '' : 'glass-accent'
           }`}
           style={{
-            backgroundColor: isAI ? 'var(--color-glass-dark-elevated)' : 'var(--color-glass-accent)',
-            color: 'var(--color-text-primary)',
+            backgroundColor: isAI ? 'var(--glass-dark-elevated)' : 'var(--glass-accent)',
+            color: 'var(--text-primary)',
             animationDelay: '300ms'
           }}
         >
@@ -70,11 +70,11 @@ export function ChatBubble({ type, children, timestamp }: ChatBubbleProps) {
             {timestamp && (
               <div 
                 className="flex items-center gap-2 mt-3 pt-2 border-t border-white/10"
-                style={{ color: 'var(--color-text-tertiary)' }}
+                style={{ color: 'var(--text-tertiary)' }}
               >
                 <div 
                   className="w-1.5 h-1.5 rounded-full animate-pulse"
-                  style={{ backgroundColor: isAI ? 'var(--color-accent-blue)' : 'var(--color-text-tertiary)' }}
+                  style={{ backgroundColor: isAI ? 'var(--accent-blue)' : 'var(--text-tertiary)' }}
                 />
                 <span className="text-xs font-medium">
                   {timestamp}
@@ -87,7 +87,7 @@ export function ChatBubble({ type, children, timestamp }: ChatBubbleProps) {
           <div 
             className={`absolute top-3 ${isAI ? 'right-3' : 'left-3'} w-2 h-2 rounded-full opacity-60`}
             style={{ 
-              backgroundColor: isAI ? 'var(--color-accent-blue)' : 'var(--color-text-primary)'
+              backgroundColor: isAI ? 'var(--accent-blue)' : 'var(--text-primary)'
             }}
           />
 
