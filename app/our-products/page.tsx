@@ -1134,9 +1134,37 @@ export default function OurProducts() {
       </div>
 
       <div className="flex justify-center mt-8">
-          <vapi-widget mode="voice" theme="dark" base-color="#000000" accent-color="#0791f4" button-base-color="#000000" button-accent-color="#ffffff" radius="large" size="full" position="bottom-left" main-label="TALK WITH AI" start-button-text="Start" end-button-text="End Call" require-consent="true" local-storage-key="vapi_widget_consent" show-transcript="true" public-key="4e5401b6-d69d-4f4b-8d9a-bd6086ee0212" assistant-id="cf607223-43d0-4e59-b315-e82bb230915b"></vapi-widget>
-          <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
-        </div>
+        <div id="vapi-widget-container"></div>
+        <Script
+          src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js"
+          async
+          type="text/javascript"
+          onLoad={() => {
+            if (typeof window !== 'undefined' && window.VapiWidget) {
+              window.VapiWidget.mountWidget({
+                selector: '#vapi-widget-container',
+                mode: 'voice',
+                theme: 'dark',
+                baseColor: '#000000',
+                accentColor: '#0791f4',
+                buttonBaseColor: '#000000',
+                buttonAccentColor: '#ffffff',
+                radius: 'large',
+                size: 'full',
+                position: 'bottom-left',
+                mainLabel: 'TALK WITH AI',
+                startButtonText: 'Start',
+                endButtonText: 'End Call',
+                requireConsent: true,
+                localStorageKey: 'vapi_widget_consent',
+                showTranscript: true,
+                publicKey: '4e5401b6-d69d-4f4b-8d9a-bd6086ee0212',
+                assistantId: 'cf607223-43d0-4e59-b315-e82bb230915b',
+              });
+            }
+          }}
+        />
+      </div>
     </>
   );
 }
