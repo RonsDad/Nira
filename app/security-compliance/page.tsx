@@ -137,7 +137,7 @@ export default function SecurityCompliancePage() {
                 </span>
               </h1>
               <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 mb-6 sm:mb-10 leading-relaxed">
-                The CMS Final Rule (CMS-0057-F) is here. Nira is the secure, intelligent platform built to master it, 
+                The CMS Final Rule (CMS-0057-F) is here. Ron is the secure, intelligent platform built to master it, 
                 turning complex mandates into your competitive advantage.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -339,7 +339,7 @@ export default function SecurityCompliancePage() {
         </div>
       </section>
 
-      {/* The Nira Solution Section */}
+      {/* The Ron Solution Section */}
       <section id="compliance-solutions" className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -351,7 +351,7 @@ export default function SecurityCompliancePage() {
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-4 sm:mb-6">
               Turn Mandates into{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                Momentum with Nira
+                Momentum with Ron
               </span>
             </h2>
             <p className="font-body text-lg sm:text-xl text-slate-600 text-center mb-8 sm:mb-16 max-w-3xl mx-auto">
@@ -378,7 +378,7 @@ export default function SecurityCompliancePage() {
                         <h3 className="font-heading font-bold text-2xl sm:text-3xl">Master Prior Authorization</h3>
                       </div>
                       <p className="font-body text-base sm:text-lg leading-relaxed mb-6 text-white/90">
-                        Nira's AI agents connect directly to the new Prior Authorization APIs. We automate 
+                        Ron's AI agents connect directly to the new Prior Authorization APIs. We automate 
                         documentation discovery, smart submission, and real-time status tracking, ensuring 
                         you meet the critical 7-day and 72-hour decision timeframes.
                       </p>
@@ -459,7 +459,7 @@ export default function SecurityCompliancePage() {
                         <h3 className="font-heading font-bold text-2xl sm:text-3xl">Streamline Data Exchange</h3>
                       </div>
                       <p className="font-body text-lg leading-relaxed mb-6 text-white/90">
-                        Nira's core architecture is built for next-generation interoperability. Our platform 
+                        Ron's core architecture is built for next-generation interoperability. Our platform 
                         seamlessly integrates with new Provider Access and Payer-to-Payer APIs, giving you 
                         a unified view of patient data when you need it most.
                       </p>
@@ -491,7 +491,7 @@ export default function SecurityCompliancePage() {
                         <h3 className="font-heading font-bold text-2xl sm:text-3xl">Empower Your Organization</h3>
                       </div>
                       <p className="font-body text-lg leading-relaxed mb-6 text-white/90">
-                        For clinicians, Nira is essential for MIPS compliance. For organizations, we provide 
+                        For clinicians, Ron is essential for MIPS compliance. For organizations, we provide 
                         system-wide efficiency and reduced administrative overhead across your entire network.
                       </p>
                       <div className="space-y-2">
@@ -593,7 +593,7 @@ export default function SecurityCompliancePage() {
                         HIPAA Compliant by Design
                       </h3>
                       <p className="font-body text-base sm:text-lg text-slate-700 leading-relaxed">
-                        At Ron AI, security is baked into Nira's DNA. We are building our platform to meet 
+                        At Ron AI, security is baked into Ron's DNA. We are building our platform to meet 
                         and exceed all administrative, physical, and technical safeguards required by the 
                         HIPAA Security Rule, ensuring the privacy and integrity of all data.
                       </p>
@@ -677,7 +677,7 @@ export default function SecurityCompliancePage() {
                       </h3>
                       <p className="font-body text-lg text-slate-700 leading-relaxed mb-6">
                         Our long-term security roadmap is built on a cutting-edge Zero-Trust Architecture. 
-                        We are engineering Nira for enterprise-grade, proactive security, with the explicit 
+                        We are engineering Ron for enterprise-grade, proactive security, with the explicit 
                         goal of achieving SOC 2 Type II compliance.
                       </p>
                       <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-lg p-6">
@@ -726,7 +726,7 @@ export default function SecurityCompliancePage() {
                 </h2>
                 <p className="font-body text-lg sm:text-xl text-white/80 mb-6 sm:mb-10 max-w-2xl mx-auto">
                   Join forward-thinking healthcare organizations already preparing for the future 
-                  with Nira's intelligent compliance platform.
+                  with Ron's intelligent compliance platform.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/contact">
@@ -756,7 +756,7 @@ export default function SecurityCompliancePage() {
       <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Nira</h3>
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Ron</h3>
             <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-body text-sm sm:text-base">

@@ -115,7 +115,7 @@ const ExecutiveBriefPDF = () => (
       </Text>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}> 2025 Nira. All rights reserved.</Text>
+        <Text style={styles.footerText}> 2025 Ron. All rights reserved.</Text>
         <Text style={styles.footerText}>Page 1 of 4</Text>
       </View>
     </Page>
@@ -170,7 +170,7 @@ const ExecutiveBriefPDF = () => (
       </Text>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}> 2025 Nira. All rights reserved.</Text>
+        <Text style={styles.footerText}> 2025 Ron. All rights reserved.</Text>
         <Text style={styles.footerText}>Page 2 of 4</Text>
       </View>
     </Page>
@@ -214,7 +214,7 @@ const ExecutiveBriefPDF = () => (
       </Text>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}> 2025 Nira. All rights reserved.</Text>
+        <Text style={styles.footerText}> 2025 Ron. All rights reserved.</Text>
         <Text style={styles.footerText}>Page 3 of 4</Text>
       </View>
     </Page>
@@ -235,7 +235,7 @@ const ExecutiveBriefPDF = () => (
       </Text>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}> 2025 Nira. All rights reserved.</Text>
+        <Text style={styles.footerText}> 2025 Ron. All rights reserved.</Text>
         <Text style={styles.footerText}>Page 4 of 4</Text>
       </View>
     </Page>
@@ -248,7 +248,7 @@ export const generateExecutiveBriefPDF = async () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Nira_Executive_Brief_CMS_Final_Rule.pdf';
+    link.download = 'Ron_Executive_Brief_CMS_Final_Rule.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

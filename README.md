@@ -1,4 +1,4 @@
-# Ron AI's flagship product, Nira.AI Pilot - Enhanced React Application
+# Ron AI's flagship product, Ron.AI Pilot - Enhanced React Application
 
 A modern React application built with Vite, enhanced with advanced UI components, AI integrations, and developer tooling. This project combines the best of both Vite's fast development experience and Next.js-inspired configurations.
 
@@ -40,7 +40,7 @@ A modern React application built with Vite, enhanced with advanced UI components
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd nira-ai-pilot-home
+   cd Ron-ai-pilot-home
    ```
 
 2. **Install dependencies**

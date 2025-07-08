@@ -9,7 +9,7 @@
 
 const ZAPIER_WEBHOOK_URL =
   process.env.ZAPIER_WEBHOOK_URL ||
-  'https://hooks.zapier.com/hooks/catch/18921559/uo3ych7/';
+  'https://hooks.zapier.com/hooks/catch/23693877/u3ias4y/';
 
 module.exports = async function handler(req, res) {
   // --- Handle CORS pre-flight ------------------------------------------------

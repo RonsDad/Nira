@@ -77,10 +77,10 @@ export function Chatbot({ className }: ChatbotProps) {
       const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
       
       // Build system prompt
-      const systemPrompt = `You are Nira's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
+      const systemPrompt = `You are Ron's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
 
 Key Directives:
-- Primary Goal: Guide users to understand Nira's value and encourage them to "Request Early Access" or "Join the Waitlist"
+- Primary Goal: Guide users to understand Ron's value and encourage them to "Request Early Access" or "Join the Waitlist"
 - Handle Objections: For cost questions, explain our freemium model with affordable subscription tiers
 - Security First: Emphasize security-first design, de-identified data handling, and HIPAA compliance roadmap
 - Stay Focused: Stick to core knowledge, don't make up features
@@ -128,7 +128,7 @@ Always be helpful, conversational, and focused on the user's needs while guiding
         errorMessage += `Error: ${error.message}. `
       }
       
-      errorMessage += "Please try again later or contact support for assistance with Ron AI's Nira platform."
+      errorMessage += "Please try again later or contact support for assistance with Ron AI's Ron platform."
       
       const newMessage: Message = {
         id: Date.now().toString(),
@@ -196,7 +196,7 @@ Always be helpful, conversational, and focused on the user's needs while guiding
                     <MessageCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm">Nira AI Assistant</h3>
+                    <h3 className="font-semibold text-white text-sm">Ron AI Assistant</h3>
                     <p className="text-white/60 text-xs">Online</p>
                   </div>
                 </div>

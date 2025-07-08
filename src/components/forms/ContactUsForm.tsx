@@ -239,7 +239,7 @@ export const ContactUsForm: React.FC<Props> = ({ onSuccess }) => {
           rows={4}
           value={formData.anythingElse}
           onChange={handleChange}
-          placeholder="Tell us more about your interest in Nira..."
+          placeholder="Tell us more about your interest in Ron..."
           className="rounded-md border-blue-400/50 bg-white/70 text-sm placeholder:text-blue-400/60 focus:border-blue-600 focus-visible:ring-2 focus-visible:ring-blue-600"
         />
       </div>
@@ -255,7 +255,7 @@ export const ContactUsForm: React.FC<Props> = ({ onSuccess }) => {
           }
         />
         <Label htmlFor="newsletter" className="text-sm font-medium text-blue-800">
-          I want to hear more about Nira
+          I want to hear more about Ron
         </Label>
       </div>
 

@@ -24,6 +24,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
   const groupRef = useRef<THREE.Group>();
   const hasFlippedRef = useRef(false);
   const meshesRef = useRef<{ front: THREE.Mesh; back: THREE.Mesh }>();
+  const isFirstRenderRef = useRef(true);
 
   useEffect(() => {
     if (!scene) return;
@@ -67,8 +68,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       cardHeight *= scale;
     }
 
-    // Create geometry
-    const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
     
     // Device-based canvas resolution
     let canvasSize;
@@ -80,44 +79,48 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       canvasSize = Math.min(window.innerWidth * window.devicePixelRatio, 1024);
     }
     
-    // Front face
+    // Create a double-sided card using BoxGeometry
+    const cardGeometry = new THREE.BoxGeometry(cardWidth, cardHeight, 0.02);
+    
+    // Front face texture
     const frontTexture = createCardTexture({
       title: data.frontTitle,
       text: '',
       label: 'HEALTHCARE'
     }, true, canvasSize, canvasSize * 1.5);
     
-    const frontMaterial = new THREE.MeshBasicMaterial({
-      map: frontTexture,
-      side: THREE.FrontSide,
-    });
-
-    const frontMesh = new THREE.Mesh(geometry, frontMaterial);
-    frontMesh.position.z = 0.01;
-
-    // Back face
+    // Back face texture
     const backTexture = createCardTexture({
       title: data.frontTitle,
       text: data.backContent
     }, false, canvasSize, canvasSize * 1.5);
     
-    const backMaterial = new THREE.MeshBasicMaterial({
-      map: backTexture,
-      side: THREE.FrontSide, // Changed to FrontSide
-    });
+    // Create materials array for each face of the box
+    const materials = [
+      new THREE.MeshBasicMaterial({ color: 0x1e3a8a, transparent: true }), // Right side
+      new THREE.MeshBasicMaterial({ color: 0x1e3a8a, transparent: true }), // Left side
+      new THREE.MeshBasicMaterial({ color: 0x1e3a8a, transparent: true }), // Top
+      new THREE.MeshBasicMaterial({ color: 0x1e3a8a, transparent: true }), // Bottom
+      new THREE.MeshBasicMaterial({ map: frontTexture, transparent: true }), // Front
+      new THREE.MeshBasicMaterial({ map: backTexture, transparent: true }), // Back
+    ];
 
-    const backMesh = new THREE.Mesh(geometry, backMaterial);
-    backMesh.position.z = -0.01;
-    backMesh.rotation.y = Math.PI; // Rotate 180 degrees to face backwards
-
-    meshesRef.current = { front: frontMesh, back: backMesh };
+    const cardMesh = new THREE.Mesh(cardGeometry, materials);
     
-    cardGroup.add(frontMesh);
-    cardGroup.add(backMesh);
+    // Store mesh reference for animation
+    meshesRef.current = { front: cardMesh, back: cardMesh };
     
-    // Position
-    cardGroup.position.set(0, 0, 0);
-    cardGroup.visible = index === 0;
+    cardGroup.add(cardMesh);
+    
+    // Set initial position and visibility
+    if (index === 0) {
+      cardGroup.position.set(0, 0, 0);
+      cardGroup.visible = true;
+      materials.forEach(mat => mat.opacity = 1);
+    } else {
+      // Start off-screen (handled by parent component)
+      cardGroup.visible = false;
+    }
     
     scene.add(cardGroup);
     onGroupCreated?.(cardGroup, index);
@@ -155,12 +158,15 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       }
 
       // Dispose old geometry
-      geometry.dispose();
+      if (meshesRef.current?.front?.geometry) {
+        meshesRef.current.front.geometry.dispose();
+      }
       
       // Create new geometry
-      const newGeometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
-      meshesRef.current.front.geometry = newGeometry;
-      meshesRef.current.back.geometry = newGeometry;
+      const newGeometry = new THREE.BoxGeometry(cardWidth, cardHeight, 0.02);
+      if (meshesRef.current?.front) {
+        meshesRef.current.front.geometry = newGeometry;
+      }
     };
 
     // Handle resize events
@@ -177,38 +183,47 @@ export const FlipCard: React.FC<FlipCardProps> = ({
       
       killAllAnimations(cardGroup);
       scene.remove(cardGroup);
-      geometry.dispose();
-      frontMaterial.dispose();
-      backMaterial.dispose();
+      cardGeometry.dispose();
+      materials.forEach(mat => mat.dispose());
       frontTexture.dispose();
       backTexture.dispose();
     };
   }, [data, scene, index, onGroupCreated]);
 
+  // Handle active state changes
   useEffect(() => {
     if (!groupRef.current) return;
     
-    groupRef.current.visible = isActive;
-    
     if (!isActive) {
+      // Card is no longer active
       hasFlippedRef.current = false;
-      groupRef.current.rotation.y = 0;
       return;
     }
 
+    // Card just became active
+    if (isFirstRenderRef.current && index === 0) {
+      // First card on initial render - don't reset rotation
+      isFirstRenderRef.current = false;
+    } else {
+      // Reset rotation for cards sliding in
+      groupRef.current.rotation.y = 0;
+    }
+    
+    hasFlippedRef.current = false;
+
+    // Start flip animation after delay
     const flipTimeout = setTimeout(() => {
-      if (!hasFlippedRef.current && groupRef.current) {
+      if (!hasFlippedRef.current && groupRef.current && isActive) {
         createFlipAnimation(groupRef.current, () => {
           hasFlippedRef.current = true;
-          setTimeout(() => {
-            onFlipComplete?.();
-          }, 5000);
+          // Notify parent that flip is complete and we've shown the back
+          onFlipComplete?.();
         });
       }
-    }, 3000);
+    }, 2000); // Wait 2 seconds before starting flip
 
     return () => clearTimeout(flipTimeout);
-  }, [isActive, onFlipComplete]);
+  }, [isActive, index, onFlipComplete]);
 
   return null;
 };

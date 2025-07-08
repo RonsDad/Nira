@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Nira AI - One-time setup script
+# Ron AI - One-time setup script
 
-echo "🚀 Setting up Nira AI development environment..."
+echo "🚀 Setting up Ron AI development environment..."
 
 # Create Python virtual environment if it doesn't exist
 if [ ! -d "backend/venv" ]; then

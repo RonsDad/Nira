@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Ron AI's flagship product, Nira.AI Chatbot - Development Server Startup Script
+# Ron AI's flagship product, Ron.AI Chatbot - Development Server Startup Script
 
-echo "🚀 Starting Ron AI's flagship product, Nira.AI Development Environment..."
+echo "🚀 Starting Ron AI's flagship product, Ron.AI Development Environment..."
 
 # Check if Python virtual environment exists
 if [ ! -d "backend/venv" ]; then
@@ -44,7 +44,7 @@ npm run dev &
 FRONTEND_PID=$!
 
 echo ""
-echo "✅ Ron AI's flagship product, Nira.AI Development Environment is running!"
+echo "✅ Ron AI's flagship product, Ron.AI Development Environment is running!"
 echo "   Frontend: http://localhost:5173"
 echo "   Backend:  http://localhost:5000"
 echo "   Backend Health: http://localhost:5000/api/health"

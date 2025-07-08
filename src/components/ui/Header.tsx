@@ -26,9 +26,7 @@ const Header = () => {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/security-compliance', label: 'Security & Compliance' },
     { href: '/our-products', label: 'Our Products' },
-    { href: '#', label: 'Blog' },
     { href: '/about-us', label: 'About Us' },
     { href: '/contact', label: 'Contact' },
   ];

@@ -15,7 +15,7 @@ git add public/apple-touch-icon.png 2>/dev/null
 git add app/layout.tsx
 
 # Commit with timestamp
-git commit -m "Replace Lovable favicon with Nira AI blue icon - $(date '+%Y-%m-%d %H:%M:%S')"
+git commit -m "Replace Lovable favicon with Ron AI blue icon - $(date '+%Y-%m-%d %H:%M:%S')"
 
 # Push to deploy
 echo "🚀 Pushing to deploy..."

@@ -4,11 +4,12 @@ import { FlipCardCarouselProps } from './types';
 import { useThreeScene } from './hooks/useThreeScene';
 import { FlipCard } from './FlipCard';
 import { NavigationControls } from './NavigationControls';
-import { createCardTransition } from './utils/animations';
+import { createSlideInAnimation, createSlideOutAnimation } from './utils/animations';
+import gsap from 'gsap';
 
 export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
   cards,
-  autoPlayInterval = 10000, // 10 seconds total per card (5s front + 5s back)
+  autoPlayInterval = 8000, // 8 seconds total per card (2s front + 1.2s flip + 2s back + 0.8s transition + buffer)
   onCardChange,
   className = '',
 }) => {
@@ -17,35 +18,72 @@ export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout>();
   const cardGroupsRef = useRef<THREE.Group[]>([]);
+  const transitionTimelineRef = useRef<gsap.core.Timeline>();
 
   const { scene, renderer, camera } = useThreeScene({ canvasRef });
   
-  // Debug logging
-  useEffect(() => {
-    console.log('FlipCardCarousel mounted, scene:', scene, 'renderer:', renderer, 'camera:', camera);
-  }, [scene, renderer, camera]);
-
   // Handle group creation from FlipCard components
   const handleGroupCreated = useCallback((group: THREE.Group, index: number) => {
     cardGroupsRef.current[index] = group;
+    
+    // Initialize card positions when groups are created
+    if (index !== 0) {
+      // Start all non-first cards off-screen to the right
+      group.position.set(10, 0, -4);
+      group.visible = false;
+      
+      // Set initial opacity for all meshes
+      group.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material) {
+          child.material.transparent = true;
+          child.material.opacity = 0;
+        }
+      });
+    }
   }, []);
 
-  // Handle card change
+  // Handle card change with slide animations
   const handleCardChange = useCallback((newIndex: number) => {
-    if (isTransitioning || !scene) return;
+    if (isTransitioning || !scene || cardGroupsRef.current.length < cards.length) return;
 
     setIsTransitioning(true);
+    
+    // Kill any existing timeline
+    if (transitionTimelineRef.current) {
+      transitionTimelineRef.current.kill();
+    }
+
     const oldIndex = currentIndex;
     const newIndexNormalized = (newIndex + cards.length) % cards.length;
 
-    // Simply update visibility and index - cards handle their own visibility
-    setCurrentIndex(newIndexNormalized);
-    onCardChange?.(newIndexNormalized);
-    
-    // Reset transition flag after a short delay
-    setTimeout(() => {
+    const currentCard = cardGroupsRef.current[oldIndex];
+    const nextCard = cardGroupsRef.current[newIndexNormalized];
+
+    if (!currentCard || !nextCard) {
       setIsTransitioning(false);
-    }, 500);
+      return;
+    }
+
+    // Create master timeline
+    const masterTimeline = gsap.timeline({
+      onComplete: () => {
+        // Hide the old card after transition
+        currentCard.visible = false;
+        setCurrentIndex(newIndexNormalized);
+        onCardChange?.(newIndexNormalized);
+        setIsTransitioning(false);
+      }
+    });
+
+    // Make next card visible before animating
+    nextCard.visible = true;
+
+    // Add slide out and slide in animations
+    masterTimeline
+      .add(createSlideOutAnimation(currentCard, 'left'))
+      .add(createSlideInAnimation(nextCard, 'right'), '-=0.4'); // Overlap animations slightly
+
+    transitionTimelineRef.current = masterTimeline;
   }, [currentIndex, cards.length, isTransitioning, onCardChange, scene]);
 
   // Navigation handlers
@@ -83,7 +121,7 @@ export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
     // After card flips and shows back content, move to next card
     setTimeout(() => {
       handleNext();
-    }, 3000); // Wait 3 seconds after flip before transitioning
+    }, 2000); // Wait 2 seconds after flip before transitioning
   }, [handleNext]);
 
   // Pause auto-play on user interaction
@@ -93,29 +131,17 @@ export const FlipCardCarousel: React.FC<FlipCardCarouselProps> = ({
     }
   }, []);
 
+  // Clean up on unmount
+  useEffect(() => {
+    return () => {
+      if (transitionTimelineRef.current) {
+        transitionTimelineRef.current.kill();
+      }
+    };
+  }, []);
+
   // Device-responsive container classes
-  const containerClasses = `
-    relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl
-    
-    /* Height responsive to viewport and device */
-    h-[75vh] max-h-[500px] /* Mobile portrait */
-    landscape:h-[85vh] landscape:max-h-[400px] /* Mobile landscape */
-    
-    sm:h-[70vh] sm:max-h-[600px] /* Small tablets */
-    sm:landscape:h-[80vh] sm:landscape:max-h-[500px]
-    
-    md:h-[75vh] md:max-h-[700px] /* Tablets */
-    lg:h-[80vh] lg:max-h-[800px] /* Desktop */
-    xl:h-[85vh] xl:max-h-[900px] /* Large desktop */
-    
-    /* Minimum height to ensure readability */
-    min-h-[400px]
-    
-    /* Ensure proper aspect ratio on very wide screens */
-    2xl:max-w-[1400px] 2xl:mx-auto
-    
-    ${className}
-  `.replace(/\s+/g, ' ').trim();
+  const containerClasses = `relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl h-[75vh] max-h-[500px] landscape:h-[85vh] landscape:max-h-[400px] sm:h-[70vh] sm:max-h-[600px] sm:landscape:h-[80vh] sm:landscape:max-h-[500px] md:h-[75vh] md:max-h-[700px] lg:h-[80vh] lg:max-h-[800px] xl:h-[85vh] xl:max-h-[900px] min-h-[400px] 2xl:max-w-[1400px] 2xl:mx-auto ${className}`;
 
   return (
     <div className={containerClasses}>

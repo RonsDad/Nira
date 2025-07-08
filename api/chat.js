@@ -30,29 +30,29 @@ function getMockResponse(message) {
   const messageLower = message.toLowerCase();
   
   if (messageLower.includes('pricing') || messageLower.includes('cost') || messageLower.includes('price')) {
-    return "Nira will operate on a freemium model with affordable subscription tiers for individual clinicians. Organization plans will soon be available. Sign up for our waitlist to be the first to know about pricing!";
+    return "Ron will operate on a freemium model with affordable subscription tiers for individual clinicians. Organization plans will soon be available. Sign up for our waitlist to be the first to know about pricing!";
   }
   
   if (messageLower.includes('security') || messageLower.includes('hipaa') || messageLower.includes('compliance')) {
-    return "Ron AI is building Nira with a security-first mindset. Our initial product is designed to work with de-identified data to ensure zero risk, and our long-term roadmap includes full HIPAA compliance and SOC 2 certification for our enterprise partners.";
+    return "Ron AI is building Ron with a security-first mindset. Our initial product is designed to work with de-identified data to ensure zero risk, and our long-term roadmap includes full HIPAA compliance and SOC 2 certification for our enterprise partners.";
   }
   
   if (messageLower.includes('demo') || messageLower.includes('try') || messageLower.includes('test')) {
-    return "I'd love to show you what Nira can do! We're currently in development and building our waitlist. Would you like to request early access? This will give you priority access when we launch.";
+    return "I'd love to show you what Ron can do! We're currently in development and building our waitlist. Would you like to request early access? This will give you priority access when we launch.";
   }
   
   if (messageLower.includes('hello') || messageLower.includes('hi') || messageLower.includes('hey')) {
-    return "Hello! I'm Ron AI's assistant. Nira is our revolutionary healthcare AI platform that helps clinicians automate administrative tasks and focus on patient care. How can I help you learn more about Nira today?";
+    return "Hello! I'm Ron AI's assistant. Ron is our revolutionary healthcare AI platform that helps clinicians automate administrative tasks and focus on patient care. How can I help you learn more about Ron today?";
   }
   
   if (messageLower.includes('features') || messageLower.includes('what') || messageLower.includes('does') || messageLower.includes('can')) {
-    return "Nira specializes in automating prior authorizations, insurance verifications, and clinical documentation. Our AI agents work 24/7 to handle tedious administrative tasks, freeing up healthcare professionals to focus on what matters most - patient care. Would you like to learn more about a specific feature?";
+    return "Ron specializes in automating prior authorizations, insurance verifications, and clinical documentation. Our AI agents work 24/7 to handle tedious administrative tasks, freeing up healthcare professionals to focus on what matters most - patient care. Would you like to learn more about a specific feature?";
   }
   
   const responses = [
-    "That's a great question! Nira is designed to streamline healthcare workflows and reduce administrative burden. Would you like to request early access to be among the first to experience our platform?",
-    "I understand you're interested in Nira's capabilities. Our AI-powered platform helps automate administrative tasks, allowing healthcare professionals to focus on patient care. Can I help you with any specific questions?",
-    "Thanks for your interest in Nira! Our platform integrates with existing healthcare systems to automate workflows and improve operational efficiency. Would you like to join our waitlist for early access?"
+    "That's a great question! Ron is designed to streamline healthcare workflows and reduce administrative burden. Would you like to request early access to be among the first to experience our platform?",
+    "I understand you're interested in Ron's capabilities. Our AI-powered platform helps automate administrative tasks, allowing healthcare professionals to focus on patient care. Can I help you with any specific questions?",
+    "Thanks for your interest in Ron! Our platform integrates with existing healthcare systems to automate workflows and improve operational efficiency. Would you like to join our waitlist for early access?"
   ];
   
   return responses[Math.floor(Math.random() * responses.length)];
@@ -101,10 +101,10 @@ module.exports = async function handler(req, res) {
       const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
       
       // Build system prompt
-      const systemPrompt = `You are Nira's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
+      const systemPrompt = `You are Ron's AI Assistant. You are a powerful, reliable co-pilot on the clinician's side.
 
 Key Directives:
-- Primary Goal: Guide users to understand Nira's value and encourage them to "Request Early Access" or "Join the Waitlist"
+- Primary Goal: Guide users to understand Ron's value and encourage them to "Request Early Access" or "Join the Waitlist"
 - Handle Objections: For cost questions, explain our freemium model with affordable subscription tiers
 - Security First: Emphasize security-first design, de-identified data handling, and HIPAA compliance roadmap
 - Stay Focused: Stick to core knowledge, don't make up features

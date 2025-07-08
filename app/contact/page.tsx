@@ -26,7 +26,7 @@ export default function ContactPage() {
             <div className="bg-gradient-to-br from-blue-700 to-blue-800 p-6 sm:p-8 lg:p-12 rounded-2xl text-white animate-fade-in-delay-1 shadow-2xl">
               <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Get in Touch</h2>
               <p className="text-base sm:text-lg mb-6 sm:mb-8 opacity-90">
-                Nira is actively building the future of healthcare technology. We're looking for passionate individuals who share our vision of revolutionizing clinical work through AI.
+                Ron is actively building the future of healthcare technology. We're looking for passionate individuals who share our vision of revolutionizing clinical work through AI.
               </p>
 
               <div className="space-y-6">
@@ -72,7 +72,7 @@ export default function ContactPage() {
       <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Nira</h3>
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Ron</h3>
             <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-body text-sm sm:text-base">

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, Bot, Users } from "lucide-react";
+import { Search, Bot, Users, Mic, Phone, MessageSquare } from "lucide-react";
 import OurTeam from "@/components/ui/OurTeam";
 import Header from "@/components/ui/Header";
+import VapiWidget from "@/components/ui/vapi-widget";
 
 export default function AboutUsPage() {
   useEffect(() => {
@@ -42,10 +43,10 @@ export default function AboutUsPage() {
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-4 sm:mb-6">
-            We Believe Clinicians Deserve <span className="text-blue-700">Better.</span>
+            We Think Healthcare Can Do <span className="text-blue-700">Better.</span>
           </h1>
           <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 leading-relaxed">
-            We're here to end the era of administrative burnout and empower the people who power healthcare.
+            We're here to bring transparency, simplicity, and advocacy to healthcare. And we're just getting started...
           </p>
         </div>
       </section>
@@ -102,7 +103,7 @@ export default function AboutUsPage() {
                 </div>
                 <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900 mb-3 sm:mb-4">Deep Research First</h3>
                 <p className="font-body text-slate-700 leading-relaxed">
-                  Our philosophy is simple: understand before you act. Nira's agents perform deep, evidence-based research on every task to ensure all actions are context-aware and intelligent.
+                  Our philosophy is simple: understand before you act. Ron's agents perform deep, evidence-based research on every task to ensure all actions are context-aware and intelligent.
                 </p>
               </CardContent>
             </Card>
@@ -134,6 +135,92 @@ export default function AboutUsPage() {
         </div>
       </section>
 
+      {/* Voice Agents Section */}
+      <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8 sm:mb-16">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 sm:mb-6">
+              Experience Ron's <span className="text-blue-700">Voice Agents</span>
+            </h2>
+            <p className="font-body text-lg sm:text-xl text-slate-700 max-w-3xl mx-auto">
+              Our AI voice agents handle complex healthcare conversations naturally. Try talking to Ron directly and see how voice technology is transforming healthcare interactions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Voice Capabilities */}
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Mic className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">Natural Voice Interaction</h3>
+                  <p className="font-body text-slate-700">Speak naturally to Ron about your healthcare needs. Our voice AI understands context and responds intelligently.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-teal-600" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">Automated Phone Calls</h3>
+                  <p className="font-body text-slate-700">Ron's voice agents make calls to doctor offices, navigate phone systems, and book appointments automatically.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <MessageSquare className="w-6 h-6 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">Real-time Transcription</h3>
+                  <p className="font-body text-slate-700">All voice interactions are transcribed in real-time, creating a complete record of your healthcare conversations.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* VAPI Widget Container */}
+            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 sm:p-8 shadow-xl">
+              <div className="text-center mb-6">
+                <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">Try Ron Now</h3>
+                <p className="font-body text-slate-600">Click the button below to start a voice conversation with Ron's AI healthcare assistant.</p>
+              </div>
+              
+              <div className="relative min-h-[200px] flex items-center justify-center">
+                <VapiWidget
+                  mode="voice"
+                  theme="dark"
+                  baseColor="#000000"
+                  accentColor="#009cf4"
+                  buttonBaseColor="#000000"
+                  buttonAccentColor="#ffffff"
+                  radius="large"
+                  size="full"
+                  position="bottom-right"
+                  mainLabel="TALK WITH AI"
+                  startButtonText="Start"
+                  endButtonText="End Call"
+                  requireConsent={true}
+                  localStorageKey="vapi_widget_consent"
+                  showTranscript={true}
+                  publicKey="4e5401b6-d69d-4f4b-8d9a-bd6086ee0212"
+                  assistantId="cf607223-43d0-4e59-b315-e82bb230915b"
+                  className="w-full"
+                />
+              </div>
+
+              <div className="mt-4 text-center">
+                <p className="font-body text-sm text-slate-500">
+                  * Voice conversations are powered by advanced AI and are logged for quality assurance
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* The Team Section */}
       <section className="fade-in-section">
         <OurTeam />
@@ -143,7 +230,7 @@ export default function AboutUsPage() {
       <section className="py-12 sm:py-20 px-4 sm:px-6 fade-in-section">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-6 sm:mb-8">
-            A Future Where Clinicians are <span className="text-blue-700">Free to Care.</span>
+            A Future Where Healthcare is <span className="text-blue-700">Seamless, Accessible, and Transparent.</span>
           </h2>
           <div className="prose prose-base sm:prose-lg lg:prose-xl text-slate-700 mx-auto">
             <p>
@@ -157,7 +244,7 @@ export default function AboutUsPage() {
       <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Nira</h3>
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Ron</h3>
             <span className="text-slate-400 font-body text-sm sm:text-base">by Ron AI</span>
           </div>
           <p className="text-slate-400 font-body text-sm sm:text-base">

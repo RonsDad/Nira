@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { Brain, Shield, MessageSquare, ChevronRight, Sparkles, Network, Compass, Star } from "lucide-react";
+import { Brain, Shield, MessageSquare, ChevronRight, Sparkles, Network, Compass, Star, Phone, DollarSign, FileText, Calendar, Search, Bot, User, Send, Mic, MicOff, Clock, CheckCircle, XCircle, Pill, Heart, CreditCard, AlertCircle, Activity, Zap, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,44 +11,131 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Header from "@/components/ui/Header";
+import dynamic from 'next/dynamic';
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { ScrollKiller } from "@/components/ScrollKiller";
+import Script from 'next/script';
+
+const ProductFeaturesSection = dynamic(() => import('./product-features').then(mod => mod.ProductFeaturesSection), {
+  ssr: false,
+  loading: () => <div className="w-full h-[600px] flex items-center justify-center text-white"><p>Loading 3D Features...</p></div>,
+});
 
 export default function OurProducts() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    specialty: '',
-    interestedIn: {
-      nira: false,
-      cura: false,
-      florence: false,
-      records: false
+  // State for interactive demos
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [isCallActive, setIsCallActive] = useState(false);
+  const [callDuration, setCallDuration] = useState(0);
+  const [chatMessages, setChatMessages] = useState([
+    { type: 'ai', content: "Hi! I'm Ron, your healthcare assistant. How can I help you today?", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+  ]);
+  const [currentMessage, setCurrentMessage] = useState("");
+
+  // Enhanced JSON-LD Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Ron AI Healthcare Products - AI Healthcare Operating System",
+    "description": "AI-powered healthcare operating system featuring automated insurance verification, voice appointment booking, medication price comparison, and unified health management.",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "@id": "#ron-search",
+        "position": 1,
+        "name": "Ron Search - AI Healthcare Assistant for Finding Doctors",
+        "description": "Find doctor who takes my insurance near me with AI-powered provider search and real-time insurance verification.",
+        "brand": { "@type": "Brand", "name": "Ron AI" }
+      },
+      {
+        "@type": "Product",
+        "@id": "#ron-scheduler",
+        "position": 2,
+        "name": "Ron Scheduler - Voice Healthcare Technology",
+        "description": "Automated appointment booking with AI voice assistant that calls offices and books appointments.",
+        "brand": { "@type": "Brand", "name": "Ron AI" }
+      },
+      {
+        "@type": "Product",
+        "@id": "#ron-meds",
+        "position": 3,
+        "name": "Ron Meds - Medication Management",
+        "description": "Compare medication prices, find discounts, and manage prescriptions with AI.",
+        "brand": { "@type": "Brand", "name": "Ron AI" }
+      },
+      {
+        "@type": "Product",
+        "@id": "#ron-health",
+        "position": 4,
+        "name": "Ron Health - Medical Records & Health Insights",
+        "description": "Comprehensive health management with medical records organization and health insights.",
+        "brand": { "@type": "Brand", "name": "Ron AI" }
+      }
+    ]
+  };
+
+  // FAQ Schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does Ron find doctors who take my insurance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ron uses AI to search multiple databases and verify insurance acceptance in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty."
+        }
+      }
+    ]
+  };
+
+  // Call timer effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isCallActive) {
+      interval = setInterval(() => {
+        setCallDuration(prev => prev + 1);
+      }, 1000);
     }
+    return () => clearInterval(interval);
+  }, [isCallActive]);
+
+  const formatCallTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleSendMessage = () => {
+    if (currentMessage.trim()) {
+      setChatMessages(prev => [...prev, 
+        { type: 'user', content: currentMessage, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+      ]);
+      setCurrentMessage("");
+      
+      // Simulate AI response
+      setTimeout(() => {
+        setChatMessages(prev => [...prev, 
+          { type: 'ai', content: "I'll help you find a doctor. Let me search for providers in your area who accept your insurance...", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+        ]);
+      }, 1000);
+    }
+  };
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    company: '',
+    email: '',
+    phone: '',
+    anythingElse: '',
+    attachment: null as File | null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [allowScroll, setAllowScroll] = useState(false);
-
-  // Handle hash-based navigation without immediate scrolling
-  useEffect(() => {
-    // Check if we came here with a hash
-    if (window.location.hash === '#early-adopter') {
-      // Remove the hash temporarily
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState(null, '', cleanUrl);
-      
-      // Allow scrolling after a delay (once page is loaded)
-      setTimeout(() => {
-        setAllowScroll(true);
-        // Optionally scroll to the form after page loads
-        const element = document.getElementById('early-adopter');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 500);
-    }
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,20 +149,20 @@ export default function OurProducts() {
         },
         body: JSON.stringify({
           ...formData,
-          message: `Early Adopter Request - Interested in: ${Object.entries(formData.interestedIn)
-            .filter(([_, value]) => value)
-            .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1))
-            .join(', ')}`
+          message: `Early Access Request from ${formData.firstName} ${formData.lastName}${formData.company ? ` at ${formData.company}` : ''}. Additional info: ${formData.anythingElse || 'None provided'}`
         }),
       });
 
       if (response.ok) {
-        toast.success("Welcome to the early adopter program! We'll be in touch soon.");
+        toast.success("Welcome to Ron AI! We'll be in touch within 24 hours.");
         setFormData({
-          fullName: '',
+          firstName: '',
+          lastName: '',
+          company: '',
           email: '',
-          specialty: '',
-          interestedIn: { nira: false, cura: false, florence: false, records: false }
+          phone: '',
+          anythingElse: '',
+          attachment: null
         });
       } else {
         toast.error("Something went wrong. Please try again.");
@@ -88,732 +175,968 @@ export default function OurProducts() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <ScrollKiller />
-      <Header />
+    <>
+      {/* Structured Data Scripts */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      
+      
+      
+      {/* Enhanced Luxury CSS */}
+      <style jsx global>{`
+        /* Premium Luxury Glass Effects */
+        .glass-effect {
+          backdrop-filter: blur(24px) saturate(130%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(25, 25, 35, 0.65);
+          position: relative;
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-      {/* Hero Section */}
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">
-            Nira: <span className="text-blue-700">The Future of Clinical Intelligence</span>
+        .glass-effect::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: inherit;
+          padding: 1px;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.2) 0%, 
+            transparent 25%, 
+            transparent 75%, 
+            rgba(255, 255, 255, 0.1) 100%);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: xor;
+          pointer-events: none;
+        }
+
+        .glass-effect-elevated {
+          backdrop-filter: blur(32px) saturate(140%);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: rgba(30, 30, 40, 0.85);
+          box-shadow: 
+            0 0 0 1px rgba(255, 255, 255, 0.08),
+            0 16px 64px rgba(0, 0, 0, 0.4),
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            0 0 32px rgba(0, 140, 255, 0.08);
+          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-effect-elevated:hover {
+          transform: translateY(-2px);
+          box-shadow: 
+            0 0 0 1px rgba(255, 255, 255, 0.12),
+            0 24px 80px rgba(0, 0, 0, 0.5),
+            0 12px 48px rgba(0, 0, 0, 0.4),
+            0 0 48px rgba(0, 140, 255, 0.12);
+        }
+
+        .ice-glass {
+          backdrop-filter: blur(40px) saturate(150%) brightness(115%);
+          background: linear-gradient(135deg, 
+            rgba(240, 248, 255, 0.08) 0%,
+            rgba(240, 248, 255, 0.04) 50%,
+            rgba(0, 140, 255, 0.06) 100%);
+          border: 1px solid rgba(240, 248, 255, 0.2);
+          position: relative;
+          overflow: hidden;
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .ice-glass::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(145deg, 
+            rgba(255, 255, 255, 0.15) 0%,
+            transparent 30%,
+            transparent 70%,
+            rgba(255, 255, 255, 0.1) 100%);
+          border-radius: inherit;
+          pointer-events: none;
+        }
+
+        .premium-glass {
+          backdrop-filter: blur(32px) saturate(140%);
+          background: linear-gradient(135deg, 
+            rgba(0, 140, 255, 0.05) 0%,
+            rgba(0, 140, 255, 0.02) 50%,
+            rgba(0, 140, 255, 0.08) 100%);
+          border: 1px solid rgba(0, 140, 255, 0.15);
+          position: relative;
+          overflow: hidden;
+          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .premium-glass::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(145deg, 
+            rgba(0, 140, 255, 0.1) 0%,
+            transparent 25%,
+            transparent 75%,
+            rgba(0, 140, 255, 0.05) 100%);
+          border-radius: inherit;
+          pointer-events: none;
+        }
+
+        .premium-glass:hover {
+          transform: translateY(-1px);
+          border-color: rgba(0, 140, 255, 0.25);
+          box-shadow: 
+            0 0 40px rgba(0, 140, 255, 0.1),
+            0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-accent {
+          backdrop-filter: blur(24px) saturate(125%);
+          border: 1px solid rgba(0, 140, 255, 0.08);
+          background: rgba(0, 140, 255, 0.012);
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-accent:hover {
+          background: rgba(0, 140, 255, 0.025);
+          border-color: rgba(0, 140, 255, 0.15);
+          transform: translateY(-1px);
+          box-shadow: 
+            0 0 24px rgba(0, 140, 255, 0.08),
+            0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .luxury-glow {
+          text-shadow: 
+            0 0 8px rgba(0, 140, 255, 0.3),
+            0 0 16px rgba(0, 140, 255, 0.2),
+            0 0 24px rgba(0, 140, 255, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .luxury-glow:hover {
+          text-shadow: 
+            0 0 12px rgba(0, 140, 255, 0.4),
+            0 0 24px rgba(0, 140, 255, 0.3),
+            0 0 36px rgba(0, 140, 255, 0.2);
+        }
+
+        .premium-border {
+          border: 2px solid;
+          border-image: linear-gradient(45deg, 
+            rgba(0, 140, 255, 0.3) 0%, 
+            rgba(0, 140, 255, 0.1) 50%, 
+            rgba(0, 140, 255, 0.3) 100%) 1;
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .premium-border:hover {
+          border-image: linear-gradient(45deg, 
+            rgba(0, 140, 255, 0.5) 0%, 
+            rgba(0, 140, 255, 0.2) 50%, 
+            rgba(0, 140, 255, 0.5) 100%) 1;
+        }
+
+        /* Enhanced Animations */
+        @keyframes float-gentle {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse-glow {
+          0%, 100% { 
+            box-shadow: 0 0 8px rgba(0, 140, 255, 0.2);
+            opacity: 0.8;
+          }
+          50% { 
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.4);
+            opacity: 1;
+          }
+        }
+
+        @keyframes shimmer-luxury {
+          0% { 
+            transform: translateX(-100%) rotate(45deg);
+            opacity: 0;
+          }
+          50% { 
+            opacity: 0.6;
+          }
+          100% { 
+            transform: translateX(200%) rotate(45deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes breathe-glow {
+          0%, 100% { 
+            background: rgba(0, 140, 255, 0.03);
+            transform: scale(1);
+          }
+          50% { 
+            background: rgba(0, 140, 255, 0.08);
+            transform: scale(1.02);
+          }
+        }
+
+        .float-animation {
+          animation: float-gentle 6s ease-in-out infinite;
+        }
+
+        .pulse-glow-animation {
+          animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        .shimmer-effect {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .shimmer-effect::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.03) 45%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.03) 55%,
+            transparent 100%);
+          animation: shimmer-luxury 8s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        .breathe-animation {
+          animation: breathe-glow 8s ease-in-out infinite;
+        }
+
+        .chat-bubble-ai {
+          background: rgba(25, 25, 35, 0.85);
+          border: 1px solid rgba(0, 140, 255, 0.08);
+          backdrop-filter: blur(20px);
+        }
+
+        .chat-bubble-user {
+          background: rgba(0, 140, 255, 0.02);
+          border: 1px solid rgba(0, 140, 255, 0.12);
+          backdrop-filter: blur(20px);
+        }
+
+        /* Premium Typography */
+        .premium-heading {
+          font-family: 'Inter', system-ui, sans-serif;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          line-height: 1.1;
+        }
+
+        .premium-subheading {
+          font-family: 'Inter', system-ui, sans-serif;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          line-height: 1.3;
+        }
+
+        .premium-body {
+          font-family: 'Inter', system-ui, sans-serif;
+          font-weight: 400;
+          letter-spacing: 0.01em;
+          line-height: 1.6;
+        }
+
+        /* Enhanced Background Effects */
+        .luxury-bg-gradient {
+          background: linear-gradient(135deg, 
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(15, 15, 25, 0.95) 25%,
+            rgba(5, 5, 15, 0.98) 50%,
+            rgba(15, 15, 25, 0.95) 75%,
+            rgba(0, 0, 0, 0.9) 100%);
+        }
+
+        .ambient-glow {
+          background: radial-gradient(ellipse at center,
+            rgba(0, 140, 255, 0.08) 0%,
+            rgba(0, 140, 255, 0.04) 40%,
+            transparent 70%);
+        }
+
+        .luxury-particle {
+          position: fixed;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .luxury-particle:nth-child(1) { animation: float-gentle 12s ease-in-out infinite; }
+        .luxury-particle:nth-child(2) { animation: float-gentle 15s ease-in-out infinite 2s; }
+        .luxury-particle:nth-child(3) { animation: float-gentle 18s ease-in-out infinite 4s; }
+        .luxury-particle:nth-child(4) { animation: float-gentle 20s ease-in-out infinite 6s; }
+        .luxury-particle:nth-child(5) { animation: float-gentle 14s ease-in-out infinite 8s; }
+
+        /* SVG Animations */
+        .svg-morph {
+          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .svg-morph:hover {
+          transform: scale(1.1) rotate(5deg);
+          filter: drop-shadow(0 0 8px rgba(0, 140, 255, 0.4));
+        }
+
+        /* Progress Ring Animation */
+        .progress-ring {
+          transition: stroke-dashoffset 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Enhanced Scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(45deg, 
+            rgba(0, 140, 255, 0.3), 
+            rgba(0, 140, 255, 0.6));
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(45deg, 
+            rgba(0, 140, 255, 0.5), 
+            rgba(0, 140, 255, 0.8));
+        }
+
+        /* VAPI Widget Visual Alert Styles */
+        @keyframes bounce-alert {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+
+        .vapi-alert {
+          animation: bounce-alert 2s ease-in-out infinite;
+        }
+
+        /* VAPI widget container */
+        #vapi-widget-container {
+          position: relative;
+          z-index: 9999;
+        }
+      `}</style>
+      
+      <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Enhanced Luxury Background */}
+        <div className="fixed inset-0 luxury-bg-gradient" />
+        
+        {/* Multiple Layer Blue Glow Background */}
+        <div className="fixed inset-0 ambient-glow" />
+        <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/5 via-transparent to-blue-800/5" />
+        <div className="fixed bottom-0 right-0 w-full h-full bg-gradient-to-tl from-blue-900/3 via-transparent to-blue-800/3" />
+        
+        {/* Animated Blue Light Beams */}
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500/8 rounded-full filter blur-3xl breathe-animation" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400/6 rounded-full filter blur-3xl breathe-animation" style={{animationDelay: '4s'}} />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-blue-600/4 rounded-full filter blur-3xl breathe-animation" style={{animationDelay: '2s'}} />
+        </div>
+
+        {/* Floating Luxury Particles */}
+        <div className="fixed inset-0 pointer-events-none z-1">
+          <div className="luxury-particle absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/20 rounded-full blur-sm" />
+          <div className="luxury-particle absolute top-1/3 right-1/3 w-1 h-1 bg-blue-300/30 rounded-full blur-sm" />
+          <div className="luxury-particle absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-blue-500/15 rounded-full blur-sm" />
+          <div className="luxury-particle absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-400/25 rounded-full blur-sm" />
+          <div className="luxury-particle absolute top-2/3 left-2/3 w-2 h-2 bg-blue-300/20 rounded-full blur-sm" />
+        </div>
+
+        {/* Floating Healthcare SVG Icons */}
+        <div className="fixed inset-0 pointer-events-none z-1">
+          <div className="absolute top-1/4 left-1/6 opacity-10 float-animation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor" className="text-blue-400"/>
+            </svg>
+          </div>
+          <div className="absolute top-1/3 right-1/6 opacity-10 float-animation" style={{animationDelay: '2s'}}>
+            <Heart className="w-6 h-6 text-blue-400" />
+          </div>
+          <div className="absolute bottom-1/4 left-1/8 opacity-10 float-animation" style={{animationDelay: '4s'}}>
+            <Activity className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="absolute bottom-1/3 right-1/8 opacity-10 float-animation" style={{animationDelay: '6s'}}>
+            <Shield className="w-5 h-5 text-blue-400" />
+          </div>
+        </div>
+
+        {/* Hidden SEO Text */}
+        <div className="absolute top-0 left-0 w-full overflow-hidden" style={{ fontSize: '1px', color: '#000000', height: '1px' }}>
+          find doctor who takes my insurance near me AI healthcare assistant appointment booking automated insurance eligibility verification 
+          voice activated medical appointment scheduling personal health record organization digital voice healthcare technology
+        </div>
+        
+        <Header />
+
+      {/* Enhanced Hero Section */}
+      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 z-10">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="premium-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+            Healthcare is really hard. <span className="luxury-glow text-blue-400">We're making it easy.</span>
           </h1>
-          <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 mb-6 sm:mb-10 max-w-4xl mx-auto leading-relaxed">
-            One unified platform. Four powerful solutions. Transform how you work, manage tasks, 
-            and make decisions with AI-powered clinical intelligence designed for modern healthcare.
+          <p className="premium-body text-xl sm:text-2xl md:text-3xl text-gray-300 mb-8 sm:mb-12 max-w-5xl mx-auto leading-relaxed">
+            Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
+            finding doctors, booking appointments, managing medications, and organizing health records.
           </p>
           <Button 
             size="lg" 
-            className="bg-slate-800 hover:bg-slate-900 text-white font-body font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-sm mx-auto sm:mx-0"
-            onClick={() => document.getElementById('early-adopter')?.scrollIntoView({ behavior: 'smooth' })}
+            className="premium-glass text-white premium-body font-semibold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-500 hover:scale-105 shimmer-effect"
+            onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Join the Nira Early Access Program
+            Get Early Access to Ron
           </Button>
         </div>
         
-        {/* Abstract Hero SVG */}
-        <div className="absolute inset-0 overflow-hidden">
-          <svg viewBox="0 0 1440 800" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.1"/>
-                <stop offset="100%" stopColor="#1E40AF" stopOpacity="0.1"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,400 Q360,200 720,400 T1440,400 L1440,800 L0,800 Z" fill="url(#heroGradient)"/>
-            <circle cx="200" cy="200" r="100" fill="#3B82F6" opacity="0.1" className="animate-pulse"/>
-            <circle cx="1240" cy="600" r="150" fill="#1E40AF" opacity="0.1" className="animate-pulse animation-delay-2000"/>
-          </svg>
-        </div>
       </section>
 
-      {/* Product Section 1: Nira */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
-            <div className="order-2 lg:order-1 lg:col-span-3">
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
-                Nira <span className="text-blue-600">Insights</span>
-              </h2>
-              <p className="font-body text-xl sm:text-2xl text-blue-700 mb-4 sm:mb-6">
-                Real-Time Reporting & Analytics That Matter
-              </p>
-              <p className="font-body text-lg text-slate-700 mb-8 leading-relaxed">
-                Transform raw clinical data into actionable intelligence. Nira Insights provides 
-                intuitive dashboards, automated reporting, and predictive analytics that help you 
-                make data-driven decisions, track KPIs, and optimize clinical outcomes in real-time.
-              </p>
-              
-              {/* Stunning SVG for Analytics */}
-              <div className="relative h-48 sm:h-56 mb-8">
-                <svg viewBox="0 0 400 200" className="w-full h-full">
-                  <g transform="scale(1.3) translate(-40, -20)">
-                    <defs>
-                      <linearGradient id="analyticsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.8"/>
-                        <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.3"/>
-                      </linearGradient>
-                      <pattern id="gridPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E2E8F0" strokeWidth="0.5"/>
-                      </pattern>
-                    </defs>
-                    
-                    {/* Background Grid */}
-                    <rect width="400" height="200" fill="url(#gridPattern)"/>
-                    
-                    {/* Bar Chart */}
-                    <g className="chart-bars">
-                      <rect x="50" y="120" width="40" height="60" fill="url(#analyticsGrad)" rx="4" className="animate-grow-up"/>
-                      <rect x="110" y="80" width="40" height="100" fill="url(#analyticsGrad)" rx="4" className="animate-grow-up animation-delay-200"/>
-                      <rect x="170" y="100" width="40" height="80" fill="url(#analyticsGrad)" rx="4" className="animate-grow-up animation-delay-400"/>
-                      <rect x="230" y="60" width="40" height="120" fill="url(#analyticsGrad)" rx="4" className="animate-grow-up animation-delay-600"/>
-                      <rect x="290" y="90" width="40" height="90" fill="url(#analyticsGrad)" rx="4" className="animate-grow-up animation-delay-800"/>
-                    </g>
-                    
-                    {/* Trend Line */}
-                    <path d="M 70 140 Q 130 120, 190 110 T 310 80" stroke="#3B82F6" strokeWidth="3" fill="none" strokeLinecap="round" className="animate-draw-line"/>
-                    
-                    {/* Data Points */}
-                    <circle cx="70" cy="140" r="6" fill="#fff" stroke="#3B82F6" strokeWidth="2" className="animate-scale-in animation-delay-1000"/>
-                    <circle cx="130" cy="120" r="6" fill="#fff" stroke="#3B82F6" strokeWidth="2" className="animate-scale-in animation-delay-1200"/>
-                    <circle cx="190" cy="110" r="6" fill="#fff" stroke="#3B82F6" strokeWidth="2" className="animate-scale-in animation-delay-1400"/>
-                    <circle cx="250" cy="95" r="6" fill="#fff" stroke="#3B82F6" strokeWidth="2" className="animate-scale-in animation-delay-1600"/>
-                    <circle cx="310" cy="80" r="6" fill="#fff" stroke="#3B82F6" strokeWidth="2" className="animate-scale-in animation-delay-1800"/>
-                    
-                    {/* Axis Lines */}
-                    <line x1="40" y1="180" x2="360" y2="180" stroke="#64748B" strokeWidth="2"/>
-                    <line x1="40" y1="20" x2="40" y2="180" stroke="#64748B" strokeWidth="2"/>
-                    
-                    {/* Labels */}
-                    <text x="200" y="25" textAnchor="middle" fill="#1E293B" fontSize="16" fontWeight="600">Real-Time Analytics</text>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            
-            {/* Nira UI Preview */}
-            <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden order-1 lg:order-2 lg:col-span-9">
-              <div className="bg-slate-100 px-6 py-4 flex items-center space-x-2 border-b border-slate-200">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                </div>
-                <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                  <span className="text-slate-600 text-sm font-body">nira.ronai.com/insights</span>
-                </div>
-              </div>
-              
-              <div className="relative bg-gradient-to-br from-emerald-50 to-emerald-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-                <iframe
-                  src="https://set-pride-34770011.figma.site"
-                  className="w-full h-full"
-                  allowFullScreen
-                  title="Nira Insights Demo"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <ProductFeaturesSection />
 
-      {/* Product Section 2: Nira Flow */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-teal-50 via-white to-teal-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-            {/* Figma iframe - 9 columns */}
-            <div className="order-2 lg:order-1 lg:col-span-9">
-              <Card className="bg-white/80 backdrop-blur border-teal-200 shadow-2xl overflow-hidden">
-                <div className="bg-slate-800 p-3 flex items-center justify-between">
-                  <div className="flex space-x-2">
-                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  </div>
-                  <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                    <span className="text-slate-600 text-sm font-body">nira.ronai.com/flow</span>
-                  </div>
-                </div>
-                
-                <div className="relative aspect-video bg-gradient-to-br from-teal-50 to-teal-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-                  <iframe
-                    src="https://pine-pin-28044084.figma.site"
-                    className="w-full h-full"
-                    allowFullScreen
-                    title="Nira Flow Demo"
-                  />
-                </div>
-              </Card>
-            </div>
-            
-            {/* Typography - 3 columns */}
-            <div className="order-1 lg:order-2 lg:col-span-3">
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
-                Nira <span className="text-teal-600">Flow</span>
-              </h2>
-              <p className="font-body text-xl sm:text-2xl text-teal-700 mb-4 sm:mb-6">
-                Bringing Agile Excellence to Healthcare Teams
-              </p>
-              <p className="font-body text-lg text-slate-700 mb-8 leading-relaxed">
-                Revolutionize clinical task management with Nira Flow. Built on proven Agile methodologies, 
-                Flow helps healthcare teams prioritize tasks, track progress, and collaborate seamlessly. 
-                Transform chaos into clarity with smart workflows designed for the pace of modern medicine.
-              </p>
-              
-              {/* Key Features Grid */}
-              <div className="grid grid-cols-1 gap-4 mb-6 sm:mb-8">
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-5 h-5 text-teal-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Sprint Planning</h4>
-                    <p className="text-sm text-slate-600">Organize work into manageable sprints</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Shield className="w-5 h-5 text-teal-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Priority Management</h4>
-                    <p className="text-sm text-slate-600">Focus on what matters most</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Network className="w-5 h-5 text-teal-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Team Collaboration</h4>
-                    <p className="text-sm text-slate-600">Stay aligned across departments</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Star className="w-5 h-5 text-teal-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Performance Metrics</h4>
-                    <p className="text-sm text-slate-600">Track team velocity and burndown</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Stunning Kanban Board SVG */}
-              <div className="relative h-48 sm:h-56">
-                <svg viewBox="0 0 400 250" className="w-full h-full">
-                  <g transform="scale(1.3) translate(-40, -25)">
-                    <defs>
-                      <linearGradient id="kanbanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.2"/>
-                        <stop offset="100%" stopColor="#5EEAD4" stopOpacity="0.1"/>
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Kanban Board Background */}
-                    <rect x="10" y="10" width="380" height="230" fill="url(#kanbanGrad)" rx="8" className="animate-pulse-subtle"/>
-                    
-                    {/* Column Headers */}
-                    <text x="70" y="35" fill="#0F766E" fontSize="14" fontWeight="600">To Do</text>
-                    <text x="160" y="35" fill="#0F766E" fontSize="14" fontWeight="600">In Progress</text>
-                    <text x="280" y="35" fill="#0F766E" fontSize="14" fontWeight="600">Done</text>
-                    
-                    {/* Column Dividers */}
-                    <line x1="125" y1="45" x2="125" y2="230" stroke="#14B8A6" strokeWidth="1" opacity="0.3"/>
-                    <line x1="250" y1="45" x2="250" y2="230" stroke="#14B8A6" strokeWidth="1" opacity="0.3"/>
-                    
-                    {/* Task Cards - To Do */}
-                    <g className="task-slide-down">
-                      <rect x="20" y="55" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="30" y="75" fill="#0F766E" fontSize="11" fontWeight="500">Patient Rounds</text>
-                      <circle cx="95" cy="75" r="10" fill="#14B8A6" opacity="0.2"/>
-                      <text x="91" y="79" fill="#0F766E" fontSize="10" fontWeight="600">3</text>
-                    </g>
-                    
-                    <g className="task-slide-down animation-delay-500">
-                      <rect x="20" y="105" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="30" y="125" fill="#0F766E" fontSize="11" fontWeight="500">Lab Reviews</text>
-                      <circle cx="95" cy="125" r="10" fill="#F59E0B" opacity="0.2"/>
-                      <text x="91" y="129" fill="#92400E" fontSize="10" fontWeight="600">5</text>
-                    </g>
-                    
-                    {/* Task Cards - In Progress */}
-                    <g className="task-move">
-                      <rect x="145" y="55" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="155" y="75" fill="#0F766E" fontSize="11" fontWeight="500">Med Reconcile</text>
-                      <circle cx="220" cy="75" r="10" fill="#14B8A6" opacity="0.2"/>
-                      <text x="216" y="79" fill="#0F766E" fontSize="10" fontWeight="600">2</text>
-                    </g>
-                    
-                    <g className="task-move animation-delay-1000">
-                      <rect x="145" y="105" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="155" y="125" fill="#0F766E" fontSize="11" fontWeight="500">Discharge Plan</text>
-                      <circle cx="220" cy="125" r="10" fill="#EF4444" opacity="0.2"/>
-                      <text x="216" y="129" fill="#991B1B" fontSize="10" fontWeight="600">!</text>
-                    </g>
-                    
-                    {/* Task Cards - Done */}
-                    <g className="opacity-70">
-                      <rect x="270" y="55" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="280" y="75" fill="#6B7280" fontSize="11" fontWeight="500">Consults</text>
-                      <path d="M340 75 L345 80 L355 70" stroke="#10B981" strokeWidth="2" fill="none"/>
-                    </g>
-                    
-                    <g className="opacity-70">
-                      <rect x="270" y="105" width="90" height="40" fill="white" rx="4" filter="url(#shadow)"/>
-                      <text x="280" y="125" fill="#6B7280" fontSize="11" fontWeight="500">Orders Review</text>
-                      <path d="M340 125 L345 130 L355 120" stroke="#10B981" strokeWidth="2" fill="none"/>
-                    </g>
-                    
-                    {/* Shadow Filter */}
-                    <filter id="shadow">
-                      <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.1"/>
-                    </filter>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Section 3: Florence */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-purple-50 via-white to-purple-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
-            <div className="lg:col-span-3">
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
-                Nira <span className="text-purple-600">Command</span>
-              </h2>
-              <p className="font-body text-xl sm:text-2xl text-purple-700 mb-4 sm:mb-6">
-                Your AI-Powered Clinical Command Center
-              </p>
-              <p className="font-body text-lg text-slate-700 mb-8 leading-relaxed">
-                Take control with Nira Command - an intelligent chat interface that serves as your 
-                clinical command center. Get instant answers, coordinate care, manage protocols, 
-                and make informed decisions with AI that understands the nuances of healthcare.
-              </p>
-              
-              {/* Key Features as Chat Bubbles */}
-              <div className="space-y-4 mb-6 sm:mb-8">
-                <div className="bg-purple-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                  <p className="text-purple-900 font-body text-sm sm:text-base">
-                    <span className="font-semibold">Clinical Decision Support:</span> Real-time evidence-based recommendations
-                  </p>
-                </div>
-                
-                <div className="bg-purple-100 rounded-2xl rounded-tr-sm p-4 max-w-[90%] ml-auto">
-                  <p className="text-purple-900 font-body text-sm sm:text-base">
-                    <span className="font-semibold">Care Coordination:</span> Seamlessly connect with your care team
-                  </p>
-                </div>
-                
-                <div className="bg-purple-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                  <p className="text-purple-900 font-body text-sm sm:text-base">
-                    <span className="font-semibold">Protocol Management:</span> Access and update clinical protocols instantly
-                  </p>
-                </div>
-              </div>
-              
-              {/* Stunning Command Center SVG */}
-              <div className="relative h-40 sm:h-48">
-                <svg viewBox="0 0 400 200" className="w-full h-full">
-                  <g transform="scale(1.3) translate(-40, -20)">
-                    <defs>
-                      <linearGradient id="commandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#9333EA" stopOpacity="0.2"/>
-                        <stop offset="100%" stopColor="#C084FC" stopOpacity="0.1"/>
-                      </linearGradient>
-                      <filter id="glow">
-                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                        <feMerge>
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                      </filter>
-                    </defs>
-                    
-                    {/* Central Command Hub */}
-                    <circle cx="200" cy="100" r="50" fill="url(#commandGrad)" stroke="#9333EA" strokeWidth="2"/>
-                    <circle cx="200" cy="100" r="35" fill="none" stroke="#C084FC" strokeWidth="1" strokeDasharray="5,5">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from="0 200 100"
-                        to="360 200 100"
-                        dur="20s"
-                        repeatCount="indefinite"/>
-                    </circle>
-                    
-                    {/* Connected Nodes */}
-                    <g filter="url(#glow)">
-                      <circle cx="100" cy="50" r="20" fill="#C084FC" opacity="0.8"/>
-                      <circle cx="300" cy="50" r="20" fill="#C084FC" opacity="0.8"/>
-                      <circle cx="100" cy="150" r="20" fill="#C084FC" opacity="0.8"/>
-                      <circle cx="300" cy="150" r="20" fill="#C084FC" opacity="0.8"/>
-                    </g>
-                    
-                    {/* Connection Lines */}
-                    <path d="M180,90 L120,60" stroke="#9333EA" strokeWidth="2" opacity="0.5"/>
-                    <path d="M220,90 L280,60" stroke="#9333EA" strokeWidth="2" opacity="0.5"/>
-                    <path d="M180,110 L120,140" stroke="#9333EA" strokeWidth="2" opacity="0.5"/>
-                    <path d="M220,110 L280,140" stroke="#9333EA" strokeWidth="2" opacity="0.5"/>
-                    
-                    {/* Pulse Effect */}
-                    <circle cx="200" cy="100" r="50" fill="none" stroke="#9333EA" strokeWidth="2" opacity="0.5">
-                      <animate attributeName="r" values="50;65;50" dur="2s" repeatCount="indefinite"/>
-                      <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
-                    </circle>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            
-            {/* Florence UI Preview */}
-            <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden lg:col-span-9">
-              <div className="bg-slate-100 px-6 py-4 flex items-center space-x-2 border-b border-slate-200">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                </div>
-                <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                  <span className="text-slate-600 text-sm font-body">nira.ronai.com/command</span>
-                </div>
-              </div>
-              
-              <div className="relative bg-gradient-to-br from-purple-50 to-purple-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-                <iframe
-                  src="https://aloha-satin-23191317.figma.site"
-                  className="w-full h-full"
-                  allowFullScreen
-                  title="Nira Command Demo"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Section 4: Nira Records */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-50 via-white to-indigo-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-8">
-            {/* Records UI Preview */}
-            <div className="order-1 lg:order-1 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden lg:col-span-9">
-              <div className="bg-slate-100 px-6 py-4 flex items-center space-x-2 border-b border-slate-200">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                </div>
-                <div className="flex-1 bg-slate-200 rounded-lg px-4 py-1 mx-4">
-                  <span className="text-slate-600 text-sm font-body">nira.ronai.com/records</span>
-                </div>
-              </div>
-              
-              <div className="relative bg-gradient-to-br from-indigo-50 to-indigo-100 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-                <iframe
-                  src="https://yam-purse-81259719.figma.site"
-                  className="w-full h-full"
-                  allowFullScreen
-                  title="Nira Records Demo"
-                />
-              </div>
-            </div>
-            
-            <div className="order-2 lg:order-2 lg:col-span-3">
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
-                Nira <span className="text-indigo-600">Records</span>
-              </h2>
-              <p className="font-body text-xl sm:text-2xl text-indigo-700 mb-4 sm:mb-6">
-                Intelligent Patient Records & Management
-              </p>
-              <p className="font-body text-lg text-slate-700 mb-8 leading-relaxed">
-                Experience the future of patient record management with Nira Records. Our AI-powered system 
-                ensures HIPAA compliance while providing intelligent search, automated documentation, 
-                and seamless interoperability across all your healthcare systems.
-              </p>
-              
-              {/* Key Features Grid */}
-              <div className="grid grid-cols-1 gap-4 mb-6 sm:mb-8">
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Shield className="w-5 h-5 text-indigo-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">HIPAA Compliant</h4>
-                    <p className="text-sm text-slate-600">Secure, encrypted patient data</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Brain className="w-5 h-5 text-indigo-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">AI-Powered Search</h4>
-                    <p className="text-sm text-slate-600">Find any record instantly</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Network className="w-5 h-5 text-indigo-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Interoperability</h4>
-                    <p className="text-sm text-slate-600">Seamless EHR integration</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-5 h-5 text-indigo-600"/>
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-base sm:text-lg text-slate-900">Smart Templates</h4>
-                    <p className="text-sm text-slate-600">Automated clinical documentation</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Stunning Patient Records SVG */}
-              <div className="relative h-48 sm:h-56">
-                <svg viewBox="0 0 400 200" className="w-full h-full">
-                  <g transform="scale(1.3) translate(-40, -20)">
-                    <defs>
-                      <linearGradient id="recordsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#6366F1" stopOpacity="0.2"/>
-                        <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.1"/>
-                      </linearGradient>
-                      <filter id="recordShadow">
-                        <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.1"/>
-                      </filter>
-                    </defs>
-                    
-                    {/* Background Pattern */}
-                    <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <circle cx="10" cy="10" r="1" fill="#E0E7FF"/>
-                    </pattern>
-                    <rect width="400" height="200" fill="url(#dotPattern)"/>
-                    
-                    {/* Central Record Card */}
-                    <g transform="translate(150, 50)">
-                      <rect width="100" height="120" fill="white" rx="8" filter="url(#recordShadow)"/>
-                      <rect x="10" y="10" width="80" height="10" fill="#E0E7FF" rx="2"/>
-                      <rect x="10" y="25" width="60" height="6" fill="#E0E7FF" rx="1"/>
-                      <rect x="10" y="35" width="70" height="6" fill="#E0E7FF" rx="1"/>
-                      <rect x="10" y="45" width="50" height="6" fill="#E0E7FF" rx="1"/>
-                      <circle cx="50" cy="85" r="20" fill="url(#recordsGrad)"/>
-                      <text x="50" y="90" textAnchor="middle" className="text-xs fill-indigo-700 font-semibold">ID</text>
-                    </g>
-                    
-                    {/* Floating Record Cards */}
-                    <g transform="translate(50, 30)" opacity="0.7">
-                      <rect width="80" height="100" fill="white" rx="6" filter="url(#recordShadow)"/>
-                      <rect x="8" y="8" width="64" height="8" fill="#E0E7FF" rx="1"/>
-                      <rect x="8" y="20" width="48" height="4" fill="#E0E7FF" rx="1"/>
-                    </g>
-                    
-                    <g transform="translate(270, 40)" opacity="0.7">
-                      <rect width="80" height="100" fill="white" rx="6" filter="url(#recordShadow)"/>
-                      <rect x="8" y="8" width="64" height="8" fill="#E0E7FF" rx="1"/>
-                      <rect x="8" y="20" width="48" height="4" fill="#E0E7FF" rx="1"/>
-                    </g>
-                    
-                    {/* Data Flow Lines */}
-                    <path d="M130,80 L150,80" stroke="#6366F1" strokeWidth="2" opacity="0.5">
-                      <animate attributeName="stroke-dasharray" values="0,10;10,0" dur="1s" repeatCount="indefinite"/>
-                    </path>
-                    <path d="M250,80 L270,80" stroke="#6366F1" strokeWidth="2" opacity="0.5">
-                      <animate attributeName="stroke-dasharray" values="0,10;10,0" dur="1s" repeatCount="indefinite"/>
-                    </path>
-                    
-                    {/* Security Shield */}
-                    <g transform="translate(320, 140)">
-                      <path d="M0,0 L20,0 L20,15 L10,25 L0,15 Z" fill="#6366F1" opacity="0.8"/>
-                      <text x="10" y="12" textAnchor="middle" className="text-xs fill-white font-bold">✓</text>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Early Adopter CTA Section */}
-      <section id="early-adopter" className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-r from-slate-800 to-slate-900">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-              Join the Nira Revolution. <span className="text-blue-300">Shape Healthcare's Future.</span>
+        {/* Product Innovations Headline and Features */}
+        <section className="relative pb-8 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 luxury-glow">
+              This is only the <span className="text-blue-400">beginning...</span>
             </h2>
-            <p className="font-body text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">
-              Be among the first to experience Nira's unified clinical intelligence platform. 
-              As an early adopter, you'll get exclusive access to all four powerful solutions - 
-              Insights, Flow, Command, and Records - while helping us build the future of healthcare technology.
+            <p className="premium-body text-xl sm:text-2xl text-blue-200 mb-2 luxury-glow">
+              Experience the next generation of healthcare technology with Computer Use Agents and Voice Agents.
+            </p>
+            <p className="premium-body text-lg text-blue-300 mb-2 luxury-glow">
+              Our Computer Use Agents automate complex web tasks, insurance verification, and provider discovery in real time.
+            </p>
+            <p className="premium-body text-lg text-blue-300 mb-2 luxury-glow">
+              Voice Agents handle appointment booking, phone navigation, and patient communication, making healthcare seamless and accessible.
+            </p>
+            <p className="premium-body text-lg text-blue-300 luxury-glow">
+              All innovations are designed for transparency, accuracy, and user empowerment.
             </p>
           </div>
-          
-          {/* Early Adopter Form */}
-          <Card className="bg-white/10 backdrop-blur-md border-white/20">
-            <CardContent className="p-4 sm:p-6 lg:p-8">
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        </section>
+
+        {/* All Products Grid Section */}
+        <section className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto">
+            {/* Ron Meds and Med Pricing Side by Side */}
+            <div className="grid grid-cols-2 gap-12 mb-16">
+                {/* Ron Meds */}
+                <div id="ron-meds" className="ice-glass rounded-2xl p-8 shimmer-effect">
+                  <h2 className="premium-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Ron <span className="luxury-glow text-blue-400">Meds</span>
+                  </h2>
+                  <p className="premium-subheading text-xl sm:text-2xl text-blue-300 mb-4">
+                    Save Up to 400% on Prescriptions
+                  </p>
+                  <p className="premium-body text-lg text-gray-300 mb-6 leading-relaxed">
+                    Stop overpaying for medications. Ron compares prices across all pharmacies,
+                    finds discounts and copay assistance programs, and tracks your refills.
+                  </p>
+                  
+                  {/* Savings Calculator */}
+                  <div className="premium-glass rounded-xl p-6 shimmer-effect">
+                    <h4 className="premium-subheading font-semibold text-white mb-4">Average User Savings</h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-400">Per prescription</span>
+                        <span className="font-bold text-xl luxury-glow text-blue-400">$47</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-400">Monthly savings</span>
+                        <span className="font-bold text-xl luxury-glow text-blue-400">$142</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-400">Annual savings</span>
+                        <span className="font-bold text-2xl luxury-glow text-blue-400">$1,704</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Med Pricing Component */}
+                <div className="ice-glass rounded-2xl p-8 shimmer-effect">
+                  <h3 className="text-white font-semibold mb-6">Medication Price Comparison</h3>
+                  
+                  <div className="premium-glass rounded-lg p-4 mb-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-12 h-12 premium-glass rounded-full flex items-center justify-center pulse-glow-animation">
+                        <Pill className="w-6 h-6 text-blue-400 svg-morph" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-medium">Atorvastatin 20mg</h4>
+                        <p className="text-gray-400 text-sm">30-day supply</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {[
+                      { pharmacy: 'CVS Pharmacy', price: '$142.00', discount: null, color: 'border-gray-500/20' },
+                      { pharmacy: 'Walgreens', price: '$138.00', discount: null, color: 'border-gray-500/20' },
+                      { pharmacy: 'Costco', price: '$18.00', discount: 'Best Price!', color: 'border-yellow-400/50' },
+                      { pharmacy: 'GoodRx Coupon', price: '$14.99', discount: 'Save $127!', color: 'border-green-400/50' }
+                    ].map((item, idx) => (
+                      <div key={idx} className={`premium-glass rounded-lg p-4 border-2 ${item.color} float-animation`} style={{animationDelay: `${idx * 0.1}s`}}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-white">{item.pharmacy}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white font-bold">{item.price}</span>
+                            {item.discount && (
+                              <span className="text-green-400 text-sm font-medium">{item.discount}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button className="w-full premium-glass text-white mt-6 shimmer-effect">
+                    <DollarSign className="w-4 h-4 mr-2 svg-morph" />
+                    Find My Medication Prices
+                  </Button>
+                </div>
+            </div>
+
+            {/* Voice Component and Ron Scheduler Side by Side */}
+            <div className="grid grid-cols-2 gap-12">
+                {/* Voice Component */}
+                <div className="ice-glass rounded-2xl p-8 shimmer-effect">
+                  <h3 className="text-white font-semibold mb-6">AI Voice Assistant Demo</h3>
+                  
+                  <div className="premium-glass rounded-xl p-6 mb-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-white font-medium">Calling: Dr. Chen's Office</p>
+                        <p className="text-gray-400 text-sm">AI Assistant Active</p>
+                      </div>
+                      <div className="text-2xl font-mono luxury-glow text-blue-400">
+                        {formatCallTime(callDuration)}
+                      </div>
+                    </div>
+                    
+                    <div className="h-24 bg-black/50 rounded-lg mb-4 flex items-center justify-center">
+                      {isCallActive && (
+                        <div className="flex items-center gap-1">
+                          {[...Array(7)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="w-1 bg-gradient-to-t from-blue-400 to-blue-300 rounded-full pulse-glow-animation"
+                              style={{
+                                height: `${20 + Math.random() * 40}px`,
+                                animationDelay: `${i * 0.1}s`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Button
+                        className={`flex-1 ${isCallActive ? 'bg-red-500 hover:bg-red-600' : 'premium-glass'} text-white shimmer-effect`}
+                        onClick={() => {
+                          setIsCallActive(!isCallActive);
+                          if (!isCallActive) setCallDuration(0);
+                        }}
+                      >
+                        <Phone className="w-4 h-4 mr-2 svg-morph" />
+                        {isCallActive ? 'End Call' : 'Start Demo Call'}
+                      </Button>
+                      <Button className="premium-glass" size="icon">
+                        {isCallActive ? <Mic className="w-4 h-4 text-white svg-morph" /> : <MicOff className="w-4 h-4 text-gray-400 svg-morph" />}
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  {isCallActive && (
+                    <div className="premium-glass rounded-lg p-4 space-y-2 float-animation">
+                      <p className="text-gray-400 text-sm">Live Transcript:</p>
+                      <p className="text-white text-sm">"Hi, I'm calling to schedule an appointment for John Smith..."</p>
+                      <p className="text-blue-400 text-sm italic">"Sure! We have openings tomorrow at 2 PM and Thursday at 10 AM."</p>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Ron Scheduler */}
+                <div id="ron-scheduler" className="ice-glass rounded-2xl p-8 shimmer-effect">
+                  <h2 className="premium-heading text-3xl sm:text-4xl font-bold text-white mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
+                    Ron <span className="luxury-glow text-blue-400">Scheduler</span>
+                  </h2>
+                  <p className="premium-subheading text-xl sm:text-2xl text-blue-300 mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
+                    Voice AI Books Your Appointments
+                  </p>
+                  <p className="premium-body text-lg text-gray-300 mb-6 leading-relaxed">
+                    Never wait on hold again. Ron's AI voice assistant calls doctor offices for you,
+                    navigates phone trees, and books appointments automatically. Save 45+ minutes per booking.
+                  </p>
+                  
+                  <ul className="grid grid-cols-1 gap-4">
+                    {[
+                      { icon: Phone, title: "Voice AI Calls", desc: "AI assistant makes calls for you", color: "text-blue-400" },
+                      { icon: Calendar, title: "Calendar Sync", desc: "Checks your availability automatically", color: "text-green-400" },
+                      { icon: Network, title: "Smart Navigation", desc: "Handles any phone tree or portal", color: "text-purple-400" },
+                      { icon: CheckCircle, title: "Confirmation", desc: "Sends you appointment details", color: "text-yellow-400" }
+                    ].map((feature, idx) => (
+                      <li key={idx} className="flex items-start space-x-3 float-animation" style={{animationDelay: `${idx * 0.2}s`}}>
+                        <div className="w-10 h-10 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                          <feature.icon className={`w-5 h-5 ${feature.color} svg-morph`} />
+                        </div>
+                        <div>
+                          <h4 className="premium-subheading font-semibold text-white">{feature.title}</h4>
+                          <p className="text-sm text-gray-400">{feature.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Enhanced Product Section 1: Ron Search */}
+        <section id="ron-search" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-3 gap-12 lg:gap-16 items-start">
+              <div className="col-span-1">
+                <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 sm:mb-6">
+                  Ron <span className="luxury-glow text-blue-400">Search</span>
+                </h2>
+                <p className="premium-subheading text-2xl sm:text-3xl luxury-glow text-blue-300 mb-6 sm:mb-8">
+                  Dynamic, In-Depth, and Validated Provider Search
+                </p>
+                <p className="premium-body text-xl text-gray-300 mb-10 leading-relaxed">
+                  Stop endless phone calls. Ron uses AI to instantly find doctors who actually accept your insurance, 
+                  with real-time verification. Solving the problem where 68% of users abandon healthcare searches 
+                  due to insurance uncertainty.
+                </p>
+                
+                {/* Honest, single-column features for provider search */}
+                <div className="premium-glass rounded-2xl p-8 mb-10 shimmer-effect">
+                  <ul className="space-y-6">
+                    <li className="flex items-center gap-4">
+                      <Search className="w-10 h-10 luxury-glow text-blue-400 flex-shrink-0" />
+                      <span className="font-bold text-lg luxury-glow text-blue-400">Continuously updated results</span>
+                    </li>
+                    <li className="flex items-center gap-4">
+                      <CheckCircle className="w-10 h-10 luxury-glow text-green-400 flex-shrink-0" />
+                      <span className="font-bold text-lg luxury-glow text-green-400">Verified provider data</span>
+                    </li>
+                    <li className="flex items-center gap-4">
+                      <Shield className="w-10 h-10 luxury-glow text-purple-400 flex-shrink-0" />
+                      <span className="font-bold text-lg luxury-glow text-purple-400">Validated & transparent</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              {/* Enhanced Features Display - Wider Provider Search */}
+              <div className="col-span-2 ice-glass rounded-2xl p-8 shimmer-effect">
+                <h3 className="text-white font-semibold mb-6">Try Provider Search</h3>
+                
+                {/* Provider Search iframe - Full Height for Better Experience */}
+                <div className="premium-glass rounded-xl overflow-hidden mb-6 w-full" style={{ height: '800px' }}>
+                  <iframe
+                    src="https://studio--aethercare-tqine.us-central1.hosted.app"
+                    className="w-full h-full"
+                    title="Ron AI Provider Search"
+                    style={{ border: '0' }}
+                    allow="geolocation"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* Enhanced Product Section 4: Ron Interface */}
+        <section id="ron-interface" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 sm:mb-6">
+                Experience Ron <span className="luxury-glow text-blue-400">Live</span>
+              </h2>
+              <p className="premium-body text-xl text-gray-300 max-w-2xl mx-auto">
+                Discover our intuitive and innovative UX that makes healthcare simple and accessible
+              </p>
+            </div>
+            
+            {/* Enhanced Interface Preview */}
+            <div>
+              <div className="ice-glass rounded-2xl p-8 shimmer-effect">
+                <div className="relative w-full h-screen rounded-xl overflow-hidden border border-white/10">
+                  <iframe 
+                    src="https://cling-pitch-92721139.figma.site"
+                    className="w-full h-full"
+                    title="Ron AI Interface Preview"
+                    tabIndex={-1}
+                    allow="fullscreen"
+                    style={{
+                      border: 'none'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* Enhanced Value Proposition Section */}
+        <section className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="premium-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+                Powered by <span className="luxury-glow text-blue-400">Browser-Use</span> AI Agents
+              </h2>
+              <p className="premium-body text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto">
+                Powered by ethically-developed AI agents from <span className="text-blue-400 font-semibold">Browser-Use</span>, 
+                Ron maintains human-in-the-loop control, giving you full transparency and authority over every action.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-4 gap-6">
+              {[
+                { 
+                  icon: Compass, 
+                  title: "Provider Search", 
+                  desc: "Find the right doctors instantly with Browser-Use AI agents navigating complex insurance networks", 
+                  color: "bg-blue-500/10 border-blue-500/20",
+                  badge: "Browser-Use Powered"
+                },
+                { 
+                  icon: DollarSign, 
+                  title: "Medication Management", 
+                  desc: "Compare prices across pharmacies with Browser-Use agents finding the best deals and discounts", 
+                  color: "bg-green-500/10 border-green-500/20",
+                  badge: "Browser-Use Powered"
+                },
+                { 
+                  icon: FileText, 
+                  title: "Denial Navigation", 
+                  desc: "Fight insurance denials with Browser-Use agents helping generate appeals and track claims", 
+                  color: "bg-purple-500/10 border-purple-500/20",
+                  badge: "Browser-Use Powered"
+                },
+                { 
+                  icon: Network, 
+                  title: "Coordination", 
+                  desc: "Seamlessly integrate all healthcare touchpoints with full user control and transparency", 
+                  color: "bg-indigo-500/10 border-indigo-500/20",
+                  badge: "Human-in-the-Loop"
+                }
+              ].map((item, idx) => (
+                <Card key={idx} className={`premium-glass border-2 ${item.color} hover:scale-105 transition-all duration-300 shimmer-effect float-animation relative`} style={{animationDelay: `${idx * 0.1}s`}}>
+                  {item.badge && (
+                    <div className="absolute top-2 right-2">
+                      <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        {item.badge}
+                      </span>
+                    </div>
+                  )}
+                  <CardContent className="p-6 text-center">
+                    <div className="w-16 h-16 premium-glass rounded-full flex items-center justify-center mx-auto mb-4 pulse-glow-animation">
+                      <item.icon className="w-8 h-8 text-white svg-morph" />
+                    </div>
+                    <h3 className="premium-subheading font-bold text-xl text-white mb-2">{item.title}</h3>
+                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Ethical AI Statement */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex items-center gap-2 px-6 py-3 premium-glass rounded-full">
+                <Shield className="w-5 h-5 text-green-400" />
+                <p className="text-gray-300 text-sm">
+                  <span className="font-semibold">Ethically Developed:</span> You maintain full control with complete transparency over all AI actions
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Enhanced Early Access CTA Section */}
+        <section id="early-access" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="premium-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 sm:mb-8">
+                Join the Healthcare Revolution. <span className="luxury-glow text-blue-400">Get Early Access to Ron.</span>
+              </h2>
+              <p className="premium-body text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto">
+                Be among the first to experience the future of healthcare navigation. Early access users get 
+                lifetime premium features, priority support, and the chance to shape Ron's development.
+              </p>
+            </div>
+            
+            {/* Enhanced Early Access Form */}
+            <Card className="ice-glass shimmer-effect">
+              <CardContent className="p-8 lg:p-12">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="firstName" className="text-white mb-2 block">First Name *</Label>
+                      <Input
+                        id="firstName"
+                        type="text"
+                        required
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        placeholder="John"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="lastName" className="text-white mb-2 block">Last Name *</Label>
+                      <Input
+                        id="lastName"
+                        type="text"
+                        required
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+                  
                   <div>
-                    <Label htmlFor="fullName" className="text-white mb-2 block">Full Name</Label>
+                    <Label htmlFor="company" className="text-white mb-2 block">Company</Label>
                     <Input
-                      id="fullName"
+                      id="company"
                       type="text"
-                      required
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
-                      placeholder="Dr. Jane Smith"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                      placeholder="Your Company (Optional)"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="email" className="text-white mb-2 block">Email *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="phone" className="text-white mb-2 block">Phone</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="anythingElse" className="text-white mb-2 block">Anything Else?</Label>
+                    <Textarea
+                      id="anythingElse"
+                      value={formData.anythingElse}
+                      onChange={(e) => setFormData({ ...formData, anythingElse: e.target.value })}
+                      className="premium-glass border-white/20 text-white placeholder:text-gray-500 min-h-[100px]"
+                      placeholder="Tell us more about your needs or questions..."
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="email" className="text-white mb-2 block">Email Address</Label>
+                    <Label htmlFor="attachment" className="text-white mb-2 block">Attachment</Label>
                     <Input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
-                      placeholder="jane.smith@clinic.com"
+                      id="attachment"
+                      type="file"
+                      onChange={(e) => setFormData({ ...formData, attachment: e.target.files?.[0] || null })}
+                      className="premium-glass border-white/20 text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md file:mr-4"
+                      accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
                     />
+                    <p className="text-gray-500 text-sm mt-1">Optional: Upload any relevant documents</p>
                   </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="specialty" className="text-white mb-2 block">Your Specialty</Label>
-                  <Select value={formData.specialty} onValueChange={(value: string) => setFormData({ ...formData, specialty: value })}>
-                    <SelectTrigger className="bg-white/20 border-white/30 text-white">
-                      <SelectValue placeholder="Select your specialty" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="physician">Physician</SelectItem>
-                      <SelectItem value="nurse">Nurse</SelectItem>
-                      <SelectItem value="administrator">Administrator</SelectItem>
-                      <SelectItem value="other">Other Healthcare Professional</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label className="text-white mb-3 block">I'm most interested in:</Label>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="nira"
-                        checked={formData.interestedIn.nira}
-                        onCheckedChange={(checked) => 
-                          setFormData({ 
-                            ...formData, 
-                            interestedIn: { ...formData.interestedIn, nira: checked as boolean }
-                          })
-                        }
-                        className="border-white/30"
-                      />
-                      <Label htmlFor="nira" className="text-white cursor-pointer">
-                        Nira Insights - Real-time analytics and reporting dashboards
-                      </Label>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="cura"
-                        checked={formData.interestedIn.cura}
-                        onCheckedChange={(checked) => 
-                          setFormData({ 
-                            ...formData, 
-                            interestedIn: { ...formData.interestedIn, cura: checked as boolean }
-                          })
-                        }
-                        className="border-white/30"
-                      />
-                      <Label htmlFor="cura" className="text-white cursor-pointer">
-                        Nira Flow - Agile task management for healthcare teams
-                      </Label>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="florence"
-                        checked={formData.interestedIn.florence}
-                        onCheckedChange={(checked) => 
-                          setFormData({ 
-                            ...formData, 
-                            interestedIn: { ...formData.interestedIn, florence: checked as boolean }
-                          })
-                        }
-                        className="border-white/30"
-                      />
-                      <Label htmlFor="florence" className="text-white cursor-pointer">
-                        Nira Command - AI-powered clinical command center
-                      </Label>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="records"
-                        checked={formData.interestedIn.records}
-                        onCheckedChange={(checked) => 
-                          setFormData({ 
-                            ...formData, 
-                            interestedIn: { ...formData.interestedIn, records: checked as boolean }
-                          })
-                        }
-                        className="border-white/30"
-                      />
-                      <Label htmlFor="records" className="text-white cursor-pointer">
-                        Nira Records - Intelligent patient records & management
-                      </Label>
-                    </div>
-                  </div>
-                </div>
-                
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSubmitting}
-                  className="w-full bg-white text-slate-800 hover:bg-slate-200 font-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center justify-center">
-                      <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-slate-800 mr-3"></span>
-                      Submitting...
-                    </span>
-                  ) : (
-                    <>Join Nira Early Access <ChevronRight className="ml-2 w-5 h-5"/></>
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-slate-900">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">Ron AI</h3>
-            <span className="text-slate-400 font-body text-sm sm:text-base">Reimagining Clinical Work</span>
+                  
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={isSubmitting}
+                    className="w-full premium-glass text-white premium-body font-bold px-12 py-6 text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></span>
+                        Submitting...
+                      </span>
+                    ) : (
+                      <>Get Early Access <ChevronRight className="ml-2 w-5 h-5 svg-morph"/></>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
-          <p className="text-slate-400 font-body text-sm sm:text-base">
-            &copy; 2024 Ron AI. All rights reserved.
-          </p>
+        </section>
+
+
+        {/* Enhanced Footer */}
+        <footer className="relative py-12 sm:py-16 px-4 sm:px-6 premium-glass border-t border-white/10 z-10">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <h3 className="premium-subheading font-bold text-2xl sm:text-3xl luxury-glow text-white">Ron AI</h3>
+              <span className="text-gray-400 premium-body text-base sm:text-lg">Healthcare Made Easy</span>
+            </div>
+            <p className="text-gray-400 premium-body text-base sm:text-lg mb-6">
+              Your AI-powered healthcare operating system
+            </p>
+            <p className="text-gray-500 premium-body text-sm">
+              &copy; 2024 Ron AI. All rights reserved.
+            </p>
+          </div>
+          
+          {/* Hidden SEO Footer Text */}
+          <div className="absolute bottom-0 left-0 w-full overflow-hidden" style={{ fontSize: '1px', color: '#000000', height: '1px' }}>
+            AI healthcare assistant voice healthcare technology automated insurance verification system find doctor near me 
+            who accepts my insurance healthcare coordination platform personal health record digital medical records
+          </div>
+        </footer>
+        
+      </div>
+
+      <div className="flex justify-center mt-8">
+          <vapi-widget mode="voice" theme="dark" base-color="#000000" accent-color="#0791f4" button-base-color="#000000" button-accent-color="#ffffff" radius="large" size="full" position="bottom-left" main-label="TALK WITH AI" start-button-text="Start" end-button-text="End Call" require-consent="true" local-storage-key="vapi_widget_consent" show-transcript="true" public-key="4e5401b6-d69d-4f4b-8d9a-bd6086ee0212" assistant-id="cf607223-43d0-4e59-b315-e82bb230915b"></vapi-widget>
+          <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
         </div>
-      </footer>
-    </div>
+    </>
   );
 }
