@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, Bot, Users, Mic, Phone, MessageSquare } from "lucide-react";
 import OurTeam from "@/components/ui/OurTeam";
 import Header from "@/components/ui/Header";
-import VapiWidget from "@/components/ui/vapi-widget";
 
 export default function AboutUsPage() {
   useEffect(() => {
@@ -178,43 +177,6 @@ export default function AboutUsPage() {
                   <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">Real-time Transcription</h3>
                   <p className="font-body text-slate-700">All voice interactions are transcribed in real-time, creating a complete record of your healthcare conversations.</p>
                 </div>
-              </div>
-            </div>
-
-            {/* VAPI Widget Container */}
-            <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 sm:p-8 shadow-xl">
-              <div className="text-center mb-6">
-                <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">Try Ron Now</h3>
-                <p className="font-body text-slate-600">Click the button below to start a voice conversation with Ron's AI healthcare assistant.</p>
-              </div>
-              
-              <div className="relative min-h-[200px] flex items-center justify-center">
-                <VapiWidget
-                  mode="voice"
-                  theme="dark"
-                  baseColor="#000000"
-                  accentColor="#009cf4"
-                  buttonBaseColor="#000000"
-                  buttonAccentColor="#ffffff"
-                  radius="large"
-                  size="full"
-                  position="bottom-right"
-                  mainLabel="TALK WITH AI"
-                  startButtonText="Start"
-                  endButtonText="End Call"
-                  requireConsent={true}
-                  localStorageKey="vapi_widget_consent"
-                  showTranscript={true}
-                  publicKey="4e5401b6-d69d-4f4b-8d9a-bd6086ee0212"
-                  assistantId="cf607223-43d0-4e59-b315-e82bb230915b"
-                  className="w-full"
-                />
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="font-body text-sm text-slate-500">
-                  * Voice conversations are powered by advanced AI and are logged for quality assurance
-                </p>
               </div>
             </div>
           </div>

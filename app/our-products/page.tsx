@@ -12,15 +12,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Header from "@/components/ui/Header";
 import dynamic from 'next/dynamic';
-const VapiWidgetClient = dynamic(() => import('./VapiWidgetClient'), { ssr: false });
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import Script from 'next/script';
 
 // Add this at the top of the file after imports to fix TS2339
 declare global {
   interface Window {
-    VapiWidget?: any;
+    
   }
 }
 
@@ -539,21 +537,6 @@ export default function OurProducts() {
             rgba(0, 140, 255, 0.8));
         }
 
-        /* VAPI Widget Visual Alert Styles */
-        @keyframes bounce-alert {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-
-        .vapi-alert {
-          animation: bounce-alert 2s ease-in-out infinite;
-        }
-
-        /* VAPI widget container */
-        #vapi-widget-container {
-          position: relative;
-          z-index: 9999;
-        }
       `}</style>
       
       <div className="min-h-screen bg-black relative overflow-hidden">
@@ -1144,11 +1127,25 @@ export default function OurProducts() {
           </div>
         </footer>
         
+        {/* VAPI Widget - Completely Isolated in iframe */}
+        <iframe
+          src="/vapi-widget.html"
+          style={{
+            position: 'fixed',
+            bottom: '0',
+            left: '0',
+            width: '400px',
+            height: '600px',
+            border: 'none',
+            zIndex: 9999,
+            background: 'transparent'
+          }}
+          title="VAPI Voice Assistant"
+          allow="microphone"
+        />
+        
       </div>
 
-      <div className="flex justify-center mt-8">
-        <VapiWidgetClient />
-      </div>
     </>
   );
 }
