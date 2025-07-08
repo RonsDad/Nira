@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Header from "@/components/ui/Header";
 import dynamic from 'next/dynamic';
+const VapiWidgetClient = dynamic(() => import('./VapiWidgetClient'), { ssr: false });
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import Script from 'next/script';
@@ -186,43 +187,6 @@ export default function OurProducts() {
     if (chatMessages[0].timestamp === "") {
       setChatMessages([{ ...chatMessages[0], timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
     }
-  }, []);
-
-  // VAPI widget mount effect
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js";
-    script.async = true;
-    script.type = "text/javascript";
-    script.onload = () => {
-      if (window.VapiWidget) {
-        window.VapiWidget.mountWidget({
-          selector: '#vapi-widget-container',
-          mode: 'voice',
-          theme: 'dark',
-          baseColor: '#000000',
-          accentColor: '#0791f4',
-          buttonBaseColor: '#000000',
-          buttonAccentColor: '#ffffff',
-          radius: 'large',
-          size: 'full',
-          position: 'bottom-left',
-          mainLabel: 'TALK WITH AI',
-          startButtonText: 'Start',
-          endButtonText: 'End Call',
-          requireConsent: true,
-          localStorageKey: 'vapi_widget_consent',
-          showTranscript: true,
-          publicKey: '4e5401b6-d69d-4f4b-8d9a-bd6086ee0212',
-          assistantId: 'cf607223-43d0-4e59-b315-e82bb230915b',
-        });
-      }
-    };
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-      // Optionally, unmount widget if API supports it
-    };
   }, []);
 
   return (
@@ -1139,13 +1103,16 @@ export default function OurProducts() {
                     size="lg"
                     disabled={isSubmitting}
                     className="w-full premium-glass text-white premium-body font-bold px-12 py-6 text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
-l                    {isSubmitting ? (
+                  >
+                    {isSubmitting ? (
                       <span className="flex items-center justify-center">
                         <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></span>
                         Submitting...
                       </span>
                     ) : (
-                      <>Get Early Access <ChevronRight className="ml-2 w-5 h-5 svg-morph"/></>
+                      <>
+                        Get Early Access <ChevronRight className="ml-2 w-5 h-5 svg-morph" />
+                      </>
                     )}
                   </Button>
                 </form>
@@ -1180,7 +1147,7 @@ l                    {isSubmitting ? (
       </div>
 
       <div className="flex justify-center mt-8">
-        <div id="vapi-widget-container"></div>
+        <VapiWidgetClient />
       </div>
     </>
   );
