@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Brain, Shield, MessageSquare, ChevronRight, Sparkles, Network, Compass, Star, Phone, DollarSign, FileText, Calendar, Search, Bot, User, Send, Mic, MicOff, Clock, CheckCircle, XCircle, Pill, Heart, CreditCard, AlertCircle, Activity, Zap, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,13 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import Script from 'next/script';
 
+// Add this at the top of the file after imports to fix TS2339
+declare global {
+  interface Window {
+    VapiWidget?: any;
+  }
+}
+
 const ProductFeaturesSection = dynamic(() => import('./product-features').then(mod => mod.ProductFeaturesSection), {
   ssr: false,
   loading: () => <div className="w-full h-[600px] flex items-center justify-center text-white"><p>Loading 3D Features...</p></div>,
@@ -30,7 +37,7 @@ export default function OurProducts() {
   const [isCallActive, setIsCallActive] = useState(false);
   const [callDuration, setCallDuration] = useState(0);
   const [chatMessages, setChatMessages] = useState([
-    { type: 'ai', content: "Hi! I'm Ron, your healthcare assistant. How can I help you today?", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+    { type: 'ai', content: "Hi! I'm Ron, your healthcare assistant. How can I help you today?", timestamp: "" }
   ]);
   const [currentMessage, setCurrentMessage] = useState("");
 
@@ -174,6 +181,50 @@ export default function OurProducts() {
     }
   };
 
+  // Set timestamp on client only
+  useEffect(() => {
+    if (chatMessages[0].timestamp === "") {
+      setChatMessages([{ ...chatMessages[0], timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+    }
+  }, []);
+
+  // VAPI widget mount effect
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js";
+    script.async = true;
+    script.type = "text/javascript";
+    script.onload = () => {
+      if (window.VapiWidget) {
+        window.VapiWidget.mountWidget({
+          selector: '#vapi-widget-container',
+          mode: 'voice',
+          theme: 'dark',
+          baseColor: '#000000',
+          accentColor: '#0791f4',
+          buttonBaseColor: '#000000',
+          buttonAccentColor: '#ffffff',
+          radius: 'large',
+          size: 'full',
+          position: 'bottom-left',
+          mainLabel: 'TALK WITH AI',
+          startButtonText: 'Start',
+          endButtonText: 'End Call',
+          requireConsent: true,
+          localStorageKey: 'vapi_widget_consent',
+          showTranscript: true,
+          publicKey: '4e5401b6-d69d-4f4b-8d9a-bd6086ee0212',
+          assistantId: 'cf607223-43d0-4e59-b315-e82bb230915b',
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+      // Optionally, unmount widget if API supports it
+    };
+  }, []);
+
   return (
     <>
       {/* Structured Data Scripts */}
@@ -185,9 +236,7 @@ export default function OurProducts() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      
-      
-      
+      <Header />
       {/* Enhanced Luxury CSS */}
       <style jsx global>{`
         /* Premium Luxury Glass Effects */
@@ -592,28 +641,26 @@ export default function OurProducts() {
           voice activated medical appointment scheduling personal health record organization digital voice healthcare technology
         </div>
         
-        <Header />
-
-      {/* Enhanced Hero Section */}
-      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 z-10">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="premium-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
-            Healthcare is really hard. <span className="luxury-glow text-blue-400">We're making it easy.</span>
-          </h1>
-          <p className="premium-body text-xl sm:text-2xl md:text-3xl text-gray-300 mb-8 sm:mb-12 max-w-5xl mx-auto leading-relaxed">
-            Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
-            finding doctors, booking appointments, managing medications, and organizing health records.
-          </p>
-          <Button 
-            size="lg" 
-            className="premium-glass text-white premium-body font-semibold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-500 hover:scale-105 shimmer-effect"
-            onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Get Early Access to Ron
-          </Button>
-        </div>
-        
-      </section>
+        {/* Enhanced Hero Section */}
+        <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 z-10">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="premium-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+              Healthcare is really hard. <span className="luxury-glow text-blue-400">We're making it easy.</span>
+            </h1>
+            <p className="premium-body text-xl sm:text-2xl md:text-3xl text-gray-300 mb-8 sm:mb-12 max-w-5xl mx-auto leading-relaxed">
+              Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
+              finding doctors, booking appointments, managing medications, and organizing health records.
+            </p>
+            <Button 
+              size="lg" 
+              className="premium-glass text-white premium-body font-semibold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-500 hover:scale-105 shimmer-effect"
+              onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get Early Access to Ron
+            </Button>
+          </div>
+          
+        </section>
 
         <ProductFeaturesSection />
 
@@ -1092,8 +1139,7 @@ export default function OurProducts() {
                     size="lg"
                     disabled={isSubmitting}
                     className="w-full premium-glass text-white premium-body font-bold px-12 py-6 text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
-                  >
-                    {isSubmitting ? (
+l                    {isSubmitting ? (
                       <span className="flex items-center justify-center">
                         <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></span>
                         Submitting...
@@ -1135,35 +1181,6 @@ export default function OurProducts() {
 
       <div className="flex justify-center mt-8">
         <div id="vapi-widget-container"></div>
-        <Script
-          src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js"
-          async
-          type="text/javascript"
-          onLoad={() => {
-            if (typeof window !== 'undefined' && window.VapiWidget) {
-              window.VapiWidget.mountWidget({
-                selector: '#vapi-widget-container',
-                mode: 'voice',
-                theme: 'dark',
-                baseColor: '#000000',
-                accentColor: '#0791f4',
-                buttonBaseColor: '#000000',
-                buttonAccentColor: '#ffffff',
-                radius: 'large',
-                size: 'full',
-                position: 'bottom-left',
-                mainLabel: 'TALK WITH AI',
-                startButtonText: 'Start',
-                endButtonText: 'End Call',
-                requireConsent: true,
-                localStorageKey: 'vapi_widget_consent',
-                showTranscript: true,
-                publicKey: '4e5401b6-d69d-4f4b-8d9a-bd6086ee0212',
-                assistantId: 'cf607223-43d0-4e59-b315-e82bb230915b',
-              });
-            }
-          }}
-        />
       </div>
     </>
   );
