@@ -844,10 +844,11 @@ export default function OurProducts() {
                   
                   <ul className="grid grid-cols-1 gap-4">
                     {[
-                      { icon: Phone, title: "Voice AI Calls", desc: "AI assistant makes calls for you", color: "text-blue-400" },
-                      { icon: Calendar, title: "Calendar Sync", desc: "Checks your availability automatically", color: "text-green-400" },
-                      { icon: Network, title: "Smart Navigation", desc: "Handles any phone tree or portal", color: "text-purple-400" },
-                      { icon: CheckCircle, title: "Confirmation", desc: "Sends you appointment details", color: "text-yellow-400" }
+                      { icon: Search, title: "Provider Search & Appointments", desc: "Find doctors and book appointments automatically", color: "text-blue-400" },
+                      { icon: Phone, title: "Voice AI Calls", desc: "AI assistant makes calls for you", color: "text-green-400" },
+                      { icon: Calendar, title: "Calendar Sync", desc: "Checks your availability automatically", color: "text-purple-400" },
+                      { icon: Network, title: "Smart Navigation", desc: "Handles any phone tree or portal", color: "text-yellow-400" },
+                      { icon: CheckCircle, title: "Confirmation", desc: "Sends you appointment details", color: "text-teal-400" }
                     ].map((feature, idx) => (
                       <li key={idx} className="flex items-start space-x-3 float-animation" style={{animationDelay: `${idx * 0.2}s`}}>
                         <div className="w-10 h-10 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
@@ -1195,10 +1196,10 @@ export default function OurProducts() {
         
       </div>
       
-      {/* VAPI Widget */}
+      {/* VAPI Widget - Desktop Only */}
       <iframe
         src="/vapi-widget.html"
-        className="fixed bottom-4 left-4 z-[9999]"
+        className="fixed bottom-4 left-4 z-[9999] hidden lg:block"
         style={{
           border: 'none',
           background: 'transparent',
