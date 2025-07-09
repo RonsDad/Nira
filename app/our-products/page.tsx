@@ -842,24 +842,91 @@ export default function OurProducts() {
                     navigates phone trees, and books appointments automatically. Save 45+ minutes per booking.
                   </p>
                   
-                  <ul className="grid grid-cols-1 gap-4">
-                    {[
-                      { icon: Search, title: "Provider Search & Appointments", desc: "Find doctors and book appointments automatically", color: "text-blue-400" },
-                      { icon: Phone, title: "Voice AI Calls", desc: "AI assistant makes calls for you", color: "text-green-400" },
-                      { icon: Calendar, title: "Calendar Sync", desc: "Checks your availability automatically", color: "text-purple-400" },
-                      { icon: Network, title: "Smart Navigation", desc: "Handles any phone tree or portal", color: "text-yellow-400" },
-                      { icon: CheckCircle, title: "Confirmation", desc: "Sends you appointment details", color: "text-teal-400" }
-                    ].map((feature, idx) => (
-                      <li key={idx} className="flex items-start space-x-3 float-animation" style={{animationDelay: `${idx * 0.2}s`}}>
-                        <div className="w-10 h-10 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
-                          <feature.icon className={`w-5 h-5 ${feature.color} svg-morph`} />
+                  <ul className="grid grid-cols-1 gap-6">
+                    <li className="flex items-start space-x-4">
+                      <div className="w-12 h-12 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                        <Search className="w-6 h-6 text-blue-400 svg-morph" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="premium-subheading font-semibold text-white mb-2">Provider Search & Appointments</h4>
+                        <p className="text-sm text-gray-400 mb-3">Find doctors and book appointments automatically</p>
+                        <div className="premium-glass rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white text-sm">Dr. Chen - Cardiology</span>
+                            <span className="text-blue-400 text-sm">Available</span>
+                          </div>
+                          <div className="text-gray-400 text-xs">Next: Today 2:00 PM</div>
                         </div>
-                        <div>
-                          <h4 className="premium-subheading font-semibold text-white">{feature.title}</h4>
-                          <p className="text-sm text-gray-400">{feature.desc}</p>
+                      </div>
+                    </li>
+                    
+                    <li className="flex items-start space-x-4">
+                      <div className="w-12 h-12 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                        <Phone className="w-6 h-6 text-green-400 svg-morph" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="premium-subheading font-semibold text-white mb-2">Voice AI Calls</h4>
+                        <p className="text-sm text-gray-400 mb-3">AI assistant makes calls for you</p>
+                        <div className="premium-glass rounded-lg p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-white text-sm">Calling Dr. Chen's office...</span>
+                          </div>
+                          <div className="text-gray-400 text-xs">Hold time: 2m 15s</div>
                         </div>
-                      </li>
-                    ))}
+                      </div>
+                    </li>
+                    
+                    <li className="flex items-start space-x-4">
+                      <div className="w-12 h-12 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                        <Calendar className="w-6 h-6 text-purple-400 svg-morph" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="premium-subheading font-semibold text-white mb-2">Calendar Sync</h4>
+                        <p className="text-sm text-gray-400 mb-3">Checks your availability automatically</p>
+                        <div className="premium-glass rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white text-sm">Your Calendar</span>
+                            <span className="text-purple-400 text-sm">Synced</span>
+                          </div>
+                          <div className="text-gray-400 text-xs">Free: Today 2:00-4:00 PM</div>
+                        </div>
+                      </div>
+                    </li>
+                    
+                    <li className="flex items-start space-x-4">
+                      <div className="w-12 h-12 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                        <Network className="w-6 h-6 text-yellow-400 svg-morph" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="premium-subheading font-semibold text-white mb-2">Smart Navigation</h4>
+                        <p className="text-sm text-gray-400 mb-3">Handles any phone tree or portal</p>
+                        <div className="premium-glass rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white text-sm">Phone System</span>
+                            <span className="text-yellow-400 text-sm">Navigating</span>
+                          </div>
+                          <div className="text-gray-400 text-xs">Press 2 for appointments...</div>
+                        </div>
+                      </div>
+                    </li>
+                    
+                    <li className="flex items-start space-x-4">
+                      <div className="w-12 h-12 premium-glass rounded-lg flex items-center justify-center flex-shrink-0 pulse-glow-animation">
+                        <CheckCircle className="w-6 h-6 text-teal-400 svg-morph" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="premium-subheading font-semibold text-white mb-2">Confirmation</h4>
+                        <p className="text-sm text-gray-400 mb-3">Sends you appointment details</p>
+                        <div className="premium-glass rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white text-sm">Appointment Booked</span>
+                            <span className="text-teal-400 text-sm">Confirmed</span>
+                          </div>
+                          <div className="text-gray-400 text-xs">Dr. Chen - Today 2:00 PM</div>
+                        </div>
+                      </div>
+                    </li>
                   </ul>
                 </div>
             </div>
