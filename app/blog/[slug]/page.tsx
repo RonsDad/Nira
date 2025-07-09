@@ -646,7 +646,7 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                       <span className="hidden sm:inline">Twitter</span>
                     </button>
                     <button onClick={shareOnLinkedIn} className="share-button text-sm sm:text-base">
-                      <Linkedin\ className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                       <span className="hidden sm:inline">LinkedIn</span>
                     </button>
                     <button onClick={copyToClipboard} className="share-button text-sm sm:text-base">

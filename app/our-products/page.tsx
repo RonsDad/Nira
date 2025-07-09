@@ -1193,19 +1193,19 @@ export default function OurProducts() {
           </div>
         </footer>
         
-        {/* VAPI Widget - Natural Scaling */}
-        <iframe
-          src="/vapi-widget.html"
-          className="fixed bottom-4 left-4 z-[9999]"
-          style={{
-            border: 'none',
-            background: 'transparent'
-          }}
-          title="VAPI Voice Assistant"
-          allow="microphone"
-        />
-        
       </div>
+      
+      {/* VAPI Widget - Natural Size Outside Container */}
+      <iframe
+        src="/vapi-widget.html"
+        className="fixed bottom-4 left-4 z-[9999]"
+        style={{
+          border: 'none',
+          background: 'transparent'
+        }}
+        title="VAPI Voice Assistant"
+        allow="microphone"
+      />
 
     </>
   );
