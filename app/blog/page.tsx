@@ -211,6 +211,34 @@ export default function BlogPage() {
           </div>
         </section>
 
+        {/* Early Access Banner */}
+        <section className="relative px-4 pb-16 sm:pb-24 z-10">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mb-12 sm:mb-16"
+            >
+              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8 backdrop-filter backdrop-blur-lg text-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                  Experience the Future of Healthcare Navigation
+                </h3>
+                <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base max-w-2xl mx-auto">
+                  Join thousands of users already saving time and money with Ron AI's comprehensive healthcare operating system
+                </p>
+                <Link 
+                  href="/our-products#early-access"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+                >
+                  Get Early Access to Ron
+                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Blog Posts Grid */}
         <section className="relative px-4 pb-16 sm:pb-24 z-10">
           <div className="max-w-7xl mx-auto">
@@ -336,7 +364,7 @@ export default function BlogPage() {
                 style={{ fontFamily: "'Inter', sans-serif" }}>
                 Get the latest insights on healthcare AI delivered to your inbox
               </p>
-              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -345,6 +373,20 @@ export default function BlogPage() {
                 <button className="px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base whitespace-nowrap">
                   Subscribe
                 </button>
+              </div>
+              
+              {/* Additional CTA */}
+              <div className="border-t border-white/10 pt-6 mt-8">
+                <p className="text-gray-400 text-sm sm:text-base mb-4">
+                  Or get early access to our AI-powered healthcare platform
+                </p>
+                <Link 
+                  href="/our-products#early-access"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-full transition-all duration-300 text-sm border border-white/20"
+                >
+                  Learn More About Ron AI
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
               </div>
             </div>
           </div>

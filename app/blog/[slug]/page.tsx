@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "@/components/ui/Header";
-import { Calendar, Clock, ArrowLeft, Share2, Twitter, Linkedin, Copy, CheckCircle, User, Quote, Instagram } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight, Share2, Twitter, Linkedin, Copy, CheckCircle, User, Quote, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { use } from "react";
@@ -35,6 +35,14 @@ const blogPosts = {
             </p>
             <cite style="font-size: 1.125rem; color: #60A5FA; font-weight: 600; font-style: normal;">— Tim Hunter, MS, RN, CCM, CSPO</cite>
           </blockquote>
+          <div style="margin-top: 2rem; text-align: center;">
+            <a href="/our-products#early-access" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 2rem; background: linear-gradient(to right, #3B82F6, #8B5CF6); color: white; font-weight: 600; border-radius: 9999px; text-decoration: none; transition: all 0.3s ease; font-size: 1rem;">
+              Join the Revolution - Get Early Access
+              <svg style="margin-left: 0.5rem; width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -65,7 +73,7 @@ const blogPosts = {
       <h2>Join Us on This Journey</h2>
       <p>We invite you to follow our progress as we approach Demo Day and beyond. Stay tuned for updates on our social media channels and website as we continue to develop Ron Search, Ron Scheduler, Ron Meds, and Ron Health - the tools that are already making healthcare navigation possible for thousands of users.</p>
 
-      <p>For more information about Ron AI, or to request early access to our platform, please visit our website at <a href="https://www.ron-ai.io" target="_blank" rel="noopener noreferrer">https://www.ron-ai.io</a>.</p>
+      <p>For more information about Ron AI, or to <a href="/our-products#early-access" style="color: #60a5fa; font-weight: 600; text-decoration: underline;">request early access to our platform</a>, please visit our website at <a href="https://www.ron-ai.io" target="_blank" rel="noopener noreferrer">https://www.ron-ai.io</a>.</p>
 
       <div className="author-bio">
         <h2>About Ron AI</h2>
@@ -107,8 +115,24 @@ const blogPosts = {
 
 export default function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const [copied, setCopied] = useState(false);
+  const [showFloatingCTA, setShowFloatingCTA] = useState(false);
   const resolvedParams = use(params);
   const post = blogPosts[resolvedParams.slug as keyof typeof blogPosts];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show floating CTA after scrolling 50% of the page
+      const scrolled = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPercent = scrolled / (documentHeight - windowHeight);
+      
+      setShowFloatingCTA(scrollPercent > 0.3);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!post) {
     return <div>Post not found</div>;
@@ -548,6 +572,23 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
             margin-left: 0;
             margin-right: 0;
           }
+
+          /* Floating CTA mobile optimizations */        .floating-cta {
+          max-width: calc(100vw - 2rem);
+        }
+
+        .cta-pulse {
+          animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+          from {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+          }
+          to {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.3);
+          }
+        }
         }
       `}</style>
       
@@ -611,6 +652,32 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
           {/* Article Content */}
           <div className="px-4 pb-16 sm:pb-24">
             <div className="max-w-4xl mx-auto">
+              {/* Early Access CTA - Top of Article */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-8 sm:mb-12"
+              >
+                <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8 backdrop-filter backdrop-blur-lg">
+                  <div className="text-center">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                      Ready to Experience the Future of Healthcare?
+                    </h3>
+                    <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+                      Join thousands of users already saving time and money with Ron AI
+                    </p>
+                    <Link 
+                      href="/our-products#early-access"
+                      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 text-sm sm:text-base cta-pulse"
+                    >
+                      Get Early Access to Ron
+                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -618,6 +685,41 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                 className="blog-content"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+
+              {/* Bottom Early Access CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-12 mb-8"
+              >
+                <div className="bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-blue-500/10 border border-blue-500/20 rounded-3xl p-8 sm:p-12 backdrop-filter backdrop-blur-lg relative overflow-hidden">
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full transform translate-x-32 -translate-y-32" />
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-500/5 to-blue-500/5 rounded-full transform -translate-x-24 translate-y-24" />
+                  
+                  <div className="relative z-10 text-center">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                      Ready to Transform Your Healthcare Experience?
+                    </h3>
+                    <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                      Join the healthcare revolution. Be among the first to experience Ron AI's comprehensive healthcare operating system.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                      <Link 
+                        href="/our-products#early-access"
+                        className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 text-lg shadow-2xl cta-pulse"
+                      >
+                        Get Early Access Now
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Link>
+                      <span className="text-sm text-gray-400 sm:ml-4">
+                        Join 5,000+ early users • No cost to apply
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
 
               {/* Tags */}
               <motion.div
@@ -656,10 +758,62 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                   </div>
                 </div>
               </motion.div>
+
+              {/* Early Access CTA - In Content */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="mt-12 sm:mt-16"
+              >
+                <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6 sm:p-8 backdrop-filter backdrop-blur-lg">
+                  <div className="text-center">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                      Be Among the First to Navigate Healthcare with Ease
+                    </h3>
+                    <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+                      Sign up for early access to our groundbreaking platform
+                    </p>
+                    <Link 
+                      href="/our-products#early-access"
+                      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+                    >
+                      Get Early Access
+                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </article>
       </div>
+
+      {/* Floating Early Access CTA */}
+      {showFloatingCTA && (
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto z-50 floating-cta"
+        >
+          <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-4 sm:p-6 shadow-2xl backdrop-filter backdrop-blur-lg border border-white/10">
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+              <div className="text-center sm:text-left flex-1">
+                <h4 className="text-white font-bold text-sm sm:text-base">Ready for Ron AI?</h4>
+                <p className="text-blue-100 text-xs sm:text-sm">Join the healthcare revolution today</p>
+              </div>
+              <Link 
+                href="/our-products#early-access"
+                className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 text-sm sm:text-base whitespace-nowrap"
+              >
+                Get Early Access
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      )}
     </>
   );
 }
