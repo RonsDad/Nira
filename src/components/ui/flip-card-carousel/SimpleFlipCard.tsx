@@ -77,10 +77,11 @@ export const SimpleFlipCardCarousel: React.FC<SimpleFlipCardCarouselProps> = ({
           }`}
         >
           <div
-            className={`absolute inset-0 w-full h-full transition-transform duration-600 preserve-3d ${
+            className={`absolute inset-0 w-full h-full transition-transform duration-600 preserve-3d cursor-pointer ${
               isFlipped ? 'rotate-y-180' : ''
             }`}
             style={{ transformStyle: 'preserve-3d' }}
+            onClick={() => setIsFlipped(!isFlipped)}
           >
             {/* Front of card */}
             <div
@@ -88,7 +89,6 @@ export const SimpleFlipCardCarousel: React.FC<SimpleFlipCardCarouselProps> = ({
               style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 flex flex-col items-center justify-center text-white">
-                <div className="text-sm uppercase tracking-wider mb-4 opacity-90">HEALTHCARE</div>
                 <h2 className="text-3xl font-bold text-center">{currentCard.frontTitle}</h2>
               </div>
             </div>

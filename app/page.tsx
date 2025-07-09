@@ -22,11 +22,11 @@ export default function Home() {
   const faqData = [
     {
       question: "How do I find a doctor who takes my insurance near me?",
-      answer: "Simply tell Ron your insurance provider and location. Our AI healthcare assistant instantly searches thousands of doctors near you, verifies they accept your insurance in real-time, and shows available appointments. No more calling offices or checking websites."
+      answer: "Simply search with Ron by entering your insurance provider and location. Our AI healthcare assistant instantly searches thousands of doctors near you, verifies they accept your insurance in real-time, and shows available appointments. No more calling offices or checking websites."
     },
     {
-      question: "How does voice-activated appointment booking work?",
-      answer: "Just say 'Book me an appointment with a cardiologist' and Ron handles everything. Our voice-activated medical appointment scheduling system calls offices, navigates phone systems, and confirms appointments - all through simple voice commands."
+      question: "How does automated appointment booking work?",
+      answer: "Ron's computer use agent and voice AI agent wrapper handles everything. When you request an appointment, our AI agents call offices, navigate phone systems, and confirm appointments automatically - saving you time and hassle."
     },
     {
       question: "Can Ron help me save money on medications?",
@@ -42,12 +42,12 @@ export default function Home() {
     }
   ];
 
-  // Healthcare challenge cards data - patient-focused
+  // Challenge cards data - patient-focused
   const healthcareChallengeCards: CardData[] = [
     {
       id: "system-complexity",
-      frontTitle: "Healthcare System Complexity",
-      backContent: "78% of patients abandon care due to system complexity. Americans waste countless hours navigating a $4.5 trillion healthcare maze, with 65% saying managing healthcare is overwhelming and families spending 8+ hours monthly on healthcare logistics."
+      frontTitle: "System Complexity",
+      backContent: "78% of patients abandon care due to system complexity. Americans waste countless hours navigating a $4.5 trillion maze, with 65% saying managing care is overwhelming and families spending 8+ hours monthly on logistics."
     },
     {
       id: "insurance-confusion",
@@ -56,8 +56,8 @@ export default function Home() {
     },
     {
       id: "cost-transparency",
-      frontTitle: "Hidden Healthcare Costs",
-      backContent: "Medication costs remain opaque until checkout, with patients often surprised by bills. Without price transparency, families can't make informed decisions about their healthcare spending and often face unexpected financial burden."
+      frontTitle: "Hidden Costs",
+      backContent: "Medication costs remain opaque until checkout, with patients often surprised by bills. Without price transparency, families can't make informed decisions about their spending and often face unexpected financial burden."
     },
     {
       id: "care-coordination",
@@ -115,46 +115,20 @@ export default function Home() {
                 className="w-full h-full"
                 onLoad={() => console.log("Spline robot scene loaded successfully")}
               />
-              {/* Arrow pointing to Ron */}
-              <div className="absolute top-8 right-8 sm:top-12 sm:right-12 flex items-center">
-                <div className="relative">
-                  <svg 
-                    className="w-32 h-20 sm:w-40 sm:h-24 md:w-48 md:h-28 lg:w-56 lg:h-32 relative z-10" 
-                    viewBox="0 0 120 60" 
-                    fill="none" 
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ transform: 'scaleX(-1)' }}
-                  >
-                    <path 
-                      d="M10 30 Q 40 20, 70 25 T 110 30" 
-                      stroke="#1e293b" 
-                      strokeWidth="4" 
-                      fill="none"
-                      markerEnd="url(#arrowhead)"
-                    />
-                    <defs>
-                      <marker id="arrowhead" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto">
-                        <polygon points="0 0, 12 4.5, 0 9" fill="#1e293b" />
-                      </marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-              {/* That's Ron text moved outside for better visibility */}
-              <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-20">
-                <div className="bg-white/95 rounded-xl px-4 py-2 shadow-lg">
-                  <span 
-                    className="text-slate-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap font-black"
-                    style={{ 
-                      fontFamily: 'Kalam, cursive',
-                      transform: 'rotate(-8deg)',
-                      letterSpacing: '0.05em',
-                      display: 'inline-block'
-                    }}
-                  >
-                    That's Ron!
-                  </span>
-                </div>
+              {/* This is Ron text */}
+              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
+                <span 
+                  className="text-slate-900 text-xl sm:text-2xl md:text-3xl whitespace-nowrap font-bold"
+                  style={{ 
+                    fontFamily: 'Kalam, cursive',
+                    transform: 'rotate(-5deg)',
+                    letterSpacing: '0.05em',
+                    display: 'inline-block',
+                    textShadow: '2px 2px 4px rgba(255,255,255,0.8)'
+                  }}
+                >
+                  This is Ron!
+                </span>
               </div>
             </div>
           </div>
@@ -184,11 +158,11 @@ export default function Home() {
               </div>
             </div>
             
-            {/* NiraSim Video Demo */}
+            {/* Ron Video Demo */}
             <div className="relative bg-slate-800" style={{ paddingBottom: '56.25%' }}>
               <video 
-                src="/videos/NiraSim.mov"
-                title="Ron AI healthcare assistant demonstration - Find doctors and book appointments with voice AI"
+                src="/videos/Ron.mov"
+                title="Ron AI healthcare assistant demonstration - Find doctors and book appointments"
                 className="absolute inset-0 w-full h-full object-contain bg-black"
                 autoPlay
                 loop
