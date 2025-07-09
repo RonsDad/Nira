@@ -42,7 +42,7 @@ export default function AboutUsPage() {
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-4 sm:mb-6">
-            We Think Healthcare Can Do <span className="text-blue-700">Better.</span>
+            We Think Healthcare Can <span className="text-blue-700">Do Better.</span>
           </h1>
           <p className="font-body text-lg sm:text-xl md:text-2xl text-slate-700 leading-relaxed">
             We're here to bring transparency, simplicity, and advocacy to healthcare. And we're just getting started...

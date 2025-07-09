@@ -116,10 +116,13 @@ export default function Home() {
                 onLoad={() => console.log("Spline robot scene loaded successfully")}
               />
               {/* Arrow pointing to Ron */}
-              <div className="absolute top-4 right-4 sm:top-8 sm:right-8 flex items-center">
+              <div className="absolute top-8 right-8 sm:top-12 sm:right-12 flex items-center">
                 <div className="relative">
+                  {/* White background circle for contrast */}
+                  <div className="absolute -top-16 -right-4 w-32 h-32 sm:w-40 sm:h-40 bg-white/90 rounded-full blur-xl" />
+                  
                   <svg 
-                    className="w-24 h-16 sm:w-32 sm:h-20 md:w-48 md:h-28 lg:w-56 lg:h-32 text-slate-900" 
+                    className="w-32 h-20 sm:w-40 sm:h-24 md:w-48 md:h-28 lg:w-56 lg:h-32 relative z-10" 
                     viewBox="0 0 120 60" 
                     fill="none" 
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,24 +130,25 @@ export default function Home() {
                   >
                     <path 
                       d="M10 30 Q 40 20, 70 25 T 110 30" 
-                      stroke="currentColor" 
-                      strokeWidth="3" 
+                      stroke="#1e293b" 
+                      strokeWidth="4" 
                       fill="none"
                       markerEnd="url(#arrowhead)"
                     />
                     <defs>
                       <marker id="arrowhead" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto">
-                        <polygon points="0 0, 12 4.5, 0 9" fill="currentColor" />
+                        <polygon points="0 0, 12 4.5, 0 9" fill="#1e293b" />
                       </marker>
                     </defs>
                   </svg>
                   <span 
-                    className="absolute -top-10 sm:-top-12 right-0 text-slate-900 text-2xl sm:text-3xl md:text-4xl lg:text-5xl whitespace-nowrap font-black"
+                    className="absolute -top-12 sm:-top-14 right-0 text-slate-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap font-black z-10"
                     style={{ 
                       fontFamily: 'Kalam, cursive',
-                      transform: 'rotate(-5deg)',
-                      textShadow: '3px 3px 6px rgba(0,0,0,0.2)',
-                      letterSpacing: '0.05em'
+                      transform: 'rotate(-8deg)',
+                      textShadow: '2px 2px 0px white, 4px 4px 8px rgba(0,0,0,0.3)',
+                      letterSpacing: '0.05em',
+                      WebkitTextStroke: '1px white'
                     }}
                   >
                     That's Ron!

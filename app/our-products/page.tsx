@@ -589,10 +589,12 @@ export default function OurProducts() {
         </div>
         
         {/* Enhanced Hero Section */}
-        <section className="relative pt-24 pb-12 px-4 z-10">
+        <section className="relative pt-32 pb-16 px-4 z-10">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
-              Healthcare is really hard. <span className="luxury-glow text-blue-400 block sm:inline">We're making it easy.</span>
+            <h1 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-4 sm:px-6">
+              Healthcare is really hard.
+              <br />
+              <span className="luxury-glow text-blue-400">We're making it easy.</span>
             </h1>
             <p className="premium-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-6 sm:mb-8 md:mb-12 max-w-5xl mx-auto leading-relaxed px-2">
               Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
@@ -1191,13 +1193,18 @@ export default function OurProducts() {
           </div>
         </footer>
         
-        {/* VAPI Widget - Completely Isolated in iframe */}
+        {/* VAPI Widget - Natural Scaling */}
         <iframe
           src="/vapi-widget.html"
-          className="fixed bottom-0 left-0 z-[9999] w-[300px] h-[500px] sm:w-[350px] sm:h-[550px] md:w-[400px] md:h-[600px]"
+          className="fixed bottom-4 right-4 z-[9999]"
           style={{
             border: 'none',
-            background: 'transparent'
+            background: 'transparent',
+            width: 'auto',
+            height: 'auto',
+            minWidth: '280px',
+            maxWidth: 'calc(100vw - 32px)',
+            maxHeight: 'calc(100vh - 32px)'
           }}
           title="VAPI Voice Assistant"
           allow="microphone"
