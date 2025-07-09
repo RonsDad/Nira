@@ -307,10 +307,10 @@ export default function Home() {
 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900 mb-3">
-                How does voice-activated appointment booking work?
+                How does appointment booking work?
               </h3>
               <p className="font-body text-base sm:text-lg text-slate-700">
-                Just say "Book me an appointment with a cardiologist" and Ron handles everything. Our voice-activated medical appointment scheduling system calls offices, navigates phone systems, and confirms appointments - all through simple voice commands.
+                Our Computer Use Agent, and Telephone Agent work together to navigate provider sites to check availability, log into provider portals, search for appointment slots, and will book the appointment with your guidance, and an integration with your calendar! 
               </p>
             </div>
 
