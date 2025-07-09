@@ -1196,15 +1196,10 @@ export default function OurProducts() {
         {/* VAPI Widget - Natural Scaling */}
         <iframe
           src="/vapi-widget.html"
-          className="fixed bottom-4 right-4 z-[9999]"
+          className="fixed bottom-4 left-4 z-[9999]"
           style={{
             border: 'none',
-            background: 'transparent',
-            width: 'auto',
-            height: 'auto',
-            minWidth: '280px',
-            maxWidth: 'calc(100vw - 32px)',
-            maxHeight: 'calc(100vh - 32px)'
+            background: 'transparent'
           }}
           title="VAPI Voice Assistant"
           allow="microphone"

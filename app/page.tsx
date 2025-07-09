@@ -118,9 +118,6 @@ export default function Home() {
               {/* Arrow pointing to Ron */}
               <div className="absolute top-8 right-8 sm:top-12 sm:right-12 flex items-center">
                 <div className="relative">
-                  {/* White background circle for contrast */}
-                  <div className="absolute -top-16 -right-4 w-32 h-32 sm:w-40 sm:h-40 bg-white/90 rounded-full blur-xl" />
-                  
                   <svg 
                     className="w-32 h-20 sm:w-40 sm:h-24 md:w-48 md:h-28 lg:w-56 lg:h-32 relative z-10" 
                     viewBox="0 0 120 60" 
@@ -141,14 +138,18 @@ export default function Home() {
                       </marker>
                     </defs>
                   </svg>
+                </div>
+              </div>
+              {/* That's Ron text moved outside for better visibility */}
+              <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-20">
+                <div className="bg-white/95 rounded-xl px-4 py-2 shadow-lg">
                   <span 
-                    className="absolute -top-12 sm:-top-14 right-0 text-slate-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap font-black z-10"
+                    className="text-slate-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap font-black"
                     style={{ 
                       fontFamily: 'Kalam, cursive',
                       transform: 'rotate(-8deg)',
-                      textShadow: '2px 2px 0px white, 4px 4px 8px rgba(0,0,0,0.3)',
                       letterSpacing: '0.05em',
-                      WebkitTextStroke: '1px white'
+                      display: 'inline-block'
                     }}
                   >
                     That's Ron!
