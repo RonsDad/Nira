@@ -936,16 +936,19 @@ export default function OurProducts() {
               <div className="ice-glass rounded-2xl p-4 sm:p-6 md:p-8 shimmer-effect">
                 {/* Mobile-friendly aspect ratio container */}
                 <div className="relative w-full rounded-xl overflow-hidden border border-white/10">
-                  {/* 16:9 aspect ratio container for consistent display */}
-                  <div className="relative pb-[56.25%] sm:pb-[75%] md:pb-[56.25%] lg:pb-[50%]">
+                  {/* Natural size iframe container - responsive */}
+                  <div className="relative w-full">
                     <iframe 
                       src="https://cling-pitch-92721139.figma.site"
-                      className="absolute top-0 left-0 w-full h-full"
+                      className="w-full"
                       title="Ron AI Interface Preview"
                       tabIndex={-1}
                       allow="fullscreen"
                       style={{
-                        border: 'none'
+                        border: 'none',
+                        height: '100vh',
+                        maxHeight: '800px',
+                        minHeight: '500px'
                       }}
                     />
                   </div>
