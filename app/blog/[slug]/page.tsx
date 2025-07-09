@@ -141,19 +141,38 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
 
         .blog-content {
           font-family: 'Crimson Text', serif;
-          font-size: 1.25rem;
+          font-size: 1.125rem;
           line-height: 1.8;
           color: #e5e7eb;
         }
 
+        @media (min-width: 640px) {
+          .blog-content {
+            font-size: 1.25rem;
+          }
+        }
+
         .blog-content h2 {
           font-family: 'Playfair Display', serif;
-          font-size: 2.5rem;
+          font-size: 1.875rem;
           font-weight: 700;
           color: #ffffff;
-          margin: 3rem 0 1.5rem;
+          margin: 2rem 0 1rem;
           position: relative;
           padding-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+          .blog-content h2 {
+            font-size: 2.25rem;
+            margin: 3rem 0 1.5rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .blog-content h2 {
+            font-size: 2.5rem;
+          }
         }
 
         .blog-content h2::after {
@@ -169,10 +188,23 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
 
         .blog-content h3 {
           font-family: 'Inter', sans-serif;
-          font-size: 1.75rem;
+          font-size: 1.375rem;
           font-weight: 600;
           color: #ffffff;
-          margin: 2rem 0 1rem;
+          margin: 1.5rem 0 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+          .blog-content h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .blog-content h3 {
+            font-size: 1.75rem;
+          }
         }
 
         .blog-content p {
@@ -180,11 +212,24 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
         }
 
         .blog-content p.lead {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           line-height: 1.6;
           color: #d1d5db;
           font-weight: 400;
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+          .blog-content p.lead {
+            font-size: 1.375rem;
+            margin-bottom: 2rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .blog-content p.lead {
+            font-size: 1.5rem;
+          }
         }
 
         .blog-content a {
@@ -207,9 +252,15 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
 
         .blog-content ul.feature-list li {
           position: relative;
-          padding-left: 2rem;
+          padding-left: 1.5rem;
           margin-bottom: 1rem;
           color: #e5e7eb;
+        }
+
+        @media (min-width: 640px) {
+          .blog-content ul.feature-list li {
+            padding-left: 2rem;
+          }
         }
 
         .blog-content ul.feature-list li::before {
@@ -223,17 +274,35 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
 
         .featured-quote {
           position: relative;
-          margin: 4rem -4rem;
-          padding: 4rem 5rem;
+          margin: 2rem -1rem;
+          padding: 2rem 1.5rem;
           background: linear-gradient(135deg, rgba(0, 140, 255, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
-          border-left: 6px solid;
+          border-left: 4px solid;
           border-image: linear-gradient(180deg, #008CFF 0%, #8B5CF6 100%) 1;
           backdrop-filter: blur(20px);
-          border-radius: 0 2rem 2rem 0;
+          border-radius: 0 1rem 1rem 0;
           box-shadow: 
             0 25px 50px rgba(0, 0, 0, 0.2),
             0 0 100px rgba(0, 140, 255, 0.05);
           overflow: hidden;
+        }
+
+        @media (min-width: 640px) {
+          .featured-quote {
+            margin: 3rem -2rem;
+            padding: 3rem 2.5rem;
+            border-left-width: 5px;
+            border-radius: 0 1.5rem 1.5rem 0;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .featured-quote {
+            margin: 4rem -4rem;
+            padding: 4rem 5rem;
+            border-left-width: 6px;
+            border-radius: 0 2rem 2rem 0;
+          }
         }
 
         .featured-quote::before {
@@ -250,36 +319,91 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
 
         .featured-quote .quote-icon {
           position: absolute;
-          top: 3rem;
-          left: 3rem;
+          top: 1.5rem;
+          left: 1.5rem;
           opacity: 0.2;
           z-index: 1;
         }
 
+        @media (min-width: 640px) {
+          .featured-quote .quote-icon {
+            top: 2rem;
+            left: 2rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .featured-quote .quote-icon {
+            top: 3rem;
+            left: 3rem;
+          }
+        }
+
         .featured-quote p {
           font-family: 'Playfair Display', serif;
-          font-size: 2.25rem;
-          line-height: 1.3;
+          font-size: 1.25rem;
+          line-height: 1.4;
           color: #ffffff;
           font-style: italic;
-          margin-bottom: 1.5rem;
-          padding-left: 4rem;
+          margin-bottom: 1rem;
+          padding-left: 0;
           position: relative;
           z-index: 2;
           text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (min-width: 640px) {
+          .featured-quote p {
+            font-size: 1.5rem;
+            line-height: 1.3;
+            padding-left: 2rem;
+            margin-bottom: 1.25rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .featured-quote p {
+            font-size: 2rem;
+            padding-left: 4rem;
+            margin-bottom: 1.5rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .featured-quote p {
+            font-size: 2.25rem;
+          }
         }
 
         .featured-quote cite {
           display: block;
           text-align: right;
           font-family: 'Inter', sans-serif;
-          font-size: 1.25rem;
+          font-size: 0.875rem;
           color: #60a5fa;
           font-style: normal;
           font-weight: 600;
           letter-spacing: -0.02em;
           position: relative;
           z-index: 2;
+        }
+
+        @media (min-width: 640px) {
+          .featured-quote cite {
+            font-size: 1rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .featured-quote cite {
+            font-size: 1.125rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .featured-quote cite {
+            font-size: 1.25rem;
+          }
         }
 
         .highlight-box {
@@ -354,13 +478,22 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
           background: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 0.75rem 1.5rem;
+          padding: 0.5rem 1rem;
           border-radius: 0.75rem;
           color: #e5e7eb;
           transition: all 0.3s ease;
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.375rem;
+          font-size: 0.875rem;
+        }
+
+        @media (min-width: 640px) {
+          .share-button {
+            padding: 0.75rem 1.5rem;
+            gap: 0.5rem;
+            font-size: 1rem;
+          }
         }
 
         .share-button:hover {
@@ -386,23 +519,34 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
           opacity: 0.5;
         }
 
-        @media (max-width: 768px) {
-          .blog-content {
-            font-size: 1.125rem;
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+          .highlight-box {
+            margin: 2rem 0;
+            padding: 1.5rem;
           }
 
-          .blog-content h2 {
-            font-size: 2rem;
+          .highlight-box h3 {
+            font-size: 1.25rem;
           }
 
-          .featured-quote {
-            margin: 3rem -1rem;
-            padding: 2rem;
+          .content-image {
+            margin: 2rem -1rem;
           }
 
-          .featured-quote p {
-            font-size: 1.5rem;
-            padding-left: 2rem;
+          .content-image img {
+            border-radius: 0;
+          }
+
+          .author-bio {
+            margin-top: 3rem;
+            padding-top: 2rem;
+          }
+
+          /* Fix blockquote styles on mobile */
+          blockquote {
+            margin-left: 0;
+            margin-right: 0;
           }
         }
       `}</style>
@@ -426,7 +570,7 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
             </div>
           )}
 
-          <div className="article-header pt-16 pb-16 px-4 sm:px-6 -mt-32 relative">
+          <div className="article-header pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 -mt-24 sm:-mt-32 relative">
             <div className="max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -434,29 +578,29 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                 transition={{ duration: 0.6 }}
               >
                 {/* Category */}
-                <span className="text-sm font-semibold text-blue-400 uppercase tracking-wider">
+                <span className="text-xs sm:text-sm font-semibold text-blue-400 uppercase tracking-wider">
                   {post.category}
                 </span>
 
                 {/* Title */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mt-4 mb-6"
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mt-3 sm:mt-4 mb-4 sm:mb-6"
                   style={{ fontFamily: "'Playfair Display', serif" }}>
                   {post.title}
                 </h1>
 
                 {/* Meta Info */}
-                <div className="flex flex-wrap items-center gap-6 text-gray-400">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-gray-400 text-sm sm:text-base">
                   <div className="flex items-center gap-2">
-                    <User className="w-5 h-5" />
-                    <span>{post.author}</span>
-                    {post.authorTitle && <span className="text-gray-600">• {post.authorTitle}</span>}
+                    <User className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="truncate">{post.author}</span>
+                    {post.authorTitle && <span className="text-gray-600 hidden sm:inline">• {post.authorTitle}</span>}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
+                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>{post.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5" />
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>{post.readTime}</span>
                   </div>
                 </div>
@@ -465,7 +609,7 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
           </div>
 
           {/* Article Content */}
-          <div className="px-4 sm:px-6 pb-24">
+          <div className="px-4 pb-16 sm:pb-24">
             <div className="max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -494,19 +638,19 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                 </div>
 
                 {/* Share Section */}
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <h3 className="text-lg font-semibold text-white">Share this article</h3>
-                  <div className="flex gap-3">
-                    <button onClick={shareOnTwitter} className="share-button">
-                      <Twitter className="w-5 h-5" />
-                      Twitter
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-white">Share this article</h3>
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <button onClick={shareOnTwitter} className="share-button text-sm sm:text-base">
+                      <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline">Twitter</span>
                     </button>
-                    <button onClick={shareOnLinkedIn} className="share-button">
-                      <Linkedin className="w-5 h-5" />
-                      LinkedIn
+                    <button onClick={shareOnLinkedIn} className="share-button text-sm sm:text-base">
+                      <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline">LinkedIn</span>
                     </button>
-                    <button onClick={copyToClipboard} className="share-button">
-                      {copied ? <CheckCircle className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
+                    <button onClick={copyToClipboard} className="share-button text-sm sm:text-base">
+                      {copied ? <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" /> : <Copy className="w-4 h-4 sm:w-5 sm:h-5" />}
                       {copied ? 'Copied!' : 'Copy Link'}
                     </button>
                   </div>

@@ -934,18 +934,26 @@ export default function OurProducts() {
             {/* Enhanced Interface Preview */}
             <div>
               <div className="ice-glass rounded-2xl p-4 sm:p-6 md:p-8 shimmer-effect">
-                <div className="relative w-full rounded-xl overflow-hidden border border-white/10" style={{ height: '60vh', minHeight: '400px', maxHeight: '800px' }}>
-                  <iframe 
-                    src="https://cling-pitch-92721139.figma.site"
-                    className="w-full h-full"
-                    title="Ron AI Interface Preview"
-                    tabIndex={-1}
-                    allow="fullscreen"
-                    style={{
-                      border: 'none'
-                    }}
-                  />
+                {/* Mobile-friendly aspect ratio container */}
+                <div className="relative w-full rounded-xl overflow-hidden border border-white/10">
+                  {/* 16:9 aspect ratio container for consistent display */}
+                  <div className="relative pb-[56.25%] sm:pb-[75%] md:pb-[56.25%] lg:pb-[50%]">
+                    <iframe 
+                      src="https://cling-pitch-92721139.figma.site"
+                      className="absolute top-0 left-0 w-full h-full"
+                      title="Ron AI Interface Preview"
+                      tabIndex={-1}
+                      allow="fullscreen"
+                      style={{
+                        border: 'none'
+                      }}
+                    />
+                  </div>
                 </div>
+                {/* Mobile hint */}
+                <p className="text-center text-gray-400 text-sm mt-4 sm:hidden">
+                  Best viewed in landscape or on larger screen
+                </p>
               </div>
             </div>
           </div>

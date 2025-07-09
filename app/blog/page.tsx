@@ -53,6 +53,15 @@ export default function BlogPage() {
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
+        /* Hide scrollbar for category pills on mobile */
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
         .blog-glass {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(20px) saturate(120%);
@@ -137,13 +146,13 @@ export default function BlogPage() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative pt-32 pb-16 px-4 sm:px-6 z-10">
+        <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 z-10">
           <div className="max-w-7xl mx-auto text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               Ron AI <span className="text-gradient">Blog</span>
@@ -152,7 +161,7 @@ export default function BlogPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto mb-12"
+              className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 px-4"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               Insights, updates, and stories from the future of healthcare AI
@@ -163,52 +172,54 @@ export default function BlogPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="max-w-2xl mx-auto mb-8"
+              className="max-w-2xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0"
             >
-              <div className="search-glass rounded-full px-6 py-4 flex items-center gap-4">
-                <Search className="w-5 h-5 text-gray-400" />
+              <div className="search-glass rounded-full px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-4">
+                <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 bg-transparent text-white placeholder:text-gray-400 outline-none"
+                  className="flex-1 bg-transparent text-white placeholder:text-gray-400 outline-none text-sm sm:text-base"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 />
               </div>
             </motion.div>
 
-            {/* Categories */}
+            {/* Categories - Horizontal scroll on mobile */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap justify-center gap-3 mb-16"
+              className="mb-12 sm:mb-16"
             >
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`category-pill px-6 py-2 rounded-full text-sm font-medium transition-all
-                    ${selectedCategory === category ? 'active text-white' : 'text-gray-300 hover:text-white'}`}
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {category}
-                </button>
-              ))}
+              <div className="flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-2 px-4 sm:px-0 -mx-4 sm:mx-0 scrollbar-hide">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`category-pill px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0
+                      ${selectedCategory === category ? 'active text-white' : 'text-gray-300 hover:text-white'}`}
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </motion.div>
           </div>
         </section>
 
         {/* Blog Posts Grid */}
-        <section className="relative px-4 sm:px-6 pb-24 z-10">
+        <section className="relative px-4 pb-16 sm:pb-24 z-10">
           <div className="max-w-7xl mx-auto">
             {filteredPosts.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-gray-400 text-lg">No posts found matching your search.</p>
+              <div className="text-center py-12 sm:py-16">
+                <p className="text-gray-400 text-base sm:text-lg">No posts found matching your search.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {filteredPosts.map((post, index) => (
                   <motion.article
                     key={post.id}
@@ -223,7 +234,7 @@ export default function BlogPage() {
                       <div className={`${post.featured ? 'grid md:grid-cols-2 gap-8' : ''}`}>
                         {/* Featured Image Area */}
                         {post.featured && (
-                          <div className="relative h-64 md:h-full overflow-hidden">
+                          <div className="relative h-48 sm:h-64 md:h-full overflow-hidden">
                             {post.image ? (
                               <img 
                                 src={post.image} 
@@ -233,10 +244,10 @@ export default function BlogPage() {
                             ) : (
                               <div className="featured-gradient h-full flex items-center justify-center">
                                 <div className="text-center p-8">
-                                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                                    <BookOpen className="w-12 h-12 text-blue-400" />
+                                  <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+                                    <BookOpen className="w-8 h-8 sm:w-12 sm:h-12 text-blue-400" />
                                   </div>
-                                  <p className="text-blue-400 font-semibold text-lg">Featured Article</p>
+                                  <p className="text-blue-400 font-semibold text-sm sm:text-lg">Featured Article</p>
                                 </div>
                               </div>
                             )}
@@ -250,7 +261,7 @@ export default function BlogPage() {
                         )}
                         
                         {/* Content */}
-                        <div className="p-8">
+                        <div className="p-6 sm:p-8">
                           {/* Category Badge */}
                           <div className="flex items-center gap-4 mb-4">
                             <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
@@ -263,42 +274,43 @@ export default function BlogPage() {
                             )}
                           </div>
                           
-                          <h2 className={`font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300
-                            ${post.featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}
+                          <h2 className={`font-bold text-white mb-3 sm:mb-4 group-hover:text-gradient transition-all duration-300
+                            ${post.featured ? 'text-xl sm:text-2xl md:text-3xl' : 'text-lg sm:text-xl'}`}
                             style={{ fontFamily: "'Playfair Display', serif" }}
                           >
                             {post.title}
                           </h2>
                           
-                          <p className={`text-gray-400 mb-6 line-clamp-3
-                            ${post.featured ? 'text-lg' : ''}`}
+                          <p className={`text-gray-400 mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-3
+                            ${post.featured ? 'text-base sm:text-lg' : 'text-sm sm:text-base'}`}
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {post.excerpt}
                           </p>
                           
                           {/* Meta Info */}
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-500">
                               <span className="flex items-center gap-1">
-                                <Calendar className="w-4 h-4" />
-                                {post.date}
+                                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                                <span className="hidden sm:inline">{post.date}</span>
+                                <span className="sm:hidden">{post.date.split(' ').slice(0, 2).join(' ')}</span>
                               </span>
                               <span className="flex items-center gap-1">
-                                <Clock className="w-4 h-4" />
+                                <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                                 {post.readTime}
                               </span>
                             </div>
                             
                             <div className="flex items-center gap-2 text-blue-400 group-hover:text-blue-300 transition-colors">
-                              <span className="text-sm font-medium">Read More</span>
-                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              <span className="text-xs sm:text-sm font-medium">Read More</span>
+                              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                             </div>
                           </div>
                           
                           {/* Author */}
-                          <div className="mt-6 pt-6 border-t border-gray-800">
-                            <p className="text-sm text-gray-500">
+                          <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-800">
+                            <p className="text-xs sm:text-sm text-gray-500">
                               By <span className="text-white font-medium">{post.author}</span>
                             </p>
                           </div>
@@ -313,24 +325,24 @@ export default function BlogPage() {
         </section>
 
         {/* Newsletter CTA */}
-        <section className="relative py-24 px-4 sm:px-6 z-10">
+        <section className="relative py-16 sm:py-24 px-4 z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="blog-glass rounded-3xl p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4"
+            <div className="blog-glass rounded-2xl sm:rounded-3xl p-8 sm:p-12 text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4"
                 style={{ fontFamily: "'Playfair Display', serif" }}>
                 Stay Updated
               </h2>
-              <p className="text-lg text-gray-300 mb-8"
+              <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8"
                 style={{ fontFamily: "'Inter', sans-serif" }}>
                 Get the latest insights on healthcare AI delivered to your inbox
               </p>
-              <div className="max-w-md mx-auto flex gap-4">
+              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white placeholder:text-gray-400 outline-none focus:border-blue-400 transition-colors"
+                  className="flex-1 px-4 sm:px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white placeholder:text-gray-400 outline-none focus:border-blue-400 transition-colors text-sm sm:text-base"
                 />
-                <button className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:opacity-90 transition-opacity">
+                <button className="px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
