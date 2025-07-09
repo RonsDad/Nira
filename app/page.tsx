@@ -116,13 +116,14 @@ export default function Home() {
                 onLoad={() => console.log("Spline robot scene loaded successfully")}
               />
               {/* Arrow pointing to Ron */}
-              <div className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-8 lg:left-8 flex items-center">
+              <div className="absolute top-4 right-4 sm:top-8 sm:right-8 flex items-center">
                 <div className="relative">
                   <svg 
-                    className="w-20 h-12 sm:w-32 sm:h-20 md:w-48 md:h-28 lg:w-56 lg:h-32 text-slate-700" 
+                    className="w-24 h-16 sm:w-32 sm:h-20 md:w-48 md:h-28 lg:w-56 lg:h-32 text-slate-900" 
                     viewBox="0 0 120 60" 
                     fill="none" 
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ transform: 'scaleX(-1)' }}
                   >
                     <path 
                       d="M10 30 Q 40 20, 70 25 T 110 30" 
@@ -138,14 +139,15 @@ export default function Home() {
                     </defs>
                   </svg>
                   <span 
-                    className="absolute -top-6 sm:-top-8 left-0 text-slate-700 text-lg sm:text-2xl md:text-3xl lg:text-4xl whitespace-nowrap font-bold"
+                    className="absolute -top-10 sm:-top-12 right-0 text-slate-900 text-2xl sm:text-3xl md:text-4xl lg:text-5xl whitespace-nowrap font-black"
                     style={{ 
                       fontFamily: 'Kalam, cursive',
                       transform: 'rotate(-5deg)',
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+                      textShadow: '3px 3px 6px rgba(0,0,0,0.2)',
+                      letterSpacing: '0.05em'
                     }}
                   >
-                    That's Ron
+                    That's Ron!
                   </span>
                 </div>
               </div>
