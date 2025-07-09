@@ -923,7 +923,7 @@ export default function OurProducts() {
 
 
         {/* Enhanced Product Section 4: Ron Interface */}
-        <section id="ron-interface" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
+        <section id="ron-interface" className="relative py-12 sm:py-16 md:py-24 px-4 z-10 hidden lg:block">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
