@@ -1198,10 +1198,12 @@ export default function OurProducts() {
       {/* VAPI Widget */}
       <iframe
         src="/vapi-widget.html"
-        className="fixed bottom-4 left-4 z-[9999] w-auto h-auto"
+        className="fixed bottom-4 left-4 z-[9999]"
         style={{
           border: 'none',
-          background: 'transparent'
+          background: 'transparent',
+          width: '500px',
+          height: '800px'
         }}
         title="VAPI Voice Assistant"
         allow="microphone"
