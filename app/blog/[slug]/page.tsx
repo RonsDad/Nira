@@ -36,9 +36,9 @@ const blogPosts = {
             <cite style="font-size: 1.125rem; color: #60A5FA; font-weight: 600; font-style: normal;">— Tim Hunter, MS, RN, CCM, CSPO</cite>
           </blockquote>
           <div style="margin-top: 2rem; text-align: center;">
-            <a href="/our-products#early-access" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 2rem; background: linear-gradient(to right, #3B82F6, #8B5CF6); color: white; font-weight: 600; border-radius: 9999px; text-decoration: none; transition: all 0.3s ease; font-size: 1rem;">
+            <a href="/our-products#early-access" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.875rem 2.5rem; background: linear-gradient(to right, #3B82F6, #8B5CF6); color: white; font-weight: 700; border-radius: 9999px; text-decoration: none; transition: all 0.3s ease; font-size: 1.125rem; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); transform: translateY(0);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 15px 40px rgba(59, 130, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(59, 130, 246, 0.3)'">
               Join the Revolution - Get Early Access
-              <svg style="margin-left: 0.5rem; width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg style="margin-left: 0.5rem; width: 1.125rem; height: 1.125rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </a>
