@@ -589,18 +589,18 @@ export default function OurProducts() {
         </div>
         
         {/* Enhanced Hero Section */}
-        <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 z-10">
+        <section className="relative pt-24 pb-12 px-4 z-10">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="premium-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
-              Healthcare is really hard. <span className="luxury-glow text-blue-400">We're making it easy.</span>
+            <h1 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
+              Healthcare is really hard. <span className="luxury-glow text-blue-400 block sm:inline">We're making it easy.</span>
             </h1>
-            <p className="premium-body text-xl sm:text-2xl md:text-3xl text-gray-300 mb-8 sm:mb-12 max-w-5xl mx-auto leading-relaxed">
+            <p className="premium-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-6 sm:mb-8 md:mb-12 max-w-5xl mx-auto leading-relaxed px-2">
               Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
               finding doctors, booking appointments, managing medications, and organizing health records.
             </p>
             <Button 
               size="lg" 
-              className="premium-glass text-white premium-body font-semibold px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl transition-all duration-500 hover:scale-105 shimmer-effect"
+              className="premium-glass text-white premium-body font-semibold px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl transition-all duration-500 hover:scale-105 shimmer-effect w-full sm:w-auto max-w-xs sm:max-w-none mx-auto"
               onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Get Early Access to Ron
@@ -609,70 +609,123 @@ export default function OurProducts() {
           
         </section>
 
+        {/* Platform Overview Section */}
+        <section className="relative py-12 sm:py-16 md:py-20 px-4 z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="premium-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+                Our platform includes:
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+              {/* Provider Search */}
+              <div className="premium-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <Search className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-blue-400 flex-shrink-0" />
+                </div>
+                <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
+                  AI-powered provider search that actually verifies insurance coverage in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty
+                </p>
+              </div>
+
+              {/* Appointment Booking */}
+              <div className="premium-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <Phone className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-green-400 flex-shrink-0" />
+                </div>
+                <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
+                  Voice AI that calls doctor offices for you, navigates phone trees, and books appointments - saving 45+ minutes per booking
+                </p>
+              </div>
+
+              {/* Medication Management */}
+              <div className="premium-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <Pill className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-teal-400 flex-shrink-0" />
+                </div>
+                <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
+                  Medication price comparison across all pharmacies, finding discounts and copay assistance programs - users save an average of $1,704 annually
+                </p>
+              </div>
+
+              {/* Health Records */}
+              <div className="premium-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <Heart className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-red-400 flex-shrink-0" />
+                </div>
+                <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
+                  Unified health records management with AI insights to help patients understand and organize their medical information
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <ProductFeaturesSection />
 
         {/* Product Innovations Headline and Features */}
-        <section className="relative pb-8 px-4 sm:px-6 z-10">
+        <section className="relative pb-8 px-4 z-10">
           <div className="max-w-7xl mx-auto text-center">
-            <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 luxury-glow">
+            <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 luxury-glow">
               This is only the <span className="text-blue-400">beginning...</span>
             </h2>
-            <p className="premium-body text-xl sm:text-2xl text-blue-200 mb-2 luxury-glow">
+            <p className="premium-body text-lg sm:text-xl md:text-2xl text-blue-200 mb-2 luxury-glow px-2">
               Experience the next generation of healthcare technology with Computer Use Agents and Voice Agents.
             </p>
-            <p className="premium-body text-lg text-blue-300 mb-2 luxury-glow">
+            <p className="premium-body text-base sm:text-lg text-blue-300 mb-2 luxury-glow px-2">
               Our Computer Use Agents automate complex web tasks, insurance verification, and provider discovery in real time.
             </p>
-            <p className="premium-body text-lg text-blue-300 mb-2 luxury-glow">
+            <p className="premium-body text-base sm:text-lg text-blue-300 mb-2 luxury-glow px-2">
               Voice Agents handle appointment booking, phone navigation, and patient communication, making healthcare seamless and accessible.
             </p>
-            <p className="premium-body text-lg text-blue-300 luxury-glow">
+            <p className="premium-body text-base sm:text-lg text-blue-300 luxury-glow px-2">
               All innovations are designed for transparency, accuracy, and user empowerment.
             </p>
           </div>
         </section>
 
         {/* All Products Grid Section */}
-        <section className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+        <section className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
             {/* Ron Meds and Med Pricing Side by Side */}
-            <div className="grid grid-cols-2 gap-12 mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mb-12 lg:mb-16">
                 {/* Ron Meds */}
-                <div id="ron-meds" className="ice-glass rounded-2xl p-8 shimmer-effect">
-                  <h2 className="premium-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+                <div id="ron-meds" className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                  <h2 className="premium-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
                     Ron <span className="luxury-glow text-blue-400">Meds</span>
                   </h2>
-                  <p className="premium-subheading text-xl sm:text-2xl text-blue-300 mb-4">
+                  <p className="premium-subheading text-lg sm:text-xl md:text-2xl text-blue-300 mb-3 sm:mb-4">
                     Save Up to 400% on Prescriptions
                   </p>
-                  <p className="premium-body text-lg text-gray-300 mb-6 leading-relaxed">
+                  <p className="premium-body text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                     Stop overpaying for medications. Ron compares prices across all pharmacies,
                     finds discounts and copay assistance programs, and tracks your refills.
                   </p>
                   
                   {/* Savings Calculator */}
-                  <div className="premium-glass rounded-xl p-6 shimmer-effect">
-                    <h4 className="premium-subheading font-semibold text-white mb-4">Average User Savings</h4>
-                    <div className="space-y-3">
+                  <div className="premium-glass rounded-xl p-4 sm:p-6 shimmer-effect">
+                    <h4 className="premium-subheading font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">Average User Savings</h4>
+                    <div className="space-y-2 sm:space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Per prescription</span>
-                        <span className="font-bold text-xl luxury-glow text-blue-400">$47</span>
+                        <span className="text-gray-400 text-sm sm:text-base">Per prescription</span>
+                        <span className="font-bold text-lg sm:text-xl luxury-glow text-blue-400">$47</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Monthly savings</span>
-                        <span className="font-bold text-xl luxury-glow text-blue-400">$142</span>
+                        <span className="text-gray-400 text-sm sm:text-base">Monthly savings</span>
+                        <span className="font-bold text-lg sm:text-xl luxury-glow text-blue-400">$142</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Annual savings</span>
-                        <span className="font-bold text-2xl luxury-glow text-blue-400">$1,704</span>
+                        <span className="text-gray-400 text-sm sm:text-base">Annual savings</span>
+                        <span className="font-bold text-xl sm:text-2xl luxury-glow text-blue-400">$1,704</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Med Pricing Component */}
-                <div className="ice-glass rounded-2xl p-8 shimmer-effect">
-                  <h3 className="text-white font-semibold mb-6">Medication Price Comparison</h3>
+                <div className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                  <h3 className="text-white font-semibold mb-4 sm:mb-6 text-lg sm:text-xl">Medication Price Comparison</h3>
                   
                   <div className="premium-glass rounded-lg p-4 mb-6">
                     <div className="flex items-center gap-3 mb-3">
@@ -715,10 +768,10 @@ export default function OurProducts() {
             </div>
 
             {/* Voice Component and Ron Scheduler Side by Side */}
-            <div className="grid grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 {/* Voice Component */}
-                <div className="ice-glass rounded-2xl p-8 shimmer-effect">
-                  <h3 className="text-white font-semibold mb-6">AI Voice Assistant Demo</h3>
+                <div className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                  <h3 className="text-white font-semibold mb-4 sm:mb-6 text-lg sm:text-xl">AI Voice Assistant Demo</h3>
                   
                   <div className="premium-glass rounded-xl p-6 mb-6">
                     <div className="flex items-center justify-between mb-4">
@@ -775,14 +828,14 @@ export default function OurProducts() {
                 </div>
                 
                 {/* Ron Scheduler */}
-                <div id="ron-scheduler" className="ice-glass rounded-2xl p-8 shimmer-effect">
-                  <h2 className="premium-heading text-3xl sm:text-4xl font-bold text-white mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
+                <div id="ron-scheduler" className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                  <h2 className="premium-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
                     Ron <span className="luxury-glow text-blue-400">Scheduler</span>
                   </h2>
-                  <p className="premium-subheading text-xl sm:text-2xl text-blue-300 mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
+                  <p className="premium-subheading text-lg sm:text-xl md:text-2xl text-blue-300 mb-3 sm:mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
                     Voice AI Books Your Appointments
                   </p>
-                  <p className="premium-body text-lg text-gray-300 mb-6 leading-relaxed">
+                  <p className="premium-body text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                     Never wait on hold again. Ron's AI voice assistant calls doctor offices for you,
                     navigates phone trees, and books appointments automatically. Save 45+ minutes per booking.
                   </p>
@@ -811,47 +864,47 @@ export default function OurProducts() {
         </section>
 
         {/* Enhanced Product Section 1: Ron Search */}
-        <section id="ron-search" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+        <section id="ron-search" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-3 gap-12 lg:gap-16 items-start">
-              <div className="col-span-1">
-                <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 sm:mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-16 items-start">
+              <div className="lg:col-span-1">
+                <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
                   Ron <span className="luxury-glow text-blue-400">Search</span>
                 </h2>
-                <p className="premium-subheading text-2xl sm:text-3xl luxury-glow text-blue-300 mb-6 sm:mb-8">
+                <p className="premium-subheading text-xl sm:text-2xl md:text-3xl luxury-glow text-blue-300 mb-4 sm:mb-6 md:mb-8">
                   Dynamic, In-Depth, and Validated Provider Search
                 </p>
-                <p className="premium-body text-xl text-gray-300 mb-10 leading-relaxed">
+                <p className="premium-body text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 md:mb-10 leading-relaxed">
                   Stop endless phone calls. Ron uses AI to instantly find doctors who actually accept your insurance, 
                   with real-time verification. Solving the problem where 68% of users abandon healthcare searches 
                   due to insurance uncertainty.
                 </p>
                 
                 {/* Honest, single-column features for provider search */}
-                <div className="premium-glass rounded-2xl p-8 mb-10 shimmer-effect">
-                  <ul className="space-y-6">
-                    <li className="flex items-center gap-4">
-                      <Search className="w-10 h-10 luxury-glow text-blue-400 flex-shrink-0" />
-                      <span className="font-bold text-lg luxury-glow text-blue-400">Continuously updated results</span>
+                <div className="premium-glass rounded-2xl p-6 sm:p-8 mb-6 lg:mb-10 shimmer-effect">
+                  <ul className="space-y-4 sm:space-y-6">
+                    <li className="flex items-center gap-3 sm:gap-4">
+                      <Search className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-blue-400 flex-shrink-0" />
+                      <span className="font-bold text-base sm:text-lg luxury-glow text-blue-400">Continuously updated results</span>
                     </li>
-                    <li className="flex items-center gap-4">
-                      <CheckCircle className="w-10 h-10 luxury-glow text-green-400 flex-shrink-0" />
-                      <span className="font-bold text-lg luxury-glow text-green-400">Verified provider data</span>
+                    <li className="flex items-center gap-3 sm:gap-4">
+                      <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-green-400 flex-shrink-0" />
+                      <span className="font-bold text-base sm:text-lg luxury-glow text-green-400">Verified provider data</span>
                     </li>
-                    <li className="flex items-center gap-4">
-                      <Shield className="w-10 h-10 luxury-glow text-purple-400 flex-shrink-0" />
-                      <span className="font-bold text-lg luxury-glow text-purple-400">Validated & transparent</span>
+                    <li className="flex items-center gap-3 sm:gap-4">
+                      <Shield className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-purple-400 flex-shrink-0" />
+                      <span className="font-bold text-base sm:text-lg luxury-glow text-purple-400">Validated & transparent</span>
                     </li>
                   </ul>
                 </div>
               </div>
               
               {/* Enhanced Features Display - Wider Provider Search */}
-              <div className="col-span-2 ice-glass rounded-2xl p-8 shimmer-effect">
-                <h3 className="text-white font-semibold mb-6">Try Provider Search</h3>
+              <div className="lg:col-span-2 ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
+                <h3 className="text-white font-semibold mb-4 sm:mb-6 text-lg sm:text-xl">Try Provider Search</h3>
                 
-                {/* Provider Search iframe - Full Height for Better Experience */}
-                <div className="premium-glass rounded-xl overflow-hidden mb-6 w-full" style={{ height: '800px' }}>
+                {/* Provider Search iframe - Responsive Height */}
+                <div className="premium-glass rounded-xl overflow-hidden mb-4 sm:mb-6 w-full" style={{ height: '600px' }}>
                   <iframe
                     src="https://studio--aethercare-tqine.us-central1.hosted.app"
                     className="w-full h-full"
@@ -867,21 +920,21 @@ export default function OurProducts() {
 
 
         {/* Enhanced Product Section 4: Ron Interface */}
-        <section id="ron-interface" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+        <section id="ron-interface" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="premium-heading text-4xl sm:text-5xl font-bold text-white mb-4 sm:mb-6">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
                 Experience Ron <span className="luxury-glow text-blue-400">Live</span>
               </h2>
-              <p className="premium-body text-xl text-gray-300 max-w-2xl mx-auto">
+              <p className="premium-body text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-2">
                 Discover our intuitive and innovative UX that makes healthcare simple and accessible
               </p>
             </div>
             
             {/* Enhanced Interface Preview */}
             <div>
-              <div className="ice-glass rounded-2xl p-8 shimmer-effect">
-                <div className="relative w-full h-screen rounded-xl overflow-hidden border border-white/10">
+              <div className="ice-glass rounded-2xl p-4 sm:p-6 md:p-8 shimmer-effect">
+                <div className="relative w-full rounded-xl overflow-hidden border border-white/10" style={{ height: '60vh', minHeight: '400px', maxHeight: '800px' }}>
                   <iframe 
                     src="https://cling-pitch-92721139.figma.site"
                     className="w-full h-full"
@@ -900,19 +953,19 @@ export default function OurProducts() {
 
 
         {/* Enhanced Value Proposition Section */}
-        <section className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+        <section className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="premium-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
                 Powered by <span className="luxury-glow text-blue-400">Browser-Use</span> AI Agents
               </h2>
-              <p className="premium-body text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto">
+              <p className="premium-body text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto px-2">
                 Powered by ethically-developed AI agents from <span className="text-blue-400 font-semibold">Browser-Use</span>, 
                 Ron maintains human-in-the-loop control, giving you full transparency and authority over every action.
               </p>
             </div>
 
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {[
                 { 
                   icon: Compass, 
@@ -951,22 +1004,22 @@ export default function OurProducts() {
                       </span>
                     </div>
                   )}
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 premium-glass rounded-full flex items-center justify-center mx-auto mb-4 pulse-glow-animation">
-                      <item.icon className="w-8 h-8 text-white svg-morph" />
+                  <CardContent className="p-4 sm:p-6 text-center">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 premium-glass rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 pulse-glow-animation">
+                      <item.icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white svg-morph" />
                     </div>
-                    <h3 className="premium-subheading font-bold text-xl text-white mb-2">{item.title}</h3>
-                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                    <h3 className="premium-subheading font-bold text-base sm:text-lg lg:text-xl text-white mb-2">{item.title}</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm">{item.desc}</p>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
             {/* Ethical AI Statement */}
-            <div className="mt-12 text-center">
-              <div className="inline-flex items-center gap-2 px-6 py-3 premium-glass rounded-full">
-                <Shield className="w-5 h-5 text-green-400" />
-                <p className="text-gray-300 text-sm">
+            <div className="mt-8 sm:mt-12 text-center px-4">
+              <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 premium-glass rounded-full">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
+                <p className="text-gray-300 text-xs sm:text-sm">
                   <span className="font-semibold">Ethically Developed:</span> You maintain full control with complete transparency over all AI actions
                 </p>
               </div>
@@ -975,13 +1028,13 @@ export default function OurProducts() {
         </section>
 
         {/* Enhanced Early Access CTA Section */}
-        <section id="early-access" className="relative py-16 sm:py-24 px-4 sm:px-6 z-10">
+        <section id="early-access" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="premium-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 sm:mb-8">
-                Join the Healthcare Revolution. <span className="luxury-glow text-blue-400">Get Early Access to Ron.</span>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
+                Join the Healthcare Revolution. <span className="luxury-glow text-blue-400 block md:inline">Get Early Access to Ron.</span>
               </h2>
-              <p className="premium-body text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto">
+              <p className="premium-body text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-2xl mx-auto px-2">
                 Be among the first to experience the future of healthcare navigation. Early access users get 
                 lifetime premium features, priority support, and the chance to shape Ron's development.
               </p>
@@ -989,9 +1042,9 @@ export default function OurProducts() {
             
             {/* Enhanced Early Access Form */}
             <Card className="ice-glass shimmer-effect">
-              <CardContent className="p-8 lg:p-12">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-2 gap-6">
+              <CardContent className="p-6 sm:p-8 lg:p-12">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <Label htmlFor="firstName" className="text-white mb-2 block">First Name *</Label>
                       <Input
@@ -1031,9 +1084,9 @@ export default function OurProducts() {
                     />
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <Label htmlFor="email" className="text-white mb-2 block">Email *</Label>
+                      <Label htmlFor="email" className="text-white mb-2 block text-sm sm:text-base">Email *</Label>
                       <Input
                         id="email"
                         type="email"
@@ -1046,7 +1099,7 @@ export default function OurProducts() {
                     </div>
                     
                     <div>
-                      <Label htmlFor="phone" className="text-white mb-2 block">Phone</Label>
+                      <Label htmlFor="phone" className="text-white mb-2 block text-sm sm:text-base">Phone</Label>
                       <Input
                         id="phone"
                         type="tel"
@@ -1085,7 +1138,7 @@ export default function OurProducts() {
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full premium-glass text-white premium-body font-bold px-12 py-6 text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
+                    className="w-full premium-glass text-white premium-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg md:text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
@@ -1130,14 +1183,9 @@ export default function OurProducts() {
         {/* VAPI Widget - Completely Isolated in iframe */}
         <iframe
           src="/vapi-widget.html"
+          className="fixed bottom-0 left-0 z-[9999] w-[300px] h-[500px] sm:w-[350px] sm:h-[550px] md:w-[400px] md:h-[600px]"
           style={{
-            position: 'fixed',
-            bottom: '0',
-            left: '0',
-            width: '400px',
-            height: '600px',
             border: 'none',
-            zIndex: 9999,
             background: 'transparent'
           }}
           title="VAPI Voice Assistant"

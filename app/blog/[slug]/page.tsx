@@ -6,12 +6,13 @@ import Header from "@/components/ui/Header";
 import { Calendar, Clock, ArrowLeft, Share2, Twitter, Linkedin, Copy, CheckCircle, User, Quote, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { use } from "react";
 
 // This would normally come from a database or CMS
 const blogPosts = {
   "vercel-ai-accelerator": {
     id: "vercel-ai-accelerator",
-    title: "Ron AI Joins the Vercel AI Accelerator: Introducing Our Advocacy Co-Pilot",
+    title: "Ron AI Joins the Vercel AI Accelerator: Building the Healthcare Operating System",
     headerImage: "/images/photoheader.png",
     content: `
       <p className="lead">We are thrilled to announce that Ron AI has been selected to join the prestigious Vercel AI Accelerator program! This milestone represents a significant achievement for our team as we continue to develop innovative AI solutions for digital advocacy.</p>
@@ -37,32 +38,34 @@ const blogPosts = {
         </div>
       </div>
 
-      <h2>Introducing the Advocacy Co-Pilot</h2>
-      <p>At the heart of our participation in the accelerator is our flagship product: the Advocacy Co-Pilot. This revolutionary tool is designed to transform how organizations and individuals navigate the complex landscape of digital advocacy.</p>
+      <h2>Introducing Ron AI's Healthcare Solutions</h2>
+      <p>At the heart of our participation in the accelerator is our comprehensive healthcare navigation platform. Ron AI is building the operating system for healthcare - a suite of AI-powered tools that solve the most frustrating parts of the patient experience.</p>
 
-      <p>The Advocacy Co-Pilot leverages advanced AI to:</p>
+      <p>Our platform includes:</p>
       <ul className="feature-list">
-        <li>Streamline advocacy campaigns across multiple channels</li>
-        <li>Provide data-driven insights to maximize engagement and impact</li>
-        <li>Automate routine tasks while enhancing human-led strategy</li>
-        <li>Ensure compliance with evolving regulations in the digital space</li>
+        <li><strong>Ron Search</strong>: AI-powered provider search that actually verifies insurance coverage in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty</li>
+        <li><strong>Ron Scheduler</strong>: Voice AI that calls doctor offices for you, navigates phone trees, and books appointments - saving 45+ minutes per booking</li>
+        <li><strong>Ron Meds</strong>: Medication price comparison across all pharmacies, finding discounts and copay assistance programs - users save an average of $1,704 annually</li>
+        <li><strong>Ron Health</strong>: Unified health records management with AI insights to help patients understand and organize their medical information</li>
       </ul>
+
+      <p>Powered by Browser-Use AI agents, our platform maintains human-in-the-loop control, giving users full transparency and authority over every action. This isn't about replacing healthcare workers - it's about giving both patients and providers the tools they desperately need.</p>
 
       <h2>Our Journey So Far</h2>
       <p>Since joining the accelerator, our team has been working tirelessly to refine the Advocacy Co-Pilot, incorporating valuable feedback from mentors and early users. The program has provided us with unparalleled access to technical expertise and industry connections that have accelerated our development timeline.</p>
 
       <div className="highlight-box">
         <h2>Demo Day: Mark Your Calendars!</h2>
-        <p>We are excited to showcase the Advocacy Co-Pilot at the Vercel AI Accelerator Demo Day on <strong>July 18th in San Francisco</strong>. This event will be our opportunity to demonstrate how our solution is poised to revolutionize digital advocacy and provide a glimpse into our future roadmap.</p>
+        <p>We are excited to showcase Ron AI's healthcare navigation platform at the Vercel AI Accelerator Demo Day on <strong>July 18th in San Francisco</strong>. This event will be our opportunity to demonstrate how our AI-powered solutions are already helping patients save time and money while giving healthcare providers their time back.</p>
       </div>
 
-      <h2>The Future of Digital Advocacy</h2>
-      <p>As digital spaces become increasingly important for advocacy work, the need for intelligent tools that enhance human capabilities becomes critical. The Advocacy Co-Pilot represents our commitment to empowering advocates with technology that amplifies their voice rather than replacing it.</p>
+      <h2>The Future of Healthcare Navigation</h2>
+      <p>As healthcare becomes increasingly complex and expensive, the need for intelligent tools that help patients navigate the system becomes critical. Ron AI represents our commitment to making healthcare accessible, transparent, and affordable for everyone - not through vague "advocacy" but through concrete tools that solve real problems people face every day.</p>
 
       <h2>Join Us on This Journey</h2>
-      <p>We invite you to follow our progress as we approach Demo Day and beyond. Stay tuned for updates on our social media channels and website as we continue to develop the Advocacy Co-Pilot and explore new frontiers in AI-powered advocacy.</p>
+      <p>We invite you to follow our progress as we approach Demo Day and beyond. Stay tuned for updates on our social media channels and website as we continue to develop Ron Search, Ron Scheduler, Ron Meds, and Ron Health - the tools that are already making healthcare navigation possible for thousands of users.</p>
 
-      <p>For more information about Ron AI and the Advocacy Co-Pilot, or to request early access to our platform, please visit our website at <a href="https://www.ron-ai.io" target="_blank" rel="noopener noreferrer">https://www.ron-ai.io</a>.</p>
+      <p>For more information about Ron AI, or to request early access to our platform, please visit our website at <a href="https://www.ron-ai.io" target="_blank" rel="noopener noreferrer">https://www.ron-ai.io</a>.</p>
 
       <div className="author-bio">
         <h2>About Ron AI</h2>
@@ -102,9 +105,10 @@ const blogPosts = {
   }
 };
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
+export default function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const [copied, setCopied] = useState(false);
-  const post = blogPosts[params.slug as keyof typeof blogPosts];
+  const resolvedParams = use(params);
+  const post = blogPosts[resolvedParams.slug as keyof typeof blogPosts];
 
   if (!post) {
     return <div>Post not found</div>;

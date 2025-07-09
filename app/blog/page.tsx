@@ -21,7 +21,7 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     id: "vercel-ai-accelerator",
-    title: "Ron AI Joins the Vercel AI Accelerator: Introducing Our Advocacy Co-Pilot",
+    title: "Ron AI Joins the Vercel AI Accelerator: Building the Healthcare Operating System",
     excerpt: "We are thrilled to announce that Ron AI has been selected to join the prestigious Vercel AI Accelerator program! This milestone represents a significant achievement for our team.",
     date: "July 8, 2025",
     readTime: "5 min read",
