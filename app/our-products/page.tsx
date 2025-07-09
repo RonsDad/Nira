@@ -1195,10 +1195,10 @@ export default function OurProducts() {
         
       </div>
       
-      {/* VAPI Widget - Natural Size Outside Container */}
+      {/* VAPI Widget */}
       <iframe
         src="/vapi-widget.html"
-        className="fixed bottom-4 left-4 z-[9999]"
+        className="fixed bottom-4 left-4 z-[9999] w-auto h-auto"
         style={{
           border: 'none',
           background: 'transparent'
