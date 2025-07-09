@@ -1142,7 +1142,7 @@ export default function OurProducts() {
                       id="attachment"
                       type="file"
                       onChange={(e) => setFormData({ ...formData, attachment: e.target.files?.[0] || null })}
-                      className="premium-glass border-white/20 text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md file:mr-4"
+                      className="premium-glass border-white/20 text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md file:mr-4 h-14"
                       accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
                     />
                     <p className="text-gray-500 text-sm mt-1">Optional: Upload any relevant documents</p>
