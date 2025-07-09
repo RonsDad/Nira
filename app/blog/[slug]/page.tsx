@@ -43,10 +43,10 @@ const blogPosts = {
 
       <p>Our platform includes:</p>
       <ul className="feature-list">
-        <li><strong>Ron Search</strong>: AI-powered provider search that actually verifies insurance coverage in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty</li>
-        <li><strong>Ron Scheduler</strong>: Voice AI that calls doctor offices for you, navigates phone trees, and books appointments - saving 45+ minutes per booking</li>
-        <li><strong>Ron Meds</strong>: Medication price comparison across all pharmacies, finding discounts and copay assistance programs - users save an average of $1,704 annually</li>
-        <li><strong>Ron Health</strong>: Unified health records management with AI insights to help patients understand and organize their medical information</li>
+        <li>AI-powered provider search that actually verifies insurance coverage in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty</li>
+        <li>Voice AI that calls doctor offices for you, navigates phone trees, and books appointments - saving 45+ minutes per booking</li>
+        <li>Medication price comparison across all pharmacies, finding discounts and copay assistance programs - users save an average of $1,704 annually</li>
+        <li>Unified health records management with AI insights to help patients understand and organize their medical information</li>
       </ul>
 
       <p>Powered by Browser-Use AI agents, our platform maintains human-in-the-loop control, giving users full transparency and authority over every action. This isn't about replacing healthcare workers - it's about giving both patients and providers the tools they desperately need.</p>
