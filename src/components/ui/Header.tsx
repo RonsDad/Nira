@@ -96,7 +96,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 rounded-md transition-colors ${
+            className={`md:hidden p-2 rounded-md transition-colors touch-manipulation ${
               isProductPage ? 'text-gray-300 hover:bg-white/10' : 'text-slate-700 hover:bg-slate-100'
             }`}
             aria-label="Toggle menu"
@@ -111,7 +111,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className={`md:hidden absolute top-full left-0 right-0 shadow-lg border-t ${
+          <div className={`md:hidden absolute top-full left-0 right-0 shadow-lg border-t z-50 ${
             isProductPage ? 'bg-black/80 backdrop-blur-lg border-white/10' : 'bg-white/95 backdrop-blur-md border-slate-200'
           }`}>
             <div className="px-4 py-4 space-y-3">
@@ -119,22 +119,24 @@ const Header = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors touch-manipulation ${
                     isProductPage
                       ? `text-gray-300 hover:bg-white/10 ${pathname === link.href ? 'text-blue-400' : ''}`
                       : `text-slate-700 hover:bg-slate-100 ${pathname === link.href ? 'text-slate-900' : ''}`
                   }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
               <Link
                 href="/our-products#early-access"
-                className={`block w-full text-center px-4 py-3 mt-2 rounded-md font-medium transition-all duration-300 ${
+                className={`block w-full text-center px-4 py-3 mt-2 rounded-md font-medium transition-all duration-300 touch-manipulation ${
                   isProductPage
                     ? 'bg-blue-500 text-white hover:bg-blue-400'
                     : 'bg-slate-800 text-white hover:bg-slate-900'
                 }`}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Request Early Access
               </Link>
