@@ -600,7 +600,7 @@ export default function OurProducts() {
             </p>
             <Button 
               size="lg" 
-              className="premium-glass text-white premium-body font-semibold px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl transition-all duration-500 hover:scale-105 shimmer-effect w-full sm:w-auto max-w-xs sm:max-w-none mx-auto"
+              className="premium-glass text-white premium-body font-semibold px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl transition-all duration-500 hover:scale-105 shimmer-effect w-full sm:w-auto max-w-xs sm:max-w-none mx-auto touch-manipulation"
               onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Get Early Access to Ron
@@ -774,7 +774,7 @@ export default function OurProducts() {
                   </div>
                   
                   <Button 
-                    className="w-full premium-glass text-white mt-6 shimmer-effect"
+                    className="w-full premium-glass text-white mt-6 shimmer-effect touch-manipulation"
                     onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     <DollarSign className="w-4 h-4 mr-2 svg-morph" />
