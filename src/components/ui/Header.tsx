@@ -82,7 +82,7 @@ const Header = () => {
             </div>
             
             <Link
-              href="/contact"
+              href="/our-products#early-access"
               className={`px-6 py-2.5 rounded-md font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
                 isProductPage
                   ? 'bg-blue-500 text-white hover:bg-blue-400'
@@ -129,7 +129,7 @@ const Header = () => {
                 </Link>
               ))}
               <Link
-                href="/contact"
+                href="/our-products#early-access"
                 className={`block w-full text-center px-4 py-3 mt-2 rounded-md font-medium transition-all duration-300 ${
                   isProductPage
                     ? 'bg-blue-500 text-white hover:bg-blue-400'

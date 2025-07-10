@@ -499,38 +499,62 @@ export default function OurProducts() {
         }
 
         ::-webkit-scrollbar-thumb {
-          background: linear-gradient(45deg, 
-            rgba(0, 140, 255, 0.3), 
-            rgba(0, 140, 255, 0.6));
+          background: rgba(0, 140, 255, 0.3);
           border-radius: 4px;
+          transition: all 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(45deg, 
-            rgba(0, 140, 255, 0.5), 
-            rgba(0, 140, 255, 0.8));
+          background: rgba(0, 140, 255, 0.5);
         }
 
+        /* Mobile Touch Fix */
+        @media (max-width: 768px) {
+          /* Ensure all interactive elements are touchable on mobile */
+          button, input, textarea, select, a, .ice-glass, .premium-glass, .glass-effect {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+          }
+          
+          /* Fix for iOS Safari form issues */
+          input, textarea, select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-size: 16px !important; /* Prevents zoom on iOS */
+          }
+          
+          /* Ensure form section has proper z-index on mobile */
+          #early-access {
+            position: relative;
+            z-index: 50 !important;
+          }
+          
+          /* Fix pointer events for form container */
+          #early-access * {
+            pointer-events: auto !important;
+          }
+        }
       `}</style>
       
       <div className="min-h-screen bg-black relative overflow-hidden">
         {/* Enhanced Luxury Background */}
-        <div className="fixed inset-0 luxury-bg-gradient" />
+        <div className="fixed inset-0 luxury-bg-gradient pointer-events-none z-0" />
         
         {/* Multiple Layer Blue Glow Background */}
-        <div className="fixed inset-0 ambient-glow" />
-        <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/5 via-transparent to-blue-800/5" />
-        <div className="fixed bottom-0 right-0 w-full h-full bg-gradient-to-tl from-blue-900/3 via-transparent to-blue-800/3" />
+        <div className="fixed inset-0 ambient-glow pointer-events-none z-0" />
+        <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/5 via-transparent to-blue-800/5 pointer-events-none z-0" />
+        <div className="fixed bottom-0 right-0 w-full h-full bg-gradient-to-tl from-blue-900/3 via-transparent to-blue-800/3 pointer-events-none z-0" />
         
         {/* Animated Blue Light Beams */}
-        <div className="fixed inset-0 pointer-events-none">
+        <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500/8 rounded-full filter blur-3xl breathe-animation" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400/6 rounded-full filter blur-3xl breathe-animation" style={{animationDelay: '4s'}} />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-blue-600/4 rounded-full filter blur-3xl breathe-animation" style={{animationDelay: '2s'}} />
         </div>
 
         {/* Floating Luxury Particles */}
-        <div className="fixed inset-0 pointer-events-none z-1">
+        <div className="fixed inset-0 pointer-events-none z-0">
           <div className="luxury-particle absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/20 rounded-full blur-sm" />
           <div className="luxury-particle absolute top-1/3 right-1/3 w-1 h-1 bg-blue-300/30 rounded-full blur-sm" />
           <div className="luxury-particle absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-blue-500/15 rounded-full blur-sm" />
@@ -539,7 +563,7 @@ export default function OurProducts() {
         </div>
 
         {/* Floating Healthcare SVG Icons */}
-        <div className="fixed inset-0 pointer-events-none z-1">
+        <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-1/4 left-1/6 opacity-10 float-animation">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor" className="text-blue-400"/>
@@ -749,7 +773,10 @@ export default function OurProducts() {
                     ))}
                   </div>
                   
-                  <Button className="w-full premium-glass text-white mt-6 shimmer-effect">
+                  <Button 
+                    className="w-full premium-glass text-white mt-6 shimmer-effect"
+                    onClick={() => document.getElementById('early-access')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
                     <DollarSign className="w-4 h-4 mr-2 svg-morph" />
                     Find My Medication Prices
                   </Button>
@@ -1023,7 +1050,7 @@ export default function OurProducts() {
         </section>
 
         {/* Enhanced Early Access CTA Section */}
-        <section id="early-access" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
+        <section id="early-access" className="relative py-12 sm:py-16 md:py-24 px-4 z-20">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
@@ -1036,7 +1063,7 @@ export default function OurProducts() {
             </div>
             
             {/* Enhanced Early Access Form */}
-            <Card className="ice-glass shimmer-effect">
+            <Card className="ice-glass shimmer-effect relative">
               <CardContent className="p-6 sm:p-8 lg:p-12">
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -1048,7 +1075,7 @@ export default function OurProducts() {
                         required
                         value={formData.firstName}
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 touch-manipulation"
                         placeholder="John"
                       />
                     </div>
@@ -1061,7 +1088,7 @@ export default function OurProducts() {
                         required
                         value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 touch-manipulation"
                         placeholder="Doe"
                       />
                     </div>
@@ -1069,14 +1096,14 @@ export default function OurProducts() {
                   
                   <div>
                     <Label htmlFor="company" className="text-white mb-2 block">Company</Label>
-                    <Input
-                      id="company"
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
-                      placeholder="Your Company (Optional)"
-                    />
+                      <Input
+                        id="company"
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 touch-manipulation"
+                        placeholder="Your Company (Optional)"
+                      />
                   </div>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -1088,7 +1115,7 @@ export default function OurProducts() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 touch-manipulation"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -1100,7 +1127,7 @@ export default function OurProducts() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 touch-manipulation"
                         placeholder="(555) 123-4567"
                       />
                     </div>
@@ -1112,7 +1139,7 @@ export default function OurProducts() {
                       id="anythingElse"
                       value={formData.anythingElse}
                       onChange={(e) => setFormData({ ...formData, anythingElse: e.target.value })}
-                      className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 min-h-[100px]"
+                      className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 min-h-[100px] touch-manipulation resize-none"
                       placeholder="Tell us more about your needs or questions..."
                     />
                   </div>
@@ -1124,7 +1151,7 @@ export default function OurProducts() {
                         id="attachment"
                         type="file"
                         onChange={(e) => setFormData({ ...formData, attachment: e.target.files?.[0] || null })}
-                        className="text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md"
+                        className="text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md touch-manipulation"
                         accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
                       />
                     </div>
@@ -1135,7 +1162,7 @@ export default function OurProducts() {
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full premium-glass text-white premium-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg md:text-xl transition-all duration-300 hover:scale-105 shimmer-effect"
+                    className="w-full premium-glass text-white premium-body font-bold px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg md:text-xl transition-all duration-300 hover:scale-105 shimmer-effect touch-manipulation"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
@@ -1180,10 +1207,10 @@ export default function OurProducts() {
       </div>
       
 
-      {/* VAPI Widget */}
+      {/* VAPI Widget - Hidden on Mobile */}
       <iframe
         src="/vapi-widget.html"
-        className="fixed bottom-4 left-4 z-[9999]"
+        className="fixed bottom-4 left-4 z-[9999] hidden lg:block"
         style={{
           border: 'none',
           background: 'transparent',
