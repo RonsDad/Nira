@@ -5,7 +5,7 @@
 ### 1. **Complete Content Transformation**
 - Shifted from clinician-focused products to patient-facing healthcare navigation
 - Renamed all products to align with Ron brand:
-  - Nira Insights → Ron Search (Provider Discovery & Insurance Verification)
+  - Nira Insights →  Dynamic AI Search (Provider Discovery & Insurance Verification)
   - Nira Flow → Ron Scheduler (Voice AI Appointment Booking)
   - Nira Command → Ron Meds (Medication Price Comparison)
   - Nira Records → Ron Records (TEFCA Medical Records & Insurance Management)

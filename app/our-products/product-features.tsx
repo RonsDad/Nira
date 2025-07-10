@@ -15,11 +15,11 @@ import {
 // Data for product features
 const productFeatures = [
   {
-    title: "Ron Search",
+    title: " Dynamic AI Search",
     description: "AI-Powered Provider Discovery with real-time insurance verification.",
     icon: Search,
     color: "#2694FF",
-    details: "Find doctors who take your insurance instantly. Ron searches multiple databases and verifies acceptance in real-time, solving the 68% abandonment rate problem."
+    details: "Find doctors who take your insurance instantly.  Dynamic AI Searches multiple databases and verifies acceptance in real-time, solving the 68% abandonment rate problem."
   },
   {
     title: "Ron Scheduler",

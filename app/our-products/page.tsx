@@ -39,48 +39,33 @@ export default function OurProducts() {
     { type: 'ai', content: "Hi! I'm Ron, your healthcare assistant. How can I help you today?", timestamp: "" }
   ]);
   const [currentMessage, setCurrentMessage] = useState("");
+  
+  // State for form
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    company: "",
+    anythingElse: "",
+    attachment: null as File | null,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Enhanced JSON-LD Structured Data
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Ron AI Healthcare Products - AI Healthcare Operating System",
-    "description": "AI-powered healthcare operating system featuring automated insurance verification, voice appointment booking, medication price comparison, and unified health management.",
-    "numberOfItems": 4,
-    "itemListElement": [
-      {
-        "@type": "Product",
-        "@id": "#ron-search",
-        "position": 1,
-        "name": "Ron Search - AI Healthcare Assistant for Finding Doctors",
-        "description": "Find doctor who takes my insurance near me with AI-powered provider search and real-time insurance verification.",
-        "brand": { "@type": "Brand", "name": "Ron AI" }
-      },
-      {
-        "@type": "Product",
-        "@id": "#ron-scheduler",
-        "position": 2,
-        "name": "Ron Scheduler - Voice Healthcare Technology",
-        "description": "Automated appointment booking with AI voice assistant that calls offices and books appointments.",
-        "brand": { "@type": "Brand", "name": "Ron AI" }
-      },
-      {
-        "@type": "Product",
-        "@id": "#ron-meds",
-        "position": 3,
-        "name": "Ron Meds - Medication Management",
-        "description": "Compare medication prices, find discounts, and manage prescriptions with AI.",
-        "brand": { "@type": "Brand", "name": "Ron AI" }
-      },
-      {
-        "@type": "Product",
-        "@id": "#ron-health",
-        "position": 4,
-        "name": "Ron Health - Medical Records & Health Insights",
-        "description": "Comprehensive health management with medical records organization and health insights.",
-        "brand": { "@type": "Brand", "name": "Ron AI" }
-      }
-    ]
+    "@type": "Product",
+    "name": "AI Healthcare Assistant",
+    "description": "AI assistant that handles appointment scheduling, insurance navigation, medical records, and medication management for healthcare patients.",
+    "brand": { "@type": "Brand", "name": "Nira AI" },
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/PreOrder",
+      "priceCurrency": "USD",
+      "price": "0",
+      "description": "Free tier with premium options available"
+    }
   };
 
   // FAQ Schema
@@ -132,17 +117,6 @@ export default function OurProducts() {
     }
   };
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    company: '',
-    email: '',
-    phone: '',
-    anythingElse: '',
-    attachment: null as File | null
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -160,7 +134,7 @@ export default function OurProducts() {
       });
 
       if (response.ok) {
-        toast.success("Welcome to Ron AI! We'll be in touch within 24 hours.");
+        toast.success("Welcome! We'll be in touch within 24 hours.");
         setFormData({
           firstName: '',
           lastName: '',
@@ -591,13 +565,13 @@ export default function OurProducts() {
         {/* Enhanced Hero Section */}
         <section className="relative pt-32 pb-16 px-4 z-10">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="premium-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-4 sm:px-6">
+            <h1 className="premium-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight px-4 sm:px-6">
               Healthcare is really hard.
               <br />
               <span className="luxury-glow text-blue-400">We're making it easy.</span>
             </h1>
             <p className="premium-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-6 sm:mb-8 md:mb-12 max-w-5xl mx-auto leading-relaxed px-2">
-              Ron is your AI-powered healthcare operating system that handles everything frustrating about healthcare - 
+              Ron is your AI healthcare assistant that handles everything frustrating about healthcare - 
               finding doctors, booking appointments, managing medications, and organizing health records.
             </p>
             <Button 
@@ -626,8 +600,12 @@ export default function OurProducts() {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <Search className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-blue-400 flex-shrink-0" />
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">Provider Search</span>
+                </h3>
+                <p className="text-lg text-blue-300 mb-4">Find doctors who take your insurance</p>
                 <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
-                  AI-powered provider search that actually verifies insurance coverage in real-time, solving the problem where 68% of users abandon healthcare searches due to insurance uncertainty
+                  Provider search that verifies insurance coverage in real-time
                 </p>
               </div>
 
@@ -636,6 +614,10 @@ export default function OurProducts() {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <Phone className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-green-400 flex-shrink-0" />
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">Appointment Booking</span>
+                </h3>
+                <p className="text-lg text-blue-300 mb-4">AI calls and books for you</p>
                 <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
                   Voice AI that calls doctor offices for you, navigates phone trees, and books appointments - saving 45+ minutes per booking
                 </p>
@@ -646,6 +628,10 @@ export default function OurProducts() {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <Pill className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-teal-400 flex-shrink-0" />
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">Medication Management</span>
+                </h3>
+                <p className="text-lg text-blue-300 mb-4">Compare prices and find savings</p>
                 <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
                   Medication price comparison across all pharmacies, finding discounts and copay assistance programs - users save an average of $1,704 annually
                 </p>
@@ -656,6 +642,10 @@ export default function OurProducts() {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <Heart className="w-8 h-8 sm:w-10 sm:h-10 luxury-glow text-red-400 flex-shrink-0" />
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">Health Records</span>
+                </h3>
+                <p className="text-lg text-blue-300 mb-4">Organize and understand your data</p>
                 <p className="premium-body text-base sm:text-lg text-gray-300 leading-relaxed">
                   Unified health records management with AI insights to help patients understand and organize their medical information
                 </p>
@@ -690,18 +680,15 @@ export default function OurProducts() {
         {/* All Products Grid Section */}
         <section className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
-            {/* Ron Meds and Med Pricing Side by Side */}
+            {/* Medication Management and Med Pricing Side by Side */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mb-12 lg:mb-16">
-                {/* Ron Meds */}
+                {/* Medication Management */}
                 <div id="ron-meds" className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
                   <h2 className="premium-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
-                    Ron <span className="luxury-glow text-blue-400">Meds</span>
+                    <span className="luxury-glow text-blue-400">Always Afford Your Meds</span>
                   </h2>
-                  <p className="premium-subheading text-lg sm:text-xl md:text-2xl text-blue-300 mb-3 sm:mb-4">
-                    Save Up to 400% on Prescriptions
-                  </p>
                   <p className="premium-body text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
-                    Stop overpaying for medications. Ron compares prices across all pharmacies,
+                    Stop overpaying for medications. Compare prices across all pharmacies,
                     finds discounts and copay assistance programs, and tracks your refills.
                   </p>
                   
@@ -769,7 +756,7 @@ export default function OurProducts() {
                 </div>
             </div>
 
-            {/* Voice Component and Ron Scheduler Side by Side */}
+            {/* Voice Component and Appointment Scheduling Side by Side */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 {/* Voice Component */}
                 <div className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
@@ -829,14 +816,11 @@ export default function OurProducts() {
                   )}
                 </div>
                 
-                {/* Ron Scheduler */}
+                {/* Appointment Scheduling */}
                 <div id="ron-scheduler" className="ice-glass rounded-2xl p-6 sm:p-8 shimmer-effect">
                   <h2 className="premium-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
-                    Ron <span className="luxury-glow text-blue-400">Scheduler</span>
+                    <span className="luxury-glow text-blue-400">Appointment Scheduling</span>
                   </h2>
-                  <p className="premium-subheading text-lg sm:text-xl md:text-2xl text-blue-300 mb-3 sm:mb-4" style={{ display: 'block', opacity: 1, visibility: 'visible' }}>
-                    Voice AI Books Your Appointments
-                  </p>
                   <p className="premium-body text-base sm:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                     Never wait on hold again. Ron's AI voice assistant calls doctor offices for you,
                     navigates phone trees, and books appointments automatically. Save 45+ minutes per booking.
@@ -866,19 +850,16 @@ export default function OurProducts() {
           </div>
         </section>
 
-        {/* Enhanced Product Section 1: Ron Search */}
+        {/* Enhanced Product Section 1: Provider Search */}
         <section id="ron-search" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-16 items-start">
               <div className="lg:col-span-1">
                 <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
-                  Ron <span className="luxury-glow text-blue-400">Search</span>
+                  <span className="luxury-glow text-blue-400">Dynamic AI Provider Search</span>
                 </h2>
-                <p className="premium-subheading text-xl sm:text-2xl md:text-3xl luxury-glow text-blue-300 mb-4 sm:mb-6 md:mb-8">
-                  Dynamic, In-Depth, and Validated Provider Search
-                </p>
                 <p className="premium-body text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 md:mb-10 leading-relaxed">
-                  Stop endless phone calls. Ron uses AI to instantly find doctors who actually accept your insurance, 
+                  Stop endless phone calls. Use AI to instantly find doctors who actually accept your insurance, 
                   with real-time verification. Solving the problem where 68% of users abandon healthcare searches 
                   due to insurance uncertainty.
                 </p>
@@ -911,7 +892,7 @@ export default function OurProducts() {
                   <iframe
                     src="https://studio--aethercare-tqine.us-central1.hosted.app"
                     className="w-full h-full"
-                    title="Ron AI Provider Search"
+                    title="AI Provider Search"
                     style={{ border: '0' }}
                     allow="geolocation"
                   />
@@ -922,12 +903,12 @@ export default function OurProducts() {
         </section>
 
 
-        {/* Enhanced Product Section 4: Ron Interface */}
-        <section id="ron-interface" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
+        {/* Enhanced Product Section 4: AI Interface */}
+        <section id="ai-interface" className="relative py-12 sm:py-16 md:py-24 px-4 z-10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="premium-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
-                Experience Ron <span className="luxury-glow text-blue-400">Live</span>
+                User Experience <span className="luxury-glow text-blue-400">First Design</span>
               </h2>
               <p className="premium-body text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-2">
                 Discover our intuitive and innovative UX that makes healthcare simple and accessible
@@ -944,7 +925,7 @@ export default function OurProducts() {
                     <iframe 
                       src="https://cling-pitch-92721139.figma.site"
                       className="w-full"
-                      title="Ron AI Interface Preview"
+                      title="AI Interface Preview"
                       tabIndex={-1}
                       allow="fullscreen"
                       style={{
@@ -975,7 +956,7 @@ export default function OurProducts() {
               </h2>
               <p className="premium-body text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto px-2">
                 Powered by ethically-developed AI agents from <span className="text-blue-400 font-semibold">Browser-Use</span>, 
-                Ron maintains human-in-the-loop control, giving you full transparency and authority over every action.
+                Browser-Use technology maintains human-in-the-loop control, giving you full transparency and authority over every action.
               </p>
             </div>
 
@@ -1005,7 +986,7 @@ export default function OurProducts() {
                 { 
                   icon: Network, 
                   title: "Coordination", 
-                  desc: "Seamlessly integrate all healthcare touchpoints with full user control and transparency", 
+                  desc: "Connect to Epic, Cerner, Athena, and 50+ other healthcare systems", 
                   color: "bg-indigo-500/10 border-indigo-500/20",
                   badge: "Human-in-the-Loop"
                 }
@@ -1067,7 +1048,7 @@ export default function OurProducts() {
                         required
                         value={formData.firstName}
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
                         placeholder="John"
                       />
                     </div>
@@ -1080,7 +1061,7 @@ export default function OurProducts() {
                         required
                         value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
                         placeholder="Doe"
                       />
                     </div>
@@ -1093,7 +1074,7 @@ export default function OurProducts() {
                       type="text"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                      className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
                       placeholder="Your Company (Optional)"
                     />
                   </div>
@@ -1107,7 +1088,7 @@ export default function OurProducts() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -1119,7 +1100,7 @@ export default function OurProducts() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="premium-glass border-white/20 text-white placeholder:text-gray-500"
+                        className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400"
                         placeholder="(555) 123-4567"
                       />
                     </div>
@@ -1131,20 +1112,22 @@ export default function OurProducts() {
                       id="anythingElse"
                       value={formData.anythingElse}
                       onChange={(e) => setFormData({ ...formData, anythingElse: e.target.value })}
-                      className="premium-glass border-white/20 text-white placeholder:text-gray-500 min-h-[100px]"
+                      className="bg-white/10 border border-white/20 text-white placeholder:text-gray-400 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-blue-400 min-h-[100px]"
                       placeholder="Tell us more about your needs or questions..."
                     />
                   </div>
                   
                   <div>
                     <Label htmlFor="attachment" className="text-white mb-2 block">Attachment</Label>
-                    <Input
-                      id="attachment"
-                      type="file"
-                      onChange={(e) => setFormData({ ...formData, attachment: e.target.files?.[0] || null })}
-                      className="premium-glass border-white/20 text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md file:mr-4"
-                      accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
-                    />
+                    <div className="bg-white/10 border border-white/20 rounded-lg h-16 flex items-center pl-4">
+                      <input
+                        id="attachment"
+                        type="file"
+                        onChange={(e) => setFormData({ ...formData, attachment: e.target.files?.[0] || null })}
+                        className="text-white file:bg-blue-500 file:text-white file:border-0 file:px-4 file:py-2 file:rounded-md"
+                        accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
+                      />
+                    </div>
                     <p className="text-gray-500 text-sm mt-1">Optional: Upload any relevant documents</p>
                   </div>
                   
@@ -1176,14 +1159,14 @@ export default function OurProducts() {
         <footer className="relative py-12 sm:py-16 px-4 sm:px-6 premium-glass border-t border-white/10 z-10">
           <div className="max-w-6xl mx-auto text-center">
             <div className="flex items-center justify-center space-x-2 mb-6">
-              <h3 className="premium-subheading font-bold text-2xl sm:text-3xl luxury-glow text-white">Ron AI</h3>
+              <h3 className="premium-subheading font-bold text-2xl sm:text-3xl luxury-glow text-white">Nira AI</h3>
               <span className="text-gray-400 premium-body text-base sm:text-lg">Healthcare Made Easy</span>
             </div>
             <p className="text-gray-400 premium-body text-base sm:text-lg mb-6">
-              Your AI-powered healthcare operating system
+              Your AI healthcare assistant
             </p>
             <p className="text-gray-500 premium-body text-sm">
-              &copy; 2024 Ron AI. All rights reserved.
+              &copy; 2024 Nira AI. All rights reserved.
             </p>
           </div>
           

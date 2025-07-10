@@ -11,7 +11,7 @@
 
 ### 2. **Interactive Components Built**
 
-#### **Ron Search Demo**
+#### ** Dynamic AI Search Demo**
 - Live search interface with glass effect styling
 - Mock doctor results with insurance verification badges
 - Real-time search simulation
