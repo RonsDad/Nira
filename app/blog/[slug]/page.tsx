@@ -556,23 +556,6 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
             margin-left: 0;
             margin-right: 0;
           }
-
-          /* Floating CTA mobile optimizations */        .floating-cta {
-          max-width: calc(100vw - 2rem);
-        }
-
-        .cta-pulse {
-          animation: pulse-glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-          from {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-          }
-          to {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.3);
-          }
-        }
         }
       `}</style>
       

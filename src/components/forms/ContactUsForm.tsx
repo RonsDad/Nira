@@ -104,10 +104,10 @@ export const ContactUsForm: React.FC<Props> = ({ onSuccess }) => {
       // Call optional onSuccess callback
       onSuccess?.();
       
-      // Redirect to thank you page after a short delay
+      // Show success modal then redirect to home
       setTimeout(() => {
-        router.push('/thank-you');
-      }, 500);
+        router.push('/');
+      }, 3000);
       
     } catch (err) {
       setStatus("error");
@@ -117,10 +117,40 @@ export const ContactUsForm: React.FC<Props> = ({ onSuccess }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mx-auto grid w-full max-w-xl gap-6 rounded-2xl border border-blue-600/20 bg-gradient-to-b from-blue-50/90 to-white/90 p-8 shadow-[0_12px_40px_rgba(0,0,255,0.1)] backdrop-blur-lg"
-    >
+    <>
+      {/* Success Modal with Blurred Backdrop */}
+      {status === "success" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Blurred backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-lg"
+            onClick={() => router.push('/')}
+          />
+          
+          {/* Success message */}
+          <div className="relative bg-white rounded-3xl p-12 text-center max-w-md mx-4 shadow-2xl animate-in fade-in zoom-in duration-300">
+            <div className="mb-8">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">Thank You!</h2>
+              <p className="text-lg text-gray-600">
+                We've received your message and will be in touch shortly.
+              </p>
+            </div>
+            <div className="text-sm text-gray-500">
+              Redirecting to homepage...
+            </div>
+          </div>
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto grid w-full max-w-xl gap-6 rounded-2xl border border-blue-600/20 bg-gradient-to-b from-blue-50/90 to-white/90 p-8 shadow-[0_12px_40px_rgba(0,0,255,0.1)] backdrop-blur-lg"
+      >
       {/* Name */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
@@ -280,5 +310,6 @@ export const ContactUsForm: React.FC<Props> = ({ onSuccess }) => {
         {loading ? "Sending…" : "Submit"}
       </Button>
     </form>
+    </>
   );
 };

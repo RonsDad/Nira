@@ -51,6 +51,7 @@ export default function OurProducts() {
     attachment: null as File | null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Enhanced JSON-LD Structured Data
   const structuredData = {
@@ -134,7 +135,6 @@ export default function OurProducts() {
       });
 
       if (response.ok) {
-        toast.success("Welcome! We'll be in touch within 24 hours.");
         setFormData({
           firstName: '',
           lastName: '',
@@ -144,6 +144,14 @@ export default function OurProducts() {
           anythingElse: '',
           attachment: null
         });
+        
+        // Show success modal
+        setShowSuccessModal(true);
+        
+        // Redirect to homepage after 3 seconds
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 3000);
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -1220,6 +1228,41 @@ export default function OurProducts() {
         title="VAPI Voice Assistant"
         allow="microphone"
       />
+
+      {/* Success Modal with Blurred Backdrop */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center">
+          {/* Blurred backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-2xl"
+            onClick={() => window.location.href = '/'}
+          />
+          
+          {/* Success message - larger and more prominent */}
+          <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl p-16 text-center max-w-2xl mx-4 shadow-2xl border border-blue-500/20">
+            <div className="mb-12">
+              <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 className="text-6xl font-bold text-white mb-4 luxury-glow">Thank You!</h2>
+              <p className="text-2xl text-blue-200 mb-2">
+                Welcome to the future of healthcare.
+              </p>
+              <p className="text-xl text-gray-400">
+                We'll be in touch within 24 hours with your early access details.
+              </p>
+            </div>
+            <div className="text-lg text-gray-500">
+              <div className="inline-flex items-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+                Redirecting to homepage...
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </>
   );

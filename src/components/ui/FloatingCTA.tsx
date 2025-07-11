@@ -7,8 +7,16 @@ import { motion } from "framer-motion";
 
 export default function FloatingCTA() {
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
 
   useEffect(() => {
+    // Check if user has already signed up for early access
+    const signupStatus = localStorage.getItem('earlyAccessSignup');
+    if (signupStatus === 'true') {
+      setHasSignedUp(true);
+      return;
+    }
+
     const handleScroll = () => {
       // Show floating CTA after scrolling 30% of the page
       const scrolled = window.scrollY;
@@ -23,7 +31,8 @@ export default function FloatingCTA() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!showFloatingCTA) return null;
+  // Don't show if user has signed up or if not scrolled enough
+  if (hasSignedUp || !showFloatingCTA) return null;
 
   return (
     <>
